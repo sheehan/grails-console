@@ -1,0 +1,135 @@
+/**
+ * Copyright (C) 2010 eXo Platform SAS.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ *
+ */
+
+.editbox {
+  margin: .4em;
+  padding: 0;
+  font-family: "DejaVu Sans Mono", courier, monospace;
+  font-size: 10pt;
+  color: black;
+  background-color: transparent;
+  line-height: 16px;
+}
+
+/* new style */
+span.groovyGsdkMethod {
+  color: rgb(102,204,255);
+  font-weight: bold;
+}
+
+/* inherited from 'js-keyword' */
+span.groovyKeyword {
+  color: rgb(0,153,102);
+  font-weight: bold;
+}
+
+/* inherited from 'js-keyword' */
+span.javaKeyword {
+  color: rgb(0,102,153);
+  font-weight: bold;
+}
+
+/* inherited from 'js-comment' */
+span.groovyComment {
+  color: rgb(204,0,0);
+}
+
+/* inherited from 'js-keyword' */
+span.javaModifier {
+  color: rgb(0,102,153);
+  font-weight: bold;
+}
+
+/* new style */
+span.javaType {
+  color: rgb(0,135,255);
+  font-weight: bold;
+}
+
+/* inherited from 'js-atom' */
+span.javaAtom {
+  color: rgb(0,102,153);
+  font-weight: bold;  
+}
+
+span.javaAnnotation {
+  color: rgb(100,100,100);
+}
+
+/* inherited from 'js-string' */
+span.groovyString {
+  color: rgb(42,0,255);
+}
+
+/* inherited from 'js-string' */
+span.groovyRegexp {
+  color: rgb(128,0,64);
+}
+
+/* inherited from 'js-atom' */
+span.groovyNumber {
+  color: rgb(255,0,0); 
+}
+
+/* inherited from 'js-variable' */
+span.groovyVariable {
+    color: black;
+}
+
+/* inherited from 'js-variabledef' */
+span.grooveVariabledef {
+    color: black;
+}
+
+/* inherited from 'js-localvariable' */
+span.groovyLocalvariable {
+    color: black;
+}
+
+/* inherited from 'js-property' */
+span.groovyProperty
+{
+  color: black;
+}
+
+/* inherited from 'js-opertator' */
+span.groovyOperator {
+  color: rgb(92,92,92);
+}
+
+/* inherited from 'js-punctuation' */
+span.groovyPunctuation {
+    color: black;
+}
+
+/* new style */
+span.groovy-doc-directive {
+    color: black; 
+}
+
+span#parenCorrect {
+	font-weight: bold;
+	color: green;
+}
+
+span#parenIncorrect {
+	font-weight: bold;
+	color: red;
+}

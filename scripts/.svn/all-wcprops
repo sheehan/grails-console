@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/grails-plugins/!svn/ver/66860/grails-console/trunk/scripts
+END
+_Install.groovy
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/grails-plugins/!svn/ver/66860/grails-console/trunk/scripts/_Install.groovy
+END
+_Upgrade.groovy
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/grails-plugins/!svn/ver/66860/grails-console/trunk/scripts/_Upgrade.groovy
+END
+_Uninstall.groovy
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/grails-plugins/!svn/ver/66860/grails-console/trunk/scripts/_Uninstall.groovy
+END

@@ -1,0 +1,12 @@
+0.2.2		2009-05-19	mingfai
+	- upgraded to Grails 1.1.1
+
+0.2.1		2009-03-29	ziegfried	
+
+0.1.2   2009-03-13	mingfai
+    - upgraded to Grails 1.1
+    - changed to create shell with the Grails classloader as Shell's classloader
+    - added exception logging to server logger
+
+0.1.1	2009-03-03
+  - upgraded to Grails 1.1 RC2

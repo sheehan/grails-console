@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/grails-plugins/!svn/ver/66909/grails-console/trunk/test/unit/org/grails/plugins/console
+END
+ConsoleServiceTests.groovy
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/grails-plugins/!svn/ver/66878/grails-console/trunk/test/unit/org/grails/plugins/console/ConsoleServiceTests.groovy
+END
+ConsoleControllerTests.groovy
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/grails-plugins/!svn/ver/66909/grails-console/trunk/test/unit/org/grails/plugins/console/ConsoleControllerTests.groovy
+END

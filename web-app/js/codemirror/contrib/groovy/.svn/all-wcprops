@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/grails-plugins/!svn/ver/66857/grails-console/trunk/web-app/js/codemirror/contrib/groovy
+END
+tokenizegroovy.js
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/grails-plugins/!svn/ver/66857/grails-console/trunk/web-app/js/codemirror/contrib/groovy/tokenizegroovy.js
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/grails-plugins/!svn/ver/66857/grails-console/trunk/web-app/js/codemirror/contrib/groovy/index.html
+END
+parsegroovy.js
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/grails-plugins/!svn/ver/66857/grails-console/trunk/web-app/js/codemirror/contrib/groovy/parsegroovy.js
+END
+groovycolors.css
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/grails-plugins/!svn/ver/66857/grails-console/trunk/web-app/js/codemirror/contrib/groovy/groovycolors.css
+END

@@ -1,0 +1,18 @@
+
+Requirement
+  UI
+    - should it works like a OS console rather than Groovy Console that split the screen to two
+    - (idea) should be split in left-right or top-down? MF: I use a 1680 wide screen ...  
+
+Architecture
+    - proposal: use YUI3 and wrap Code Mirror in a widget
+
+UI
+    - implement a new UI with panel and/or layout, similar to the other JavaScript playgrounds
+    - display and indicate what variables are bind
+    - need a hot key to execute the code
+    - [LOW] split the css to a .css
+
+Configuration
+    - [LOW] <MF> implement URL mapping and provide a configuration for mapping (just copy the way YUI3 Plugin work)
+
