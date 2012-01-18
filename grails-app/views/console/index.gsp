@@ -1,7 +1,10 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
   <title>Grails Console</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'js/CodeMirror-2.2/lib', file: 'codemirror.css', plugin: 'console')}"/>
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'jquery.layout.css', plugin: 'console')}"/>
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'grails-console.css', plugin: 'console')}"/>
