@@ -75,9 +75,7 @@ $(document).ready(function () {
             var $result = $('<div class="script-result loading">Executing Script...</div>');
             $('#result').append($result);
 
-            var scroll = $result.position().top + $('#result').scrollTop();
-            $('#result').animate({scrollTop: scroll});
-
+            this.scrollToResult($result);
             $.post(gconsole.executeLink, {
                 code: this.editor.getValue(),
                 captureStdout: 'on'
@@ -89,6 +87,7 @@ $(document).ready(function () {
                 } else {
                     $result.html(timeSpan + response.output + response.result);
                 }
+                this.scrollToResult($result);
             }, this)).fail(function(){
                 $result.removeClass('loading script-result').addClass('stacktrace');
                 $result.html('An error occurred.');
@@ -98,6 +97,11 @@ $(document).ready(function () {
         clearResults: function () { $('#result').html(''); },
 
         clearEditor: function () { this.editor.setValue(''); },
+
+        scrollToResult: function($result) {
+            var scroll = $result.position().top + $('#result').scrollTop();
+            $('#result').animate({scrollTop: scroll});
+        },
 
         showOrientation: function (orientation) {
             if (orientation === 'vertical') {
