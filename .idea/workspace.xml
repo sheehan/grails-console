@@ -59,10 +59,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="console.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="console.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/grails-console/console.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="42" selection-start="1957" selection-end="2723" vertical-scroll-proportion="0.13793103">
+            <state line="45" column="0" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsoleController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/grails/plugins/console/ConsoleController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="8" selection-start="1192" selection-end="1192" vertical-scroll-proportion="-22.826086">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jquery.Storage.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web-app/js/jquery.Storage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -71,16 +89,16 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/views/console/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="118" selection-start="165" selection-end="165" vertical-scroll-proportion="-0.82191783">
+            <state line="54" column="40" selection-start="1821" selection-end="1821" vertical-scroll-proportion="-8.616438">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grails-console.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="grails-console.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web-app/css/grails-console.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="3" selection-start="1925" selection-end="1927" vertical-scroll-proportion="-11.923077">
+            <state line="32" column="1" selection-start="599" selection-end="599" vertical-scroll-proportion="0.51557463">
               <folding />
             </state>
           </provider>
@@ -107,8 +125,10 @@
       <file leaf-file-name="jquery.layout.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-app/js/jquery.layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="948" column="40" selection-start="33421" selection-end="33422" vertical-scroll-proportion="-11.923077">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,9 +148,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/web-app/css/grails-console.css" />
-        <option value="$PROJECT_DIR$/grails-app/views/console/index.gsp" />
         <option value="$PROJECT_DIR$/web-app/js/grails-console/console.js" />
+        <option value="$PROJECT_DIR$/grails-app/views/console/index.gsp" />
+        <option value="$PROJECT_DIR$/web-app/css/grails-console.css" />
       </list>
     </option>
   </component>
@@ -350,8 +370,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/web-app/images" />
       <recent name="$PROJECT_DIR$/web-app/js" />
+      <recent name="$PROJECT_DIR$/web-app/images" />
       <recent name="$PROJECT_DIR$/web-app/css" />
     </key>
   </component>
@@ -551,15 +571,12 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/web-app/js/jquery-ui-1.8.17.custom.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/jquery.layout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -573,23 +590,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/grails-console.css">
+    <entry file="file://$PROJECT_DIR$/web-app/js/jquery.Storage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="3" selection-start="1925" selection-end="1927" vertical-scroll-proportion="-11.923077">
+        <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/grails/plugins/console/ConsoleController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="8" selection-start="1192" selection-end="1192" vertical-scroll-proportion="-22.826086">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/js/jquery.layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="948" column="40" selection-start="33421" selection-end="33422" vertical-scroll-proportion="-11.923077">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web-app/js/grails-console/console.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="1861" selection-end="1861" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/console/index.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="118" selection-start="165" selection-end="165" vertical-scroll-proportion="-0.82191783">
+        <state line="54" column="40" selection-start="1821" selection-end="1821" vertical-scroll-proportion="-8.616438">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/js/grails-console/console.js">
+    <entry file="file://$PROJECT_DIR$/web-app/css/grails-console.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="42" selection-start="1957" selection-end="2723" vertical-scroll-proportion="0.13793103">
+        <state line="32" column="1" selection-start="599" selection-end="599" vertical-scroll-proportion="0.51557463">
           <folding />
         </state>
       </provider>

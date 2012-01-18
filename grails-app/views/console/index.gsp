@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'grails-console.css', plugin: 'console')}"/>
 
 
-  <g:javascript src='jquery-1.4.4.min.js' plugin='console'/>
+  <g:javascript src='jquery-1.7.1.min.js' plugin='console'/>
   <g:javascript src='jquery-ui-1.8.17.custom.min.js' plugin='console'/>
   <g:javascript src='jquery.layout.js' plugin='console'/>
+  <g:javascript src='jquery.Storage.js' plugin='console'/>
   %{--<g:javascript src='jquery.hotkeys.js'               plugin='console'/>--}%
   <g:javascript src='codemirror/js/codemirror.js' plugin='console'/>
   <g:javascript src='grails-console/console.js' plugin='console'/>
@@ -21,18 +22,20 @@
 
   <div class="buttons">
     <div class="buttonset">
-      <button class="first selected horizontal button" title="Horizontal"><img
-              src="${resource(dir: pluginPath11 + 'images', file: 'v.png', plugin: 'console')}" alt="Vertical"/></button>
-      <button class="last vertical button" title="Vertical"><img src="${resource(dir: pluginPath11 + 'images', file: 'h.png', plugin: 'console')}"
-                                                                 alt="Horizontal"/></button>
+      <button class="first selected horizontal button" title="Horizontal">
+        <img src="${resource(dir: pluginPath11 + 'images', file: 'h.png', plugin: 'console')}" alt="Vertical"/>
+      </button>
+      <button class="last vertical button" title="Vertical">
+        <img src="${resource(dir: pluginPath11 + 'images', file: 'v.png', plugin: 'console')}" alt="Horizontal"/>
+      </button>
     </div>
   </div>
 </div>
 
-<div id="editor">
+<div id="editor" style="display: none">
   <div class="buttons">
     <button class="submit button" title="(CTRL + F11)">Execute</button>
-    <button class="clear button" title="(Esc)">Clear</button>
+    <button class="clear button">Clear</button>
   </div>
 
   <div id="code-wrapper">
@@ -41,7 +44,7 @@
 
 </div>
 
-<div class="east results">
+<div class="east results" style="display: none">
   <div class="buttons">
     <button class="clear button" title="(Esc)">Clear</button>
   </div>
@@ -49,12 +52,13 @@
   <div id="result"></div>
 </div>
 
-<div class="south"></div>
+<div class="south" style="display: none"></div>
 
 <script type="text/javascript" charset="utf-8">
-  var pluginContext = "${pluginContext}";
-  var executeLink = "${executeLink}";
-  var spinnerLink = "${createLinkTo(dir: pluginPath11 + 'images', file: 'spinner.gif', plugin: 'console')}";
+  window.gconsole = {
+    pluginContext: "${pluginContext}",
+    executeLink: "${executeLink}"
+  }
 </script>
 
 </body>
