@@ -16,7 +16,6 @@ body, html {
 .stacktrace, .script-result, .result_time {
 	color: white;
 	font-size: 11px;
-	white-space: pre;
 	font-family: monospace;
 	padding: 8px;
 	margin-bottom: 8px;
@@ -26,6 +25,7 @@ body, html {
 }
 
 .stacktrace, .script-result {
+    /*white-space: pre;*/
     white-space: pre-wrap;
     word-wrap: break-word;
     margin: 0;
@@ -56,9 +56,6 @@ body, html {
 	display: block;
 }
 
-#console_header {
-}
-
 #header h1 {
 	background: #009900 url(../images/grails.logo.png) no-repeat;
     background-position: 5px center;
@@ -69,12 +66,6 @@ body, html {
 	font-variant: small-caps;
 	color: white;
     font-size: 22px;
-}
-
-#splitterContainer {
-	width: 100%;
-	background: #FFFFFF;
-	border-top: solid 1px #9cbdff;
 }
 
 #editorContainer {
@@ -103,8 +94,9 @@ body, html {
 .south .buttons {
     background-color: #eee;
     border-bottom: 1px solid #888;
-
+    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd));
     background: -moz-linear-gradient(top, #eee, #ddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eee', endColorstr = '#ddd');
 }
 
 #header .buttons {
@@ -189,4 +181,13 @@ body, html {
 }
 .buttonset .button.selected {
     box-shadow: 0 0 8px #555555 inset;
+}
+
+.CodeMirror-scroll {
+    height: 100%;
+    overflow: visible;
+}
+
+#code-wrapper {
+    overflow: auto;
 }

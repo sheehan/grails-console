@@ -2,17 +2,9 @@
 
 <head>
   <title>Grails Console</title>
+  <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'js/CodeMirror-2.2/lib', file: 'codemirror.css', plugin: 'console')}"/>
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'jquery.layout.css', plugin: 'console')}"/>
   <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'grails-console.css', plugin: 'console')}"/>
-
-
-  <g:javascript src='jquery-1.7.1.min.js' plugin='console'/>
-  <g:javascript src='jquery-ui-1.8.17.custom.min.js' plugin='console'/>
-  <g:javascript src='jquery.layout.js' plugin='console'/>
-  <g:javascript src='jquery.Storage.js' plugin='console'/>
-  %{--<g:javascript src='jquery.hotkeys.js'               plugin='console'/>--}%
-  <g:javascript src='codemirror/js/codemirror.js' plugin='console'/>
-  <g:javascript src='grails-console/console.js' plugin='console'/>
 </head>
 
 <body>
@@ -54,6 +46,14 @@
 
 <div class="south" style="display: none"></div>
 
+<g:javascript src='jquery-1.7.1.min.js' plugin='console'/>
+<g:javascript src='jquery-ui-1.8.17.custom.min.js' plugin='console'/>
+<g:javascript src='jquery.layout.js' plugin='console'/>
+<g:javascript src='jquery.Storage.js' plugin='console'/>
+<g:javascript src='jquery.hotkeys.js' plugin='console'/>
+<g:javascript src='CodeMirror-2.2/lib/codemirror.js' plugin='console'/>
+<g:javascript src='CodeMirror-2.2/mode/groovy/groovy.js' plugin='console'/>
+<g:javascript src='grails-console/console.js' plugin='console'/>
 <script type="text/javascript" charset="utf-8">
   window.gconsole = {
     pluginContext: "${pluginContext}",

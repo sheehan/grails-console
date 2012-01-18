@@ -11,17 +11,18 @@ $(document).ready(function () {
             this.eastSize = $.Storage.get('console.eastSize') || '50%';
             this.southSize = $.Storage.get('console.southSize') || '50%';
 
-            console.log(this.orientation);
-
             this.initLayout();
             this.initEditor();
 
             $('#editor button.submit').click($.proxy(this.executeCode, this));
-            $('#editor button.clear').click($.proxy(function () { this.editor.setCode(''); }, this));
-            $('.results button.clear').click(function () { $('#result').html(''); });
+            $('#editor button.clear').click($.proxy(function () { this.editor.setValue(''); }, this));
+            $('.results button.clear').click($.proxy(this.clearResults, this));
 
             $('button.vertical').click($.proxy(function (event) { this.showOrientation('vertical'); }, this));
             $('button.horizontal').click($.proxy(function (event) { this.showOrientation('horizontal'); }, this));
+
+            $(document).bind('keydown', 'Ctrl+return', $.proxy(this.executeCode, this));
+            $(document).bind('keydown', 'esc', $.proxy(this.clearResults, this));
 
             this.showOrientation(this.orientation);
         },
@@ -54,39 +55,41 @@ $(document).ready(function () {
         },
 
         initEditor: function () {
-            this.editor = new CodeMirror(CodeMirror.replace('code'), {
-                height: '100%',
-                content: $('#code').val(),
-                parserfile: ['../contrib/groovy/parsegroovy.js', '../contrib/groovy/tokenizegroovy.js'],
-                stylesheet: gconsole.pluginContext + '/js/codemirror/contrib/groovy/groovycolors.css',
-                path: gconsole.pluginContext + '/js/codemirror/js/',
+            this.editor = CodeMirror.fromTextArea($('#code')[0], {
+                matchBrackets: true,
+                mode: 'groovy',
                 autoMatchParens: true,
-                tabMode: 'shift',
-                textWrapping: false,
-                indentUnit: 3
+//                indentUnit: 3,
+                lineNumbers: true,
+                extraKeys: {
+                    'Ctrl-Enter': $.proxy(this.executeCode, this),
+                    'Esc': $.proxy(this.clearResults, this)
+                }
             });
+            window.e = this.editor;
         },
 
         executeCode: function () {
-            var params = {
-                code: this.editor.getCode(),
-                captureStdout: 'on'
-            };
-            var $result = $('<div class="script-result"><img src="' + gconsole.pluginContext + '/images/spinner.gif"> Executing Script...</div>');
+            var $result = $('<pre class="script-result"><img src="' + gconsole.pluginContext + '/images/spinner.gif"> Executing Script...</pre>');
             $('#result').append($result);
 
             var scroll = $result.position().top + $('#result').scrollTop();
             $('#result').animate({scrollTop: scroll});
 
-            $.post(gconsole.executeLink, params, function (response) {
+            $.post(gconsole.executeLink, {
+                code: this.editor.getValue(),
+                captureStdout: 'on'
+            }).done($.proxy(function (response) {
                 var timeSpan = '<span class="result_time">' + response.totalTime + ' ms</span>'
                 if (response.exception) {
                     $result.html(timeSpan + response.exception + response.result).addClass('stacktrace').removeClass('script-result');
                 } else {
                     $result.html(timeSpan + response.output + response.result);
                 }
-            });
+            }, this));
         },
+
+        clearResults: function () { $('#result').html(''); },
 
         showOrientation: function (orientation) {
             if (orientation === 'vertical') {
@@ -104,6 +107,7 @@ $(document).ready(function () {
                 this.layout.show('south');
                 this.layout.initContent('south');
             }
+            this.editor.refresh();
             this.orientation = orientation;
             this.storeSettings();
         },
@@ -118,30 +122,4 @@ $(document).ready(function () {
 
     }.initialize());
 
-    // event handlers outside of the editor
-    //  $(document).bind('keydown', 'Ctrl+f11', executeCode);
-    //  $(document).bind('keydown', 'esc', clearResults);
-
-    //  setTimeout(function () {
-    //
-    //    // need a little AOP here since if we bind a function key it disables one of the
-    //    // letters (e.g. F11 disables z). can't bind CTRL+Enter since that's used by
-    //    // the editor to reformat code
-    //
-    //    var realEditorKeyDown = editor.editor['keyDown'];
-    //    editor.editor['keyDown'] = function () {
-    //      var event = arguments[0];
-    //      if (event.keyCode == KEY_F11 && (event.ctrlKey || event.metaKey)) {
-    //        executeCode();
-    //      }
-    //      return realEditorKeyDown.apply(this, arguments);
-    //    };
-    //
-    //    // now bind just ESC the regular way
-    //    editor.grabKeys(function (event) {
-    //              clearResults();
-    //            }, function (c) { return c == KEY_ESC; }
-    //    );
-    //
-    //  }, 1000);
 });
