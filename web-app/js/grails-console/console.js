@@ -15,7 +15,7 @@ $(document).ready(function () {
             this.initEditor();
 
             $('#editor button.submit').click($.proxy(this.executeCode, this));
-            $('#editor button.clear').click($.proxy(function () { this.editor.setValue(''); }, this));
+            $('#editor button.clear').click($.proxy(this.clearEditor, this));
             $('.results button.clear').click($.proxy(this.clearResults, this));
 
             $('button.vertical').click($.proxy(function (event) { this.showOrientation('vertical'); }, this));
@@ -23,6 +23,7 @@ $(document).ready(function () {
 
             $(document).bind('keydown', 'Ctrl+return', $.proxy(this.executeCode, this));
             $(document).bind('keydown', 'esc', $.proxy(this.clearResults, this));
+            $(document).bind('keydown', 'Ctrl+esc', $.proxy(this.clearEditor, this));
 
             this.showOrientation(this.orientation);
         },
@@ -63,14 +64,15 @@ $(document).ready(function () {
                 lineNumbers: true,
                 extraKeys: {
                     'Ctrl-Enter': $.proxy(this.executeCode, this),
-                    'Esc': $.proxy(this.clearResults, this)
+                    'Esc': $.proxy(this.clearResults, this),
+                    'Ctrl-Esc': $.proxy(this.clearEditor, this)
                 }
             });
             window.e = this.editor;
         },
 
         executeCode: function () {
-            var $result = $('<pre class="script-result"><img src="' + gconsole.pluginContext + '/images/spinner.gif"> Executing Script...</pre>');
+            var $result = $('<div class="script-result loading">Executing Script...</div>');
             $('#result').append($result);
 
             var scroll = $result.position().top + $('#result').scrollTop();
@@ -80,16 +82,22 @@ $(document).ready(function () {
                 code: this.editor.getValue(),
                 captureStdout: 'on'
             }).done($.proxy(function (response) {
-                var timeSpan = '<span class="result_time">' + response.totalTime + ' ms</span>'
+                $result.removeClass('loading');
+                var timeSpan = '<span class="result_time">' + response.totalTime + ' ms</span>';
                 if (response.exception) {
                     $result.html(timeSpan + response.exception + response.result).addClass('stacktrace').removeClass('script-result');
                 } else {
                     $result.html(timeSpan + response.output + response.result);
                 }
-            }, this));
+            }, this)).fail(function(){
+                $result.removeClass('loading script-result').addClass('stacktrace');
+                $result.html('An error occurred.');
+            });
         },
 
         clearResults: function () { $('#result').html(''); },
+
+        clearEditor: function () { this.editor.setValue(''); },
 
         showOrientation: function (orientation) {
             if (orientation === 'vertical') {

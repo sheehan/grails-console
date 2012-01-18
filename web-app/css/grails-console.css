@@ -44,6 +44,11 @@ body, html {
     color: #000000;
 }
 
+.script-result.loading {
+    background: url("../images/spinner.gif") no-repeat scroll 10px center #FFFFFF;
+    padding: 15px 15px 15px 37px;
+}
+
 .result_time {
 	color: black;
 	background: #ccc;

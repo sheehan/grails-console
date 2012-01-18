@@ -26,8 +26,8 @@
 
 <div id="editor" style="display: none">
   <div class="buttons">
-    <button class="submit button" title="(CTRL + F11)">Execute</button>
-    <button class="clear button">Clear</button>
+    <button class="submit button" title="(Ctrl + Enter)">Execute</button>
+    <button class="clear button" title="(Ctrl + Esc)">Clear</button>
   </div>
 
   <div id="code-wrapper">
