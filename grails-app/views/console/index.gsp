@@ -30,7 +30,6 @@
 <div id="editor" style="display: none">
   <div class="buttons">
     <button class="submit button" title="(Ctrl + Enter)">Execute</button>
-    <button class="clear button" title="(Shift + Esc)">Clear</button>
   </div>
 
   <div id="code-wrapper">

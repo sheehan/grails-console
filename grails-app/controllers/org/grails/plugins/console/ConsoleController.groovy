@@ -24,7 +24,6 @@ class ConsoleController {
 
 // Shortcuts:
 //     Ctrl-Enter: Execute code
-//     Shift-Esc: Clear editor
 //     Esc: Clear results
 '''
 
