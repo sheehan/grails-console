@@ -7,7 +7,7 @@ $(document).ready(function () {
                 orientation: $.Storage.get('console.orientation') || 'vertical',
                 eastSize: $.Storage.get('console.eastSize') || '50%',
                 southSize: $.Storage.get('console.southSize') || '50%',
-                wrap: $.Storage.get('console.wrap') === 'true'
+                wrap: $.Storage.get('console.wrap') !== 'false'
             };
 
             this.initLayout();
@@ -68,7 +68,7 @@ $(document).ready(function () {
             this.editor.focus();
         },
 
-        initWrap: function() {
+        initWrap: function () {
             var $input = $('label.wrap input');
             if (this.settings.wrap) {
                 $input.prop('checked', 'checked');
@@ -143,9 +143,9 @@ $(document).ready(function () {
         storeSettings: function () {
             $.Storage.set({
                 'console.orientation': this.settings.orientation,
-                'console.eastSize': this.settings.eastSize,
-                'console.southSize': this.settings.southSize,
-                'console.wrap': this.settings.wrap.toString()
+                'console.eastSize': '' + this.settings.eastSize,
+                'console.southSize': '' + this.settings.southSize,
+                'console.wrap': '' + this.settings.wrap
             });
         }
 

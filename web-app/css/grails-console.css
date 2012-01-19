@@ -198,13 +198,13 @@ body, html {
     box-shadow: 0 0 8px #555555 inset;
 }
 
+.CodeMirror {
+    height: 100%;
+}
+
 .CodeMirror-scroll {
     height: 100%;
     overflow: visible;
-}
-
-.CodeMirror {
-    height: 100%;
 }
 
 #code-wrapper {
@@ -219,4 +219,9 @@ label.wrap {
     margin-right: 5px;
     position: absolute;
     right: 5px;
+}
+
+label.wrap input,
+label.wrap span {
+    vertical-align: middle
 }

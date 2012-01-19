@@ -41,7 +41,7 @@
 <div class="east results" style="display: none">
   <div class="buttons">
     <button class="clear button" title="(Esc)">Clear</button>
-    <label class="wrap"><input type="checkbox" /> Wrap text</label>
+    <label class="wrap"><input type="checkbox" /> <span>Wrap text</span></label>
   </div>
 
   <div id="result"><div class="inner"></div></div>
