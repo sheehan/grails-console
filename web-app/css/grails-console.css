@@ -177,7 +177,6 @@ body, html {
     -webkit-border-radius: 0.5em 0 0 0.5em;
     -moz-border-radius: 0.5em 0 0 0.5em;
     border-radius: 0.5em 0 0 0.5em;
-    border-right: none;
 }
 
 .buttonset .button.last {
