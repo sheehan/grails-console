@@ -1,9 +1,5 @@
 $(document).ready(function () {
 
-    var KEY_F11 = 122;
-    var KEY_ESC = 27;
-
-
     ({
         initialize: function () {
 
@@ -34,6 +30,7 @@ $(document).ready(function () {
                 north__spacing_open: 0,
                 center__paneSelector: '#editor',
                 center__contentSelector: '#code-wrapper',
+                center__onresize: $.proxy(function() { this.editor.refresh(); }, this),
                 east__paneSelector: '.east',
                 east__contentSelector: '#result',
                 east__initHidden: this.orientation !== 'vertical',
@@ -59,8 +56,6 @@ $(document).ready(function () {
             this.editor = CodeMirror.fromTextArea($('#code')[0], {
                 matchBrackets: true,
                 mode: 'groovy',
-                autoMatchParens: true,
-//                indentUnit: 3,
                 lineNumbers: true,
                 extraKeys: {
                     'Ctrl-Enter': $.proxy(this.executeCode, this),
@@ -83,14 +78,15 @@ $(document).ready(function () {
                 $result.removeClass('loading');
                 var timeSpan = '<span class="result_time">' + response.totalTime + ' ms</span>';
                 if (response.exception) {
-                    $result.html(timeSpan + response.exception + response.result).addClass('stacktrace').removeClass('script-result');
+                    $result.html(timeSpan + response.exception + response.result).addClass('stacktrace');
                 } else {
                     $result.html(timeSpan + response.output + response.result);
                 }
                 this.scrollToResult($result);
             }, this)).fail(function(){
-                $result.removeClass('loading script-result').addClass('stacktrace');
+                $result.removeClass('loading').addClass('stacktrace');
                 $result.html('An error occurred.');
+                this.scrollToResult($result);
             });
         },
 
