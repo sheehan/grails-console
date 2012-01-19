@@ -23,8 +23,8 @@ class ConsoleController {
 //     session: the HTTP session
 
 // Shortcuts:
-//     Ctrl-Enter: Execute code
-//     Esc: Clear results
+//     Execute: Ctrl-Enter
+//     Clear: Esc
 '''
 
 		boolean is11 = Metadata.current.getGrailsVersion().startsWith('1.1')
