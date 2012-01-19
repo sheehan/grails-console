@@ -3,13 +3,16 @@ $(document).ready(function () {
     ({
         initialize: function () {
 
-            this.orientation = this.loadSetting('console.orientation', 'vertical');
-            this.eastSize = this.loadSetting('console.eastSize', '50%');
-            this.southSize = this.loadSetting('console.southSize', '50%');
-            this.wrap = this.loadSetting('console.wrap', 'true') === 'true';
+            this.settings = {
+                orientation: $.Storage.get('console.orientation') || 'vertical',
+                eastSize: $.Storage.get('console.eastSize') || '50%',
+                southSize: $.Storage.get('console.southSize') || '50%',
+                wrap: $.Storage.get('console.wrap') === 'true'
+            };
 
             this.initLayout();
             this.initEditor();
+            this.initWrap();
 
             $('#editor button.submit').click($.proxy(this.executeCode, this));
             $('#editor button.clear').click($.proxy(this.clearEditor, this));
@@ -21,27 +24,7 @@ $(document).ready(function () {
             $(document).bind('keydown', 'Ctrl+return', $.proxy(this.executeCode, this));
             $(document).bind('keydown', 'esc', $.proxy(this.clearResults, this));
 
-            if (this.wrap) {
-                $('label.wrap input').prop('checked', 'checked');
-            } else {
-                $('label.wrap input').removeProp('checked');
-            }
-            $('#result').toggleClass('wrap', this.wrap);
-            $('label.wrap input').click($.proxy(function(event) {
-                this.wrap = event.currentTarget.checked;
-                $('#result').toggleClass('wrap', this.wrap);
-                this.storeSettings();
-            }, this));
-
-            this.showOrientation(this.orientation);
-        },
-
-        loadSetting: function(name, defaultVal) {
-            var val = $.Storage.get(name);
-            if (val === null) {
-                val = defaultVal;
-            }
-            return val;
+            this.showOrientation(this.settings.orientation);
         },
 
         initLayout: function () {
@@ -50,21 +33,21 @@ $(document).ready(function () {
                 north__spacing_open: 0,
                 center__paneSelector: '#editor',
                 center__contentSelector: '#code-wrapper',
-                center__onresize: $.proxy(function() { this.editor.refresh(); }, this),
+                center__onresize: $.proxy(function () { this.editor.refresh(); }, this),
                 east__paneSelector: '.east',
                 east__contentSelector: '#result',
-                east__initHidden: this.orientation !== 'vertical',
-                east__size: this.eastSize,
+                east__initHidden: this.settings.orientation !== 'vertical',
+                east__size: this.settings.eastSize,
                 east__onresize_end: $.proxy(function (name, $el, state, opts) {
-                    this.eastSize = state.size;
+                    this.settings.eastSize = state.size;
                     this.storeSettings();
                 }, this),
                 south__paneSelector: '.south',
                 south__contentSelector: '#result',
-                south__initHidden: this.orientation !== 'horizontal',
-                south__size: this.southSize,
+                south__initHidden: this.settings.orientation !== 'horizontal',
+                south__size: this.settings.southSize,
                 south__onresize_end: $.proxy(function (name, $el, state, opts) {
-                    this.southSize = state.size;
+                    this.settings.southSize = state.size;
                     this.storeSettings();
                 }, this),
                 resizable: true,
@@ -85,6 +68,22 @@ $(document).ready(function () {
             this.editor.focus();
         },
 
+        initWrap: function() {
+            var $input = $('label.wrap input');
+            if (this.settings.wrap) {
+                $input.prop('checked', 'checked');
+            } else {
+                $input.removeProp('checked');
+            }
+            $('#result').toggleClass('wrap', this.settings.wrap);
+
+            $input.click($.proxy(function (event) {
+                this.settings.wrap = event.currentTarget.checked;
+                $('#result').toggleClass('wrap', this.settings.wrap);
+                this.storeSettings();
+            }, this));
+        },
+
         executeCode: function () {
             var $result = $('<div class="script-result loading">Executing Script...</div>');
             $('#result .inner').append($result);
@@ -102,7 +101,7 @@ $(document).ready(function () {
                     $result.html(timeSpan + response.output + response.result);
                 }
                 this.scrollToResult($result);
-            }, this)).fail(function(){
+            }, this)).fail(function () {
                 $result.removeClass('loading').addClass('stacktrace');
                 $result.html('An error occurred.');
                 this.scrollToResult($result);
@@ -113,9 +112,9 @@ $(document).ready(function () {
 
         clearEditor: function () { this.editor.setValue(''); },
 
-        setWrap: function() {},
+        setWrap: function () {},
 
-        scrollToResult: function($result) {
+        scrollToResult: function ($result) {
             var scroll = $result.position().top + $('#result').scrollTop();
             $('#result').animate({scrollTop: scroll});
         },
@@ -137,16 +136,16 @@ $(document).ready(function () {
                 this.layout.initContent('south');
             }
             this.editor.refresh();
-            this.orientation = orientation;
+            this.settings.orientation = orientation;
             this.storeSettings();
         },
 
         storeSettings: function () {
             $.Storage.set({
-                'console.orientation': this.orientation,
-                'console.eastSize': this.eastSize,
-                'console.southSize': this.southSize,
-                'console.wrap': this.wrap.toString()
+                'console.orientation': this.settings.orientation,
+                'console.eastSize': this.settings.eastSize,
+                'console.southSize': this.settings.southSize,
+                'console.wrap': this.settings.wrap.toString()
             });
         }
 
