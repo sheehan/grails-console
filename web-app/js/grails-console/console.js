@@ -19,7 +19,7 @@ $(document).ready(function () {
 
             $(document).bind('keydown', 'Ctrl+return', $.proxy(this.executeCode, this));
             $(document).bind('keydown', 'esc', $.proxy(this.clearResults, this));
-            $(document).bind('keydown', 'Ctrl+esc', $.proxy(this.clearEditor, this));
+            $(document).bind('keydown', 'Shift+esc', $.proxy(this.clearEditor, this));
 
             this.showOrientation(this.orientation);
         },
@@ -60,7 +60,7 @@ $(document).ready(function () {
                 extraKeys: {
                     'Ctrl-Enter': $.proxy(this.executeCode, this),
                     'Esc': $.proxy(this.clearResults, this),
-                    'Ctrl-Esc': $.proxy(this.clearEditor, this)
+                    'Shift-Esc': $.proxy(this.clearEditor, this)
                 }
             });
             window.e = this.editor;

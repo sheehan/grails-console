@@ -59,6 +59,9 @@ body, html {
 	border-radius: 2px;
 	display: block;
 }
+#header {
+    overflow: hidden;
+}
 
 #header h1 {
 	background: #009900 url(../images/grails.logo.png) no-repeat;
@@ -98,9 +101,9 @@ body, html {
 .south .buttons {
     background-color: #eee;
     border-bottom: 1px solid #888;
-    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ddd));
-    background: -moz-linear-gradient(top, #eee, #ddd);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eee', endColorstr = '#ddd');
+    background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd));
+    background: -moz-linear-gradient(top, #eeeeee, #dddddd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#dddddd');
 }
 
 #header .buttons {
