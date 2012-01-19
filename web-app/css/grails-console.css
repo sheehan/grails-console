@@ -1,35 +1,39 @@
 body, html {
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: "Lucida Grande", Verdana, sans-serif;
-	background: #eee;
-	overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Grande", Verdana, sans-serif;
+    background: #eee;
+    overflow: hidden;
 }
 
-.console-editor {
-	border-bottom: 1px solid #333;
-	background: #fff;
+.script-result, .result_time {
+    color: white;
+    font-size: 11px;
+    font-family: monospace;
+    padding: 8px;
+    margin-bottom: 8px;
 }
 
-.stacktrace, .script-result, .result_time {
-	color: white;
-	font-size: 11px;
-	font-family: monospace;
-	padding: 8px;
-	margin-bottom: 8px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+#result .script-result {
+    white-space: pre;
+    margin: 0;
 }
 
-.stacktrace, .script-result {
-    /*white-space: pre;*/
+#result.wrap .script-result {
     white-space: pre-wrap;
     word-wrap: break-word;
-    margin: 0;
-    border-radius: 0 0 0 0;
+}
+
+#result .inner {
+    float: left;
+    min-width: 100%;
+}
+
+#result.wrap .inner {
+    float: none;
+    min-width: inherit;
 }
 
 .script-result {
@@ -49,53 +53,56 @@ body, html {
 }
 
 .result_time {
-	color: black;
-	background: #ccc;
-	font-size: 10px;
-	float: right;
-	padding: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
-	display: block;
+    color: black;
+    background: #ccc;
+    font-size: 10px;
+    float: right;
+    padding: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    display: block;
 }
+
 #header {
     overflow: hidden;
 }
 
 #header h1 {
-	background: #009900 url(../images/grails.logo.png) no-repeat;
+    background: #009900 url(../images/grails.logo.png) no-repeat;
     background-position: 5px center;
-	margin: 0;
+    margin: 0;
     padding: 5px 45px;
-	font-family: "Lucida Grande", Arial, Sans-serif;
-	font-weight: normal;
-	font-variant: small-caps;
-	color: white;
+    font-family: "Lucida Grande", Arial, Sans-serif;
+    font-weight: normal;
+    font-variant: small-caps;
+    color: white;
     font-size: 22px;
 }
 
 #editorContainer {
-	width: 100%;
-	height: 50%;
-	overflow: auto;
-	background: #f4f4f4;
+    width: 100%;
+    height: 50%;
+    overflow: auto;
+    background: #f4f4f4;
 }
 
 #result {
     font-size: 15px;
     overflow: auto;
-	background: #f4f4f4;
-	overflow: auto;
+    background: #f4f4f4;
+    overflow: auto;
 }
 
 .ui-layout-pane {
     padding: 0;
     border: 0;
 }
+
 .results {
     height: 100%;
 }
+
 #editor .buttons,
 .east .buttons,
 .south .buttons {
@@ -104,6 +111,7 @@ body, html {
     background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#dddddd));
     background: -moz-linear-gradient(top, #eeeeee, #dddddd);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#dddddd');
+    position: relative;
 }
 
 #header .buttons {
@@ -185,6 +193,7 @@ body, html {
     border-radius: 0 0.5em 0.5em 0;
     border-left: none;
 }
+
 .buttonset .button.selected {
     box-shadow: 0 0 8px #555555 inset;
 }
@@ -193,10 +202,21 @@ body, html {
     height: 100%;
     overflow: visible;
 }
+
 .CodeMirror {
     height: 100%;
 }
 
 #code-wrapper {
     overflow: auto;
+}
+
+label.wrap {
+    bottom: 6px;
+    color: #777777;
+    float: right;
+    font-size: 0.75em;
+    margin-right: 5px;
+    position: absolute;
+    right: 5px;
 }

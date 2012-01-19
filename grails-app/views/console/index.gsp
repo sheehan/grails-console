@@ -41,9 +41,10 @@
 <div class="east results" style="display: none">
   <div class="buttons">
     <button class="clear button" title="(Esc)">Clear</button>
+    <label class="wrap"><input type="checkbox" /> Wrap text</label>
   </div>
 
-  <div id="result"></div>
+  <div id="result"><div class="inner"></div></div>
 </div>
 
 <div class="south" style="display: none"></div>

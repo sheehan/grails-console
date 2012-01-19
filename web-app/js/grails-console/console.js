@@ -3,9 +3,10 @@ $(document).ready(function () {
     ({
         initialize: function () {
 
-            this.orientation = $.Storage.get('console.orientation') || 'vertical';
-            this.eastSize = $.Storage.get('console.eastSize') || '50%';
-            this.southSize = $.Storage.get('console.southSize') || '50%';
+            this.orientation = this.loadSetting('console.orientation', 'vertical');
+            this.eastSize = this.loadSetting('console.eastSize', '50%');
+            this.southSize = this.loadSetting('console.southSize', '50%');
+            this.wrap = this.loadSetting('console.wrap', 'true') === 'true';
 
             this.initLayout();
             this.initEditor();
@@ -20,7 +21,27 @@ $(document).ready(function () {
             $(document).bind('keydown', 'Ctrl+return', $.proxy(this.executeCode, this));
             $(document).bind('keydown', 'esc', $.proxy(this.clearResults, this));
 
+            if (this.wrap) {
+                $('label.wrap input').prop('checked', 'checked');
+            } else {
+                $('label.wrap input').removeProp('checked');
+            }
+            $('#result').toggleClass('wrap', this.wrap);
+            $('label.wrap input').click($.proxy(function(event) {
+                this.wrap = event.currentTarget.checked;
+                $('#result').toggleClass('wrap', this.wrap);
+                this.storeSettings();
+            }, this));
+
             this.showOrientation(this.orientation);
+        },
+
+        loadSetting: function(name, defaultVal) {
+            var val = $.Storage.get(name);
+            if (val === null) {
+                val = defaultVal;
+            }
+            return val;
         },
 
         initLayout: function () {
@@ -66,7 +87,7 @@ $(document).ready(function () {
 
         executeCode: function () {
             var $result = $('<div class="script-result loading">Executing Script...</div>');
-            $('#result').append($result);
+            $('#result .inner').append($result);
 
             this.scrollToResult($result);
             $.post(gconsole.executeLink, {
@@ -88,9 +109,11 @@ $(document).ready(function () {
             });
         },
 
-        clearResults: function () { $('#result').html(''); },
+        clearResults: function () { $('#result .inner').html(''); },
 
         clearEditor: function () { this.editor.setValue(''); },
+
+        setWrap: function() {},
 
         scrollToResult: function($result) {
             var scroll = $result.position().top + $('#result').scrollTop();
@@ -122,7 +145,8 @@ $(document).ready(function () {
             $.Storage.set({
                 'console.orientation': this.orientation,
                 'console.eastSize': this.eastSize,
-                'console.southSize': this.southSize
+                'console.southSize': this.southSize,
+                'console.wrap': this.wrap.toString()
             });
         }
 
