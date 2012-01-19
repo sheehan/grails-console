@@ -61,7 +61,7 @@ $(document).ready(function () {
                     'Esc': $.proxy(this.clearResults, this)
                 }
             });
-            window.e = this.editor;
+            this.editor.focus();
         },
 
         executeCode: function () {
