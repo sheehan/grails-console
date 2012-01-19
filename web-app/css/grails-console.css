@@ -32,16 +32,15 @@ body, html {
     border-radius: 0 0 0 0;
 }
 
-.stacktrace {
-    background: none repeat scroll 0 0 #FFF3F3;
-    border-bottom: 1px solid #aaa;
-    color: #ff0000;
-}
-
 .script-result {
     background: none repeat scroll 0 0 #fff;
     border-bottom: 1px solid #aaa;
     color: #000000;
+}
+
+.script-result.stacktrace {
+    background: none repeat scroll 0 0 #FFF3F3;
+    color: #ff0000;
 }
 
 .script-result.loading {
@@ -191,6 +190,9 @@ body, html {
 .CodeMirror-scroll {
     height: 100%;
     overflow: visible;
+}
+.CodeMirror {
+    height: 100%;
 }
 
 #code-wrapper {
