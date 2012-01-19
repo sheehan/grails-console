@@ -212,16 +212,17 @@ body, html {
 }
 
 label.wrap {
-    bottom: 6px;
     color: #777777;
-    float: right;
     font-size: 0.75em;
     margin-right: 5px;
     position: absolute;
     right: 5px;
+    height: 20px;
+    top: 50%;
+    margin-top: -10px;
 }
 
 label.wrap input,
 label.wrap span {
-    vertical-align: middle
+    vertical-align: middle;
 }
