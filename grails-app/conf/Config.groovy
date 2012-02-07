@@ -5,5 +5,3 @@ log4j = {
 
 	trace 'org.grails.plugins.console'
 }
-grails.views.default.codec="none" // none, html, base64
-grails.views.gsp.encoding="UTF-8"
