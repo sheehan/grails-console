@@ -16,11 +16,6 @@
 	</condition>
 	<property name='grails' value='grails' />
 
-	<condition property='grails-debug' value='grails-debug.bat'>
-		<os family='windows'/>
-	</condition>
-	<property name='grails-debug' value='grails-debug' />
-
 	<!-- Macrodefs -->
 
 	<macrodef name='grails'>
@@ -29,19 +24,6 @@
 		<element name='args' optional='true' />
 		<sequential>
 			<exec executable='${grails}' failonerror='true'>
-				<args />
-				<arg value='@{environment}'/>
-				<arg value='@{action}'/>
-			</exec>
-		</sequential>
-	</macrodef>
-
-	<macrodef name='grails-debug'>
-		<attribute name='action' />
-		<attribute name='environment' default='dev' />
-		<element name='args' optional='true' />
-		<sequential>
-			<exec executable='${grails-debug}' failonerror='true'>
 				<args />
 				<arg value='@{environment}'/>
 				<arg value='@{action}'/>
@@ -60,10 +42,14 @@
 		<grails action='test-app' environment='test' />
 	</target>
 
-	<target name='package' description='Package the plugin' depends='test'>
-		<grails action='package-plugin' />
+	<target name='package' description='Package the plugin'
+	        depends='test, doPackage, post-package-cleanup'/>
 
-		<!-- clean up -->
+	<target name='doPackage'>
+		<grails action='package-plugin' />
+	</target>
+
+	<target name='post-package-cleanup'>
 		<delete dir='grails-app/conf/hibernate'/>
 		<delete dir='grails-app/conf/spring'/>
 		<delete dir='grails-app/domain'/>
@@ -74,7 +60,9 @@
 		<delete dir='web-app/META-INF'/>
 		<delete dir='web-app/WEB-INF/tld'/>
 		<delete dir='lib'/>
+		<delete dir='scripts'/>
 		<delete dir='src'/>
+		<delete dir='test/integration'/>
 	</target>
 
 </project>
