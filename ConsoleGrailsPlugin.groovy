@@ -1,5 +1,5 @@
 class ConsoleGrailsPlugin {
-	String version = '1.0.1'
+	String version = '1.1'
 	String grailsVersion = '1.1 > *'
 	String author = 'Siegfried Puchbauer/Mingfai Ma'
 	String authorEmail = 'siegfried.puchbauer@gmail.com / mingfai.ma@gmail.com'
