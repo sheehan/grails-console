@@ -204,7 +204,6 @@ body, html {
 
 .CodeMirror-scroll {
     height: 100%;
-    overflow: visible;
 }
 
 #code-wrapper {

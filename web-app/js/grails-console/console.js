@@ -15,7 +15,6 @@ $(document).ready(function () {
             this.initWrap();
 
             $('#editor button.submit').click($.proxy(this.executeCode, this));
-            $('#editor button.clear').click($.proxy(this.clearEditor, this));
             $('.results button.clear').click($.proxy(this.clearResults, this));
 
             $('button.vertical').click($.proxy(function (event) { this.showOrientation('vertical'); }, this));
@@ -101,18 +100,14 @@ $(document).ready(function () {
                     $result.html(timeSpan + response.output + response.result);
                 }
                 this.scrollToResult($result);
-            }, this)).fail(function () {
+            }, this)).fail($.proxy(function () {
                 $result.removeClass('loading').addClass('stacktrace');
                 $result.html('An error occurred.');
                 this.scrollToResult($result);
-            });
+            }, this));
         },
 
         clearResults: function () { $('#result .inner').html(''); },
-
-        clearEditor: function () { this.editor.setValue(''); },
-
-        setWrap: function () {},
 
         scrollToResult: function ($result) {
             var scroll = $result.position().top + $('#result').scrollTop();
