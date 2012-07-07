@@ -54,15 +54,14 @@
 		<delete dir='grails-app/conf/spring'/>
 		<delete dir='grails-app/domain'/>
 		<delete dir='grails-app/i18n'/>
-		<delete dir='grails-app/taglib'/>
 		<delete dir='grails-app/utils'/>
 		<delete dir='grails-app/views/layouts'/>
-		<delete dir='web-app/META-INF'/>
-		<delete dir='web-app/WEB-INF/tld'/>
 		<delete dir='lib'/>
 		<delete dir='scripts'/>
 		<delete dir='src'/>
 		<delete dir='test/integration'/>
+		<delete dir='web-app/META-INF'/>
+		<delete dir='web-app/WEB-INF'/>
 	</target>
 
 </project>
