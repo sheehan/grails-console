@@ -2,7 +2,6 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.util.GrailsUtil
-import grails.util.Metadata
 
 import org.codehaus.groovy.runtime.InvokerHelper
 
@@ -27,14 +26,7 @@ class ConsoleController {
 //     Clear: Esc
 '''
 
-		boolean is11 = Metadata.current.getGrailsVersion().startsWith('1.1')
-		String pluginPath11 = is11 ? pluginManager.getGrailsPlugin('console').pluginPath + '/' : ''
-		String pluginContext = is11 ?
-				request.contextPath + pluginManager.getGrailsPlugin('console').pluginPath :
-				g.resource(plugin: 'console')
-		String executeLink = g.createLink(action: 'execute')
-
-		[code: code, pluginContext: pluginContext, pluginPath11: pluginPath11, executeLink: executeLink]
+		[code: code]
 	}
 
 	def execute = {

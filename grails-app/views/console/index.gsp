@@ -18,10 +18,10 @@
   <div class="buttons">
     <div class="buttonset">
       <button class="first selected horizontal button" title="Horizontal">
-        <img src="${resource(dir: pluginPath11 + 'images', file: 'h.png', plugin: 'console')}" alt="Vertical"/>
+        <img src="${resource(dir: 'images', file: 'h.png', plugin: 'console')}" alt="Vertical"/>
       </button>
       <button class="last vertical button" title="Vertical">
-        <img src="${resource(dir: pluginPath11 + 'images', file: 'v.png', plugin: 'console')}" alt="Horizontal"/>
+        <img src="${resource(dir: 'images', file: 'v.png', plugin: 'console')}" alt="Horizontal"/>
       </button>
     </div>
   </div>
@@ -59,8 +59,8 @@
 <g:javascript src='grails-console/console.js' plugin='console'/>
 <script type="text/javascript" charset="utf-8">
   window.gconsole = {
-    pluginContext: "${pluginContext}",
-    executeLink: "${executeLink}"
+    pluginContext: "${resource(plugin: 'console')}",
+    executeLink: "${createLink(action: 'execute')}"
   }
 </script>
 
