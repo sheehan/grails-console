@@ -3,7 +3,11 @@ package org.grails.plugins.console
 import grails.test.ControllerUnitTestCase
 import grails.util.Metadata
 
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsHttpSession
+
 class ConsoleControllerTests extends ControllerUnitTestCase {
+
+	private Map sessionData = [:]
 
 	@Override
 	protected void setUp() {
@@ -12,6 +16,13 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 		Metadata.current['app.grails.version'] = '3.1.4'
 		controller.metaClass.getG = { -> [resource: { Map m -> '' },
 		                                  createLink: { Map m -> '' }] }
+		sessionData.clear()
+	}
+
+	protected newInstance() {
+		GrailsHttpSession.metaClass.getAt = { String key -> sessionData[key] }
+		GrailsHttpSession.metaClass.putAt = { String key, val -> sessionData[key] = val }
+		super.newInstance()
 	}
 
 	void testIndexNoSession() {
@@ -21,13 +32,15 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 
 	void testIndexSession() {
 		String code = '1 + 1'
-		mockSession.'_grails_console_last_code_' = code
+		controller.session['_grails_console_last_code_'] = code
 		def model = controller.index()
 		assertEquals code, model.code
 	}
 
 	void testExecute() {
 		String.metaClass.encodeAsHTML = { -> delegate }
+
+		def mockParams = controller.params
 
 		mockParams.captureStdout = 'on'
 		mockParams.code = '1 + 1'
