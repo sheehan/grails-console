@@ -5,9 +5,7 @@
 <head>
   <title>Grails Console</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'js/CodeMirror-2.23/lib', file: 'codemirror.css', plugin: 'console')}"/>
-  <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'jquery.layout.css', plugin: 'console')}"/>
-  <link rel="stylesheet" href="${resource(dir: pluginPath11 + 'css', file: 'grails-console.css', plugin: 'console')}"/>
+  <con:resources/>
 </head>
 
 <body>
@@ -49,14 +47,7 @@
 
 <div class="south" style="display: none"></div>
 
-<g:javascript src='jquery-1.7.1.min.js' plugin='console'/>
-<g:javascript src='jquery-ui-1.8.17.custom.min.js' plugin='console'/>
-<g:javascript src='jquery.layout.js' plugin='console'/>
-<g:javascript src='jquery.Storage.js' plugin='console'/>
-<g:javascript src='jquery.hotkeys.js' plugin='console'/>
-<g:javascript src='CodeMirror-2.23/lib/codemirror.js' plugin='console'/>
-<g:javascript src='CodeMirror-2.23/mode/groovy/groovy.js' plugin='console'/>
-<g:javascript src='grails-console/console.js' plugin='console'/>
+<con:layoutResources/>
 <script type="text/javascript" charset="utf-8">
   window.gconsole = {
     pluginContext: "${resource(plugin: 'console')}",
