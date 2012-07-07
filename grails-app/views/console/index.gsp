@@ -28,6 +28,9 @@
 <div id="editor" style="display: none">
 	<div class="buttons">
 		<button class="submit button" title="(Ctrl + Enter)">Execute</button>
+
+		<input type='text' name='filename' id='filename' />
+		<button class='fromFile button'>Execute from file:</button>
 	</div>
 
 	<div id="code-wrapper">

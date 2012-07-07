@@ -61,6 +61,7 @@ class ConsoleService {
 		bindingValues.ctx = grailsApplication.mainContext
 		bindingValues.grailsApplication = grailsApplication
 		bindingValues.config = grailsApplication.config
+		bindingValues.log = log
 		new GroovyShell(grailsApplication.classLoader, new Binding(bindingValues))
 	}
 }

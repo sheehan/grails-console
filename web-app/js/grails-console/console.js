@@ -15,6 +15,7 @@ $(document).ready(function () {
 			this.initWrap();
 
 			$('#editor button.submit').click($.proxy(this.executeCode, this));
+			$('#editor button.fromFile').click($.proxy(this.executeFromFile, this));
 			$('.results button.clear').click($.proxy(this.clearResults, this));
 
 			$('button.vertical').click($.proxy(function (event) { this.showOrientation('vertical'); }, this));
@@ -84,14 +85,26 @@ $(document).ready(function () {
 		},
 
 		executeCode: function () {
+			this.doExecute({
+				code: this.editor.getValue(),
+				captureStdout: 'on'
+			});
+		},
+
+		executeFromFile: function () {
+			this.doExecute({
+				filename: $('#filename').val(),
+				captureStdout: 'on'
+			});
+		},
+
+		doExecute: function (postParams) {
 			var $result = $('<div class="script-result loading">Executing Script...</div>');
 			$('#result .inner').append($result);
 
 			this.scrollToResult($result);
-			$.post(gconsole.executeLink, {
-				code: this.editor.getValue(),
-				captureStdout: 'on'
-			}).done($.proxy(function (response) {
+			$.post(gconsole.executeLink, postParams)
+			.done($.proxy(function (response) {
 				$result.removeClass('loading');
 				var timeSpan = '<span class="result_time">' + response.totalTime + ' ms</span>';
 				if (response.exception) {
