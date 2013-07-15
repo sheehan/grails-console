@@ -13,6 +13,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 	protected void setUp() {
 		super.setUp()
 		registerMetaClass String
+		String.metaClass.encodeAsHTML = { -> delegate }
 		Metadata.current['app.grails.version'] = '3.1.4'
 		controller.metaClass.getG = { -> [resource: { Map m -> '' },
 		                                  createLink: { Map m -> '' },
@@ -33,14 +34,12 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 
 	void testIndexSession() {
 		String code = '1 + 1'
-		controller.session['_grails_console_last_code_'] = code
+		controller.session[controller.lastCodeKey] = code
 		def model = controller.index()
 		assertEquals code, model.code
 	}
 
 	void testExecute() {
-		String.metaClass.encodeAsHTML = { -> delegate }
-
 		def mockParams = controller.params
 
 		mockParams.captureStdout = 'on'
@@ -57,4 +56,56 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 		assertTrue json.contains('totalTime')
 		assertTrue json.contains('groovy><br/>2')
 	}
+
+	void testCodeIsRememberedOnLoad() {
+		def cookies = [:]
+		controller.metaClass.getG = { -> [cookie: { Map m -> cookies[m.name] }] }
+
+		String code = '1 + 1'
+		cookies[controller.lastCodeKey] = code
+
+		def model = controller.index()
+		assertEquals code, model.code
+	}
+
+	void testCodeIsStoredOnExecute() {
+		def cookies = [:]
+		controller.metaClass.addCookie = { String name, String value ->
+											cookies[name] = value }
+
+		def mockParams = controller.params
+		mockParams.code = '1 + 1'
+		mockParams.remember = 'true'
+
+		Map result = [output: 'groovy>\n2', result: '2']
+		controller.consoleService = [eval: { String code, boolean captureStdout, req -> result }]
+
+		controller.execute()
+
+		String json = mockResponse.contentAsString
+		assertNotNull json
+		assertTrue json.contains('groovy><br/>2')
+		assertEquals cookies[controller.lastCodeKey], mockParams.code
+	}
+
+	void testCodeIsNotStoredOnExecute() {
+		def cookies = [:]
+		controller.metaClass.addCookie = { String name, String value ->
+											cookies[name] = value }
+
+		def mockParams = controller.params
+		mockParams.code = '1 + 1'
+		mockParams.remember = 'false'
+
+		Map result = [output: 'groovy>\n2', result: '2']
+		controller.consoleService = [eval: { String code, boolean captureStdout, req -> result }]
+
+		controller.execute()
+
+		String json = mockResponse.contentAsString
+		assertNotNull json
+		assertTrue json.contains('groovy><br/>2')
+		assertEquals cookies[controller.lastCodeKey], ''
+	}
+
 }
