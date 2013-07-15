@@ -5,13 +5,20 @@ import grails.util.GrailsUtil
 
 import org.codehaus.groovy.runtime.InvokerHelper
 
+import javax.servlet.http.Cookie
+
 class ConsoleController {
 
 	def consoleService
 	def pluginManager
 
+	private static final String lastCodeKey = '_grails_console_last_code_'
+	private static final String rememberCodeKey = '_grails_console_remember_code'
+
 	def index = {
-		String code = session['_grails_console_last_code_'] ?: '''\
+		String code = session[lastCodeKey] \
+						?: g.cookie( name:lastCodeKey )?.replaceAll('~~~','\n') \
+						?: '''\
 // Groovy Code here
 
 // Implicit variables include:
@@ -26,7 +33,7 @@ class ConsoleController {
 //     Clear: Esc
 '''
 
-		[code: code]
+		[code: code, remember:g.cookie( name:rememberCodeKey )?.toBoolean()]
 	}
 
 	def execute = {
@@ -51,7 +58,12 @@ class ConsoleController {
 			code = params.code
 		}
 
-		session['_grails_console_last_code_'] = code
+		session[lastCodeKey] = code
+
+		def remember = params.boolean('remember')
+		def codeStore = remember ? code?.replaceAll('\n','~~~') : ''
+		addCookie( lastCodeKey, codeStore )
+		addCookie( rememberCodeKey, remember?.toString() )
 
 		Map results
 		if (error) {
@@ -82,5 +94,11 @@ class ConsoleController {
 
 	private String encode(String s) {
 		s.encodeAsHTML().replaceAll(/[\n\r]/, '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
+	}
+
+	private void addCookie( String name, String value ) {
+		Cookie cookie = new Cookie( name, value )
+		cookie.maxAge = 500000
+		response.addCookie( cookie )
 	}
 }

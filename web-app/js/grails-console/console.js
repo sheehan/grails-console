@@ -87,6 +87,7 @@ $(document).ready(function () {
 		executeCode: function () {
 			this.doExecute({
 				code: this.editor.getValue(),
+				remember: $('label.remember input').is(':checked'),
 				captureStdout: 'on'
 			});
 		},
