@@ -10,14 +10,13 @@ import javax.servlet.http.Cookie
 class ConsoleController {
 
 	def consoleService
-	def pluginManager
 
 	private static final String lastCodeKey = '_grails_console_last_code_'
 	private static final String rememberCodeKey = '_grails_console_remember_code'
 
-	def index = {
+	def index() {
 		String code = session[lastCodeKey] \
-						?: g.cookie( name:lastCodeKey )?.replaceAll('~~~','\n') \
+						?: readCookie( lastCodeKey ) \
 						?: '''\
 // Groovy Code here
 
@@ -33,16 +32,13 @@ class ConsoleController {
 //     Clear: Esc
 '''
 
-		[code: code, remember:g.cookie( name:rememberCodeKey )?.toBoolean()]
+		[code: code, remember:readCookie( rememberCodeKey )?.toBoolean()]
 	}
 
-	def execute = {
+	def execute( Boolean captureStdout, String filename, String code, Boolean remember ) {
 		long startTime = System.currentTimeMillis()
-		boolean captureStdout = params.captureStdout != null
-
 		String error
-		String code
-		String filename = params.filename
+
 		if (filename) {
 			log.info "Opening File $filename"
 			def file = new File(filename)
@@ -54,16 +50,12 @@ class ConsoleController {
 				code = error
 			}
 		}
-		else {
-			code = params.code
-		}
 
 		session[lastCodeKey] = code
 
-		def remember = params.boolean('remember')
-		def codeStore = remember ? code?.replaceAll('\n','~~~') : ''
-		addCookie( lastCodeKey, codeStore )
-		addCookie( rememberCodeKey, remember?.toString() )
+		def codeToStore = remember ? code : ''
+		addCookie( lastCodeKey, codeToStore )
+		addCookie( rememberCodeKey, remember.toString() )
 
 		Map results
 		if (error) {
@@ -96,9 +88,17 @@ class ConsoleController {
 		s.encodeAsHTML().replaceAll(/[\n\r]/, '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
 	}
 
+	// store cookies in base64 encoding
+	// (primarily for semicolons in the code - those screw up cookies)
 	private void addCookie( String name, String value ) {
-		Cookie cookie = new Cookie( name, value )
-		cookie.maxAge = 500000
+		String encodedValue = value?.bytes?.encodeBase64()?.toString()
+		Cookie cookie = new Cookie( name, encodedValue )
+		cookie.maxAge = 5000000
 		response.addCookie( cookie )
 	}
+
+	private String readCookie( String name ) {
+		new String( g.cookie( name:name )?.decodeBase64() ?: '' )
+	}
+
 }

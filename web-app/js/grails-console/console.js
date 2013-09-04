@@ -88,14 +88,14 @@ $(document).ready(function () {
 			this.doExecute({
 				code: this.editor.getValue(),
 				remember: $('label.remember input').is(':checked'),
-				captureStdout: 'on'
+				captureStdout: 'true'
 			});
 		},
 
 		executeFromFile: function () {
 			this.doExecute({
 				filename: $('#filename').val(),
-				captureStdout: 'on'
+				captureStdout: 'true'
 			});
 		},
 

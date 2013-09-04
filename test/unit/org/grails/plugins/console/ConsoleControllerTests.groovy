@@ -62,7 +62,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 		controller.metaClass.getG = { -> [cookie: { Map m -> cookies[m.name] }] }
 
 		String code = '1 + 1'
-		cookies[controller.lastCodeKey] = code
+		cookies[controller.lastCodeKey] = code.bytes.encodeBase64().toString()
 
 		def model = controller.index()
 		assertEquals code, model.code
@@ -74,6 +74,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 											cookies[name] = value }
 
 		def mockParams = controller.params
+        mockParams.captureStdout = 'on'
 		mockParams.code = '1 + 1'
 		mockParams.remember = 'true'
 
@@ -94,6 +95,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 											cookies[name] = value }
 
 		def mockParams = controller.params
+        mockParams.captureStdout = 'on'
 		mockParams.code = '1 + 1'
 		mockParams.remember = 'false'
 
