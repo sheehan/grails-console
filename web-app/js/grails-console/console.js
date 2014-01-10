@@ -87,14 +87,15 @@ $(document).ready(function () {
 		executeCode: function () {
 			this.doExecute({
 				code: this.editor.getValue(),
-				captureStdout: 'on'
+				remember: $('label.remember input').is(':checked'),
+				captureStdout: 'true'
 			});
 		},
 
 		executeFromFile: function () {
 			this.doExecute({
 				filename: $('#filename').val(),
-				captureStdout: 'on'
+				captureStdout: 'true'
 			});
 		},
 

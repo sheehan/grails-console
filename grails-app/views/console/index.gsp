@@ -31,6 +31,11 @@
 
 		<input type='text' name='filename' id='filename' />
 		<button class='fromFile button'>Execute from file:</button>
+
+		<label class="remember">
+			<input type="checkbox" <g:if test="${remember}">checked</g:if> />
+			<span>Remember code</span>
+		</label>
 	</div>
 
 	<div id="code-wrapper">

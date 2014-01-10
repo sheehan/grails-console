@@ -5,13 +5,19 @@ import grails.util.GrailsUtil
 
 import org.codehaus.groovy.runtime.InvokerHelper
 
+import javax.servlet.http.Cookie
+
 class ConsoleController {
 
 	def consoleService
-	def pluginManager
 
-	def index = {
-		String code = session['_grails_console_last_code_'] ?: '''\
+	private static final String lastCodeKey = '_grails_console_last_code_'
+	private static final String rememberCodeKey = '_grails_console_remember_code'
+
+	def index() {
+		String code = session[lastCodeKey] \
+						?: readCookie( lastCodeKey ) \
+						?: '''\
 // Groovy Code here
 
 // Implicit variables include:
@@ -26,16 +32,13 @@ class ConsoleController {
 //     Clear: Esc
 '''
 
-		[code: code]
+		[code: code, remember:readCookie( rememberCodeKey )?.toBoolean()]
 	}
 
-	def execute = {
+	def execute( Boolean captureStdout, String filename, String code, Boolean remember ) {
 		long startTime = System.currentTimeMillis()
-		boolean captureStdout = params.captureStdout != null
-
 		String error
-		String code
-		String filename = params.filename
+
 		if (filename) {
 			log.info "Opening File $filename"
 			def file = new File(filename)
@@ -47,11 +50,12 @@ class ConsoleController {
 				code = error
 			}
 		}
-		else {
-			code = params.code
-		}
 
-		session['_grails_console_last_code_'] = code
+		session[lastCodeKey] = code
+
+		def codeToStore = remember ? code : ''
+		addCookie( lastCodeKey, codeToStore )
+		addCookie( rememberCodeKey, remember.toString() )
 
 		Map results
 		if (error) {
@@ -83,4 +87,18 @@ class ConsoleController {
 	private String encode(String s) {
 		s.encodeAsHTML().replaceAll(/[\n\r]/, '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
 	}
+
+	// store cookies in base64 encoding
+	// (primarily for semicolons in the code - those screw up cookies)
+	private void addCookie( String name, String value ) {
+		String encodedValue = value?.bytes?.encodeBase64()?.toString()
+		Cookie cookie = new Cookie( name, encodedValue )
+		cookie.maxAge = 5000000
+		response.addCookie( cookie )
+	}
+
+	private String readCookie( String name ) {
+		new String( g.cookie( name:name )?.decodeBase64() ?: '' )
+	}
+
 }

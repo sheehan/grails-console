@@ -210,7 +210,8 @@ body, html {
     overflow: auto;
 }
 
-label.wrap {
+label.wrap,
+label.remember {
     color: #777777;
     font-size: 0.75em;
     margin-right: 5px;
@@ -222,6 +223,8 @@ label.wrap {
 }
 
 label.wrap input,
-label.wrap span {
+label.wrap span,
+label.remember input,
+label.remember span {
     vertical-align: middle;
 }
