@@ -1,6 +1,6 @@
 class ConsoleGrailsPlugin {
 	String version = '1.2'
-	String grailsVersion = '1.3.3 > *'
+	String grailsVersion = '2.0 > *'
 	String title = 'Console Plugin'
 	String description = 'A web-based Groovy console for interactive runtime application management and debugging'
 	String documentation = 'http://grails.org/plugin/console'
