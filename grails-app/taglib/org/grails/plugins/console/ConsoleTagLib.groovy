@@ -1,6 +1,6 @@
 package org.grails.plugins.console
 
-import org.codehaus.groovy.grails.plugins.PluginManagerHolder
+import org.codehaus.groovy.grails.plugins.GrailsPluginManager
 
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
@@ -9,8 +9,10 @@ class ConsoleTagLib {
 
 	static namespace = 'con'
 
+	GrailsPluginManager pluginManager
+
 	def resources = { attrs ->
-		boolean hasResourcesPlugin = PluginManagerHolder.pluginManager.hasGrailsPlugin('resources')
+		boolean hasResourcesPlugin = pluginManager.hasGrailsPlugin('resources')
 
 		if (hasResourcesPlugin) {
 			r.require(module: 'console')
@@ -24,7 +26,7 @@ class ConsoleTagLib {
 	}
 
 	def layoutResources = { attrs ->
-		boolean hasResourcesPlugin = PluginManagerHolder.pluginManager.hasGrailsPlugin('resources')
+		boolean hasResourcesPlugin = pluginManager.hasGrailsPlugin('resources')
 
 		if (hasResourcesPlugin) {
 			out << r.layoutResources()
