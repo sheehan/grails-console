@@ -5,7 +5,9 @@
 <head>
 	<title>Grails Console</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
 	<con:resources/>
+    <meta name="layout" content="console-plugin-layout"/>
 </head>
 
 <body>
