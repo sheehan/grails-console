@@ -57,7 +57,7 @@ class ConsoleService {
 		createShell(bindingValues).evaluate code
 	}
 
-	private GroovyShell createShell(Map bindingValues) {
+	protected GroovyShell createShell(Map bindingValues) {
 		bindingValues.ctx = grailsApplication.mainContext
 		bindingValues.grailsApplication = grailsApplication
 		bindingValues.config = grailsApplication.config

@@ -10,19 +10,14 @@ import org.springframework.web.context.request.ServletRequestAttributes
 
 class ConsoleServiceTests extends GrailsUnitTestCase {
 
-	private _service
-	private _ctx
-	private _config
-	private _app
+	private service = new ConsoleService()
+	private ctx = new GenericApplicationContext()
+	private app
 
 	protected void setUp() {
 		super.setUp()
-		registerMetaClass ConsoleService
-		_service = new ConsoleService()
-		_ctx = new GenericApplicationContext()
-		_config = new ConfigObject()
-		_app = new DefaultGrailsApplication(mainContext: _ctx)
-		_service.grailsApplication = _app
+		app = new DefaultGrailsApplication(mainContext: ctx)
+		service.grailsApplication = app
 	}
 
 	void testTransactional() {
@@ -31,20 +26,20 @@ class ConsoleServiceTests extends GrailsUnitTestCase {
 
 	void testCreateShell() {
 
-		GroovyShell shell = _service.createShell(foo: 'bar')
+		GroovyShell shell = service.createShell(foo: 'bar')
 
-		assertSame _app.classLoader, shell.classLoader.parent
+		assertSame app.classLoader, shell.classLoader.parent
 		assertEquals 'bar', shell.context.getVariable('foo')
-		assertSame _ctx, shell.context.getVariable('ctx')
-		assertSame _app, shell.context.getVariable('grailsApplication')
+		assertSame ctx, shell.context.getVariable('ctx')
+		assertSame app, shell.context.getVariable('grailsApplication')
 	}
 
 	void testEvalWithBindingMap() {
-		assertEquals 2, _service.eval("1 + ONE", [ONE: 1])
+		assertEquals 2, service.eval("1 + ONE", [ONE: 1])
 	}
 
 	void testEval() {
-		_service.metaClass.getLog = { -> [trace: { String msg -> }] }
+		service.metaClass.getLog = { -> [trace: { String msg -> }] }
 
 		def request = new MockHttpServletRequest()
 
@@ -53,12 +48,12 @@ class ConsoleServiceTests extends GrailsUnitTestCase {
 			println s.reverse()
 '''.trim()
 
-		Map result = _service.eval(code, true, request)
+		Map result = service.eval(code, true, request)
 		assertTrue result.output.contains('cba')
 	}
 
 	void testEvalException() {
-		_service.metaClass.getLog = { -> [trace: { String msg -> }] }
+		service.metaClass.getLog = { -> [trace: { String msg -> }] }
 
 		def request = new MockHttpServletRequest()
 
@@ -67,7 +62,7 @@ class ConsoleServiceTests extends GrailsUnitTestCase {
 			println s.reverse()
 '''.trim()
 
-		Map result = _service.eval(code, true, request)
+		Map result = service.eval(code, true, request)
 		assertNotNull result.exception
 		assertTrue result.exception.message.contains('Cannot invoke method reverse() on null object')
 	}

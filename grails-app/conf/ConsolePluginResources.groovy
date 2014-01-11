@@ -1,6 +1,6 @@
 modules = {
 
-	'console' {
+	console {
 
 		resource url: [dir: 'js/CodeMirror-2.23/lib', file: 'codemirror.css', plugin: 'console']
 		resource url: [dir: 'css', file: 'jquery.layout.css', plugin: 'console']

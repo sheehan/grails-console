@@ -12,13 +12,9 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 	@Override
 	protected void setUp() {
 		super.setUp()
-		registerMetaClass String
 		String.metaClass.encodeAsHTML = { -> delegate }
-		Metadata.current['app.grails.version'] = '3.1.4'
-		controller.metaClass.getG = { -> [resource: { Map m -> '' },
-		                                  createLink: { Map m -> '' },
-		                                  cookie: { Map m -> '' }] }
-		sessionData.clear()
+		Metadata.current[Metadata.APPLICATION_GRAILS_VERSION] = '3.1.4'
+		controller.metaClass.getG = { -> ['cookie', 'createLink', 'resource'].collectEntries { [(it): { Map m -> '' } ]} }
 	}
 
 	protected newInstance() {
@@ -35,6 +31,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 	void testIndexSession() {
 		String code = '1 + 1'
 		controller.session[controller.lastCodeKey] = code
+
 		def model = controller.index()
 		assertEquals code, model.code
 	}
@@ -69,35 +66,21 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 	}
 
 	void testCodeIsStoredOnExecute() {
-		def cookies = [:]
-		controller.metaClass.addCookie = { String name, String value ->
-											cookies[name] = value }
-
-		def mockParams = controller.params
-        mockParams.captureStdout = 'on'
-		mockParams.code = '1 + 1'
-		mockParams.remember = 'true'
-
-		Map result = [output: 'groovy>\n2', result: '2']
-		controller.consoleService = [eval: { String code, boolean captureStdout, req -> result }]
-
-		controller.execute()
-
-		String json = mockResponse.contentAsString
-		assertNotNull json
-		assertTrue json.contains('groovy><br/>2')
-		assertEquals cookies[controller.lastCodeKey], mockParams.code
+		doTestStored true
 	}
 
 	void testCodeIsNotStoredOnExecute() {
+		doTestStored false
+	}
+
+	private void doTestStored(boolean remember) {
 		def cookies = [:]
-		controller.metaClass.addCookie = { String name, String value ->
-											cookies[name] = value }
+		controller.metaClass.addCookie = { String name, String value -> cookies[name] = value }
 
 		def mockParams = controller.params
-        mockParams.captureStdout = 'on'
+		mockParams.captureStdout = 'on'
 		mockParams.code = '1 + 1'
-		mockParams.remember = 'false'
+		mockParams.remember = remember.toString()
 
 		Map result = [output: 'groovy>\n2', result: '2']
 		controller.consoleService = [eval: { String code, boolean captureStdout, req -> result }]
@@ -107,7 +90,7 @@ class ConsoleControllerTests extends ControllerUnitTestCase {
 		String json = mockResponse.contentAsString
 		assertNotNull json
 		assertTrue json.contains('groovy><br/>2')
-		assertEquals cookies[controller.lastCodeKey], ''
-	}
 
+		assertEquals cookies[controller.lastCodeKey], remember ? controller.params.code : ''
+	}
 }
