@@ -6,5 +6,8 @@ cd grails-console
 grails clean
 grails compile
 
+npm install
+grunt release
+
 #grails publish-plugin --snapshot --stacktrace
 grails publish-plugin --stacktrace

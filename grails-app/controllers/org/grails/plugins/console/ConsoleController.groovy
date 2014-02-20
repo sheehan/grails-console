@@ -2,99 +2,175 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.util.GrailsUtil
-
+import org.apache.commons.io.FilenameUtils
 import org.codehaus.groovy.runtime.InvokerHelper
-
-import javax.servlet.http.Cookie
 
 class ConsoleController {
 
-	protected static final String lastCodeKey = '_grails_console_last_code_'
-	protected static final String rememberCodeKey = '_grails_console_remember_code'
+    def consoleService
 
-	def consoleService
+    def index() {
+        Map model = [
+            json: [
+                implicitVars: [
+                    ctx: 'the Spring application context',
+                    grailsApplication: 'the Grails application',
+                    config: 'the Grails configuration',
+                    request: 'the HTTP request',
+                    session: 'the HTTP session',
+                ],
+                baseUrl: resource(plugin: 'none'),
+                remoteFileStoreEnabled: isRemoteFileStoreEnabled()
+            ]
+        ]
+        render view: 'index', model: model
+    }
 
-	def index() {
-		String code = session[lastCodeKey] ?: readCookie(lastCodeKey) ?: '''\
-// Groovy Code here
+    def execute(String code) {
+        long startTime = System.currentTimeMillis()
 
-// Implicit variables include:
-//     ctx: the Spring application context
-//     grailsApplication: the Grails application
-//     config: the Grails configuration
-//     request: the HTTP request
-//     session: the HTTP session
+        Map results = consoleService.eval(code, true, request)
+        if (results.exception) {
+            StringWriter sw = new StringWriter()
+            new PrintWriter(sw).withWriter { GrailsUtil.deepSanitize(results.exception).printStackTrace(it) }
+            results.exception = sw.toString()
+        } else {
+            results.result = InvokerHelper.inspect(results.result)
+        }
 
-// Shortcuts:
-//     Execute: Ctrl-Enter
-//     Clear: Esc
-'''
+        results.totalTime = System.currentTimeMillis() - startTime
 
-		[code: code, remember: readCookie(rememberCodeKey)?.toBoolean()]
-	}
+        render results as JSON
+    }
 
-	def execute(Boolean captureStdout, String filename, String code, Boolean remember) {
-		long startTime = System.currentTimeMillis()
-		String error
+    def listFiles(String path) {
+        if (!isRemoteFileStoreEnabled()) {
+            return renderError("Remote file store disabled", 403)
+        }
 
-		if (filename) {
-			log.info "Opening File $filename"
-			def file = new File(filename)
-			if (file.exists() && file.canRead()) {
-				code = file.text
-			}
-			else {
-				error = "File $filename doesn't exist or cannot be read"
-				code = error
-			}
-		}
+        File baseDir = new File(path)
 
-		session[lastCodeKey] = code
+        if (!baseDir.exists() || !baseDir.canRead()) {
+            return renderError("Directory not found or cannot be read: $path", 400)
+        }
+        Map result = [
+            path: FilenameUtils.normalize(baseDir.absolutePath, true),
+            files: baseDir.listFiles().sort { it.name }.collect { fileToJson it, false }
+        ]
+        render result as JSON
+    }
 
-		def codeToStore = remember ? code : ''
-		addCookie(lastCodeKey, codeToStore)
-		addCookie(rememberCodeKey, remember.toString())
+    def file() {
+        if (!isRemoteFileStoreEnabled()) {
+            return renderError("Remote file store disabled", 403)
+        }
+        switch (request.method) {
+            case 'GET':
+                doFileGet()
+                break
+            case 'DELETE':
+                doFileDelete()
+                break
+            case 'PUT':
+                doFilePut()
+                break
+            case 'POST':
+                doFilePost()
+                break
+        }
+    }
 
-		Map results
-		if (error) {
-			results = [exception: encode(error), result: '']
-		}
-		else {
-			results = consoleService.eval(code, captureStdout, request)
-			if (results.exception) {
-				def sw = new StringWriter()
-				new PrintWriter(sw).withWriter { GrailsUtil.deepSanitize(results.exception).printStackTrace(it) }
-				results.exception = encode(sw.toString())
-			}
-			else {
-				def buffer = new StringBuilder()
-				for (line in code.tokenize('\n')) {
-					buffer.append('groovy> ').append(line).append('\n')
-				}
-				buffer.append('\n').append results.output
-				results.output = encode(buffer.toString())
-				results.result = encode(InvokerHelper.inspect(results.result))
-			}
-		}
+    private doFileGet() {
+        String filename = params.path
 
-		results.totalTime = System.currentTimeMillis() - startTime
+        if (!filename) {
+            return renderError('param required: path', 400)
+        }
 
-		render results as JSON
-	}
+        File file = new File(filename)
 
-	protected String encode(String s) {
-		s.encodeAsHTML().replaceAll(/[\n\r]/, '<br/>').replaceAll('\t', '&nbsp;&nbsp;&nbsp;&nbsp;')
-	}
+        if (!file.exists() || !file.canRead()) {
+            return renderError("File $filename doesn't exist or cannot be read", 400)
+        }
 
-	// store cookies in base64 encoding (primarily for semicolons in the code - those screw up cookies)
-	protected void addCookie(String name, String value) {
-		String encodedValue = value?.bytes?.encodeBase64()
-		Cookie cookie = new Cookie(name, encodedValue)
-		cookie.maxAge = 5000000
-		response.addCookie cookie
-	}
+        render(fileToJson(file) as JSON)
+    }
 
-	protected String readCookie(String name) {
-		new String(g.cookie(name: name)?.decodeBase64() ?: '')
-	}
+    private doFileDelete() {
+        String filename = params.path
+
+        if (!filename) {
+            return renderError('param required: path', 400)
+        }
+
+        File file = new File(filename)
+
+        if (!file.exists() || !file.canWrite()) {
+            return renderError("File $filename doesn't exist or cannot be deleted", 400)
+        }
+
+        if (!file.delete()) {
+            return renderError("File $filename could not be deleted", 400)
+        }
+
+        render([:] as JSON)
+    }
+
+    private doFilePut() {
+        String filename = params.path
+
+        if (!filename) {
+            return renderError('param required: path', 400)
+        }
+
+        File file = new File(filename)
+
+        if (!file.exists() || !file.canWrite()) {
+            return renderError("File $filename doesn't exist or cannot be modified", 400)
+        }
+
+        def json = request.JSON
+        try {
+            file.write json.text
+        } catch (e) {
+            return renderError("File $filename could not be modified", 400)
+        }
+
+        render(fileToJson(file) as JSON)
+    }
+
+    private doFilePost() {
+        def json = request.JSON
+
+        File file = new File(json.path.toString(), json.name.toString())
+        try {
+            file.write json.text
+        } catch (e) {
+            return renderError("File $json.name could not be created", 500)
+        }
+
+        render(fileToJson(file) as JSON)
+    }
+
+    private def renderError(String error, int status) {
+        response.status = status
+        render([error: error] as JSON)
+    }
+
+    private boolean isRemoteFileStoreEnabled() {
+        grailsApplication.config.grails.plugin.console.fileStore.remote.enabled != false
+    }
+
+    private static Map fileToJson(File file, boolean includeText = true) {
+        Map json = [
+            id: FilenameUtils.normalize(file.absolutePath, true),
+            name: file.name,
+            type: file.isDirectory() ? 'dir' : 'file',
+            lastModified: file.lastModified()
+        ]
+        if (includeText && file.isFile()) {
+            json.text = file.text
+        }
+        json
+    }
 }

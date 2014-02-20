@@ -1,0 +1,11 @@
+{{#if loading}}
+    <div class="loading"><i class="fa fa-refresh fa-spin"></i></div>
+{{else}}
+    {{#if input}}
+      <div class="input">{{input}}</div>
+    {{/if}}
+    {{#if output}}
+      <div class="output">{{output}}</div>
+    {{/if}}
+    <div class="result">≫ {{result}} <span class="pull-right">[{{totalTime}} ms]</span></div>
+{{/if}}
