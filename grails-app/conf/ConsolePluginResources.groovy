@@ -1,16 +1,20 @@
+import grails.converters.JSON
+import grails.util.Holders
+
 modules = {
 
-	console {
+//    String json = Holders.grailsApplication.mainContext.getResource('dist/debug/resources.json').file.text
+    String json = getClass().getResourceAsStream('resources.json').text
+    Map config = JSON.parse(json)
 
-		resource url: [dir: 'js/CodeMirror-2.23/lib', file: 'codemirror.css', plugin: 'console']
-		resource url: [dir: 'css', file: 'jquery.layout.css', plugin: 'console']
-		resource url: [dir: 'css', file: 'grails-console.css', plugin: 'console']
-
-		for (name in ['jquery-1.7.1.min', 'jquery-ui-1.8.17.custom.min',
-		              'jquery.layout', 'jquery.Storage', 'jquery.hotkeys',
-		              'CodeMirror-2.23/lib/codemirror', 'CodeMirror-2.23/mode/groovy/groovy',
-		              'grails-console/console']) {
-			resource url: [dir: 'js', file: name + '.js', plugin: 'console']
-		}
-	}
+    'console' {
+        defaultBundle false
+        config.cssSrc.each {
+            int index =  it.lastIndexOf('/')
+            resource url: [file: it - 'web-app/', plugin: 'console']
+        }
+        config.jsSrc.each {
+            resource url: [file: it - 'web-app/', plugin: 'console']
+        }
+    }
 }

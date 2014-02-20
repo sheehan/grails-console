@@ -4,3 +4,9 @@ target
 plugin.xml
 .settings/
 web-app/WEB-INF/tld
+.idea
+*.iml
+/node_modules/
+/.grunt/
+/web-app/dist
+/grails-app/conf/console.json

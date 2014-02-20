@@ -1,0 +1,27 @@
+<div class="modal-content help-section">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Help</h4>
+    </div>
+
+    <div class="modal-body">
+        <h4>Implicit variables</h4>
+        <table class="table">
+            {{#each implicitVars}}
+                <tr><td><code>{{@key}}</code></td><td>{{this}}</td></tr>
+            {{/each}}
+        </table>
+        <h4>Shortcuts</h4>
+        <table class="table">
+            <tr><td><code>Ctrl-Enter / Cmd-Enter</code></td><td>Execute</td></tr>
+            <tr><td><code>Ctrl-S / Cmd-S</code></td><td>Save</td></tr>
+            <tr><td><code>Esc</code></td><td>Clear Output</td></tr>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
