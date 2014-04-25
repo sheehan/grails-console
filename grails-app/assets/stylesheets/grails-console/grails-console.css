@@ -69,7 +69,7 @@ body, html {
 }
 
 #header h1 {
-    background: #009900 url(grails-console/grails.logo.png) no-repeat;
+    background: #009900 url(grails.logo.png) no-repeat;
     background-position: 5px center;
     margin: 0;
     padding: 5px 45px;
