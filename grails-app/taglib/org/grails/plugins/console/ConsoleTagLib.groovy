@@ -4,6 +4,7 @@ import org.codehaus.groovy.grails.plugins.GrailsPluginManager
 
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
 class ConsoleTagLib {
 
@@ -12,9 +13,15 @@ class ConsoleTagLib {
 	GrailsPluginManager pluginManager
 
 	def resources = { attrs ->
+        boolean hasAssetPipelinePlugin = pluginManager.hasGrailsPlugin('asset-pipeline')
 		boolean hasResourcesPlugin = pluginManager.hasGrailsPlugin('resources')
 
-		if (hasResourcesPlugin) {
+        if (hasAssetPipelinePlugin) {
+            out << asset.stylesheet(href: 'grails-console/codemirror.css')
+            out << asset.stylesheet(href: 'grails-console/jquery.layout.css')
+            out << asset.stylesheet(href: 'grails-console/grails-console.css')
+        }
+		else if (hasResourcesPlugin) {
 			r.require(module: 'console')
 			out << r.layoutResources()
 		}
@@ -26,9 +33,10 @@ class ConsoleTagLib {
 	}
 
 	def layoutResources = { attrs ->
+        boolean hasAssetPipelinePlugin = pluginManager.hasGrailsPlugin('asset-pipeline')
 		boolean hasResourcesPlugin = pluginManager.hasGrailsPlugin('resources')
 
-		if (hasResourcesPlugin) {
+		if (!hasAssetPipelinePlugin && hasResourcesPlugin) {
 			out << r.layoutResources()
 		}
 		else {
@@ -36,7 +44,11 @@ class ConsoleTagLib {
 			              'jquery.layout', 'jquery.Storage', 'jquery.hotkeys',
 			              'CodeMirror-2.23/lib/codemirror', 'CodeMirror-2.23/mode/groovy/groovy',
 			              'grails-console/console']) {
-				out << g.javascript(src: name + '.js', plugin: 'console')
+                if (hasAssetPipelinePlugin) {
+                    out << asset.javascript(src: 'grails-console/' + name + '.js')
+                } else {
+                    out << g.javascript(src: name + '.js', plugin: 'console')
+                }
 			}
 		}
 	}
