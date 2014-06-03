@@ -1,7 +1,7 @@
 rm -rf target/release
 mkdir target/release
 cd target/release
-git clone git@github.com:burtbeckwith/grails-console.git
+git clone git@github.com:sheehan/grails-console.git
 cd grails-console
 grails clean
 grails compile
