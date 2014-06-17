@@ -19,7 +19,7 @@
 <con:js/>
 <script type="text/javascript" charset="utf-8">
   jQuery(function($){
-    App.start(<%= json as JSON %>);
+    App.start(<%= raw((json as JSON).toString()) %>);
   });
 </script>
 
