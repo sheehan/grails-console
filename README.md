@@ -1,6 +1,8 @@
 ## Summary
 A web-based Groovy console for interactive runtime application management and debugging
 
+![Screenshot](https://raw.github.com/sheehan/grails-console/images/screenshot.png)
+
 ##Installation
 Add a dependency in BuildConfig.groovy:
 
