@@ -1,4 +1,5 @@
 <%@ page import="grails.converters.JSON" %>
+<%@ page scriptletCodec="none" %>
 <!doctype html>
 <html>
 
