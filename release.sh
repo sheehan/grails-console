@@ -9,5 +9,8 @@ grails compile
 npm install
 grunt release
 
+rm -rf web-app/dist/debug/
+rm -rf web-app/spec/
+
 #grails publish-plugin --snapshot --stacktrace
 grails publish-plugin --stacktrace
