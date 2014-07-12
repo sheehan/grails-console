@@ -74,6 +74,12 @@ The Groovy Shell uses the Grails classloader, so you can access any class or art
 ## Security Warning
 IMPORTANT In the current version, no security feature is implemented and the '/console' path is accessible from anywhere. You're strongly encouraged to guard access to the console using a security plugin, for example Spring Security Core or Shiro.
 
+If you are using the Spring Security Core Plugin, you might find restricting console access to localhost IPs (possibly in addition to role-based authorization) very convenient , e.g. via Config.groovy.
+
+        grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+            "/console/**": ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]
+        ]
+
 ## Reference
 The code editor is powered by CodeMirror
 
