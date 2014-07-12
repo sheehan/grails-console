@@ -1,5 +1,5 @@
 class ConsoleGrailsPlugin {
-	String version = '1.4.2'
+	String version = '1.4.3'
 	String grailsVersion = '2.0 > *'
 	String title = 'Console Plugin'
 	String description = 'A web-based Groovy console for interactive runtime application management and debugging'
@@ -14,4 +14,8 @@ class ConsoleGrailsPlugin {
 	]
 	def issueManagement = [system: 'github', url: 'https://github.com/sheehan/grails-console/issues']
 	def scm = [url: 'https://github.com/sheehan/grails-console']
+
+    def doWithApplicationContext = { appCtx ->
+        application.config.grails.assets.plugin.'console'.excludes = ['**/*']
+    }
 }
