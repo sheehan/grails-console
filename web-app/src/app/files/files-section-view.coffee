@@ -12,6 +12,7 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
       'class': 'modal-dialog files-section-view'
 
     events:
+      'submit form.file-info': 'onSave'
       'click button.save': 'onSave'
 
     initialize: (options) ->
