@@ -26,10 +26,10 @@ class ConsoleController {
         render view: 'index', model: model
     }
 
-    def execute(String code) {
+    def execute(String code, boolean autoImportDomains) {
         long startTime = System.currentTimeMillis()
 
-        Map results = consoleService.eval(code, true, request)
+        Map results = consoleService.eval(code, autoImportDomains, request)
         if (results.exception) {
             StringWriter sw = new StringWriter()
             new PrintWriter(sw).withWriter { GrailsUtil.deepSanitize(results.exception).printStackTrace(it) }

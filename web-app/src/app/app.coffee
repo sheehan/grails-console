@@ -45,9 +45,12 @@ Application = Backbone.Marionette.Application.extend
     @resultController.clear()
 
   handleNew: ->
-    if not @editorController.isDirty() or confirm 'Are you sure? You have unsaved changes.'
+    if @_okToCloseCurrentFile()
       @router.showNew()
       @editorController.newFile()
+
+  _okToCloseCurrentFile: ->
+    not App.settings.get('editor.warnBeforeExit') or not @editorController.isDirty() or confirm 'Are you sure? You have unsaved changes.'
 
   handleSave: ->
     @editorController.save()
@@ -97,7 +100,7 @@ Application = Backbone.Marionette.Application.extend
       @editorController.newFile()
 
   handleShowFile: (file) ->
-    if not @editorController.isDirty() or confirm 'Are you sure? You have unsaved changes.'
+    if @_okToCloseCurrentFile()
       file.fetch().done =>
         @editorController.showFile file
         @router.showFile file

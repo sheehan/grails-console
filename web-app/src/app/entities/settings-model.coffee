@@ -13,6 +13,8 @@ App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
       'results.showScript': true
       'results.showStdout': true
       'results.showResult': true
+      'editor.autoImportDomains': false
+      'editor.warnBeforeExit': true
       'theme': 'default'
 
     toggle: (attribute) ->

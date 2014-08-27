@@ -7,7 +7,9 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
     execute: ->
       @set 'loading', true
 
-      jqxhr = $.post App.createLink('execute'), code: @get('input')
+      jqxhr = $.post App.createLink('execute'),
+        autoImportDomains: App.settings.get('editor.autoImportDomains')
+        code: @get('input')
 
       jqxhr.done (response) =>
         @set

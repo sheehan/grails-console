@@ -4,7 +4,7 @@ App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
 
     initialize: (options) ->
       $(window).on "beforeunload", (event) =>
-        "You have unsaved changes." if @isDirty()
+        "You have unsaved changes." if @isDirty() and App.settings.get('editor.warnBeforeExit')
 
       @editorView = new Editor.EditorView()
 

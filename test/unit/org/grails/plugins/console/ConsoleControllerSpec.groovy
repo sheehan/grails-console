@@ -33,13 +33,13 @@ class ConsoleControllerSpec extends Specification {
 
     void 'execute'() {
         given:
-        String code = ''
+        String code = '"s"'
 
         when:
-        controller.execute code
+        controller.execute code, false
 
         then:
-        1 * consoleService.eval(code, true, request) >> [
+        1 * consoleService.eval(code, false, request) >> [
             result: 'test-result',
             output: 'test-output'
         ]
@@ -55,10 +55,10 @@ class ConsoleControllerSpec extends Specification {
         String code = ''
 
         when:
-        controller.execute code
+        controller.execute code, false
 
         then:
-        1 * consoleService.eval(code, true, request) >> [
+        1 * consoleService.eval(code, false, request) >> [
             result: 'test-result',
             output: 'test-output',
             exception: new RuntimeException()
