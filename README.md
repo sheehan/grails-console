@@ -3,21 +3,19 @@ A web-based Groovy console for interactive runtime application management and de
 
 ![Screenshot](https://raw.github.com/sheehan/grails-console/images/screenshot.png)
 
-##Installation
+## Installation
 Add a dependency in BuildConfig.groovy:
 
     runtime ':console:1.4.5'
 
-## Description
-
-### Usage
+## Usage
 
 Use a browser to navigate to the /console page of your running app, e.g. http://localhost:8080/\<app-name>/console
 
 Type any Groovy commands in the console text area, then click on the execute button. The console plugin relies on Groovy Shell. Lookup Groovy Shell documentation for more information.
 The Groovy Shell uses the Grails classloader, so you can access any class or artifact (e.g. domain classes, services, etc.) just like in your application code.
 
-### Saving/loading scripts
+## Saving/loading scripts
 
 Click on the `Save` button to save the current script.
 
@@ -25,15 +23,15 @@ Use the Storage pane to navigate existing files. Click on a file to load it into
 
 There are currently two storage options available:
 
-#### Local Storage
+### Local Storage
 
 Local Storage uses HTML5 [Web Storage](http://dev.w3.org/html5/webstorage/). The files are serialized and stored in the browser as a map under the key `gconsole.files`.
 
-#### Remote Storage
+### Remote Storage
 
 Remote Storage uses the filesystem of the server on which the application is running.
 
-### Implicit variables
+## Implicit variables
 
 The following implicit variables are available:
 
@@ -47,7 +45,7 @@ The following implicit variables are available:
 
 See [Script Examples](https://github.com/sheehan/grails-console/wiki/Script-Examples) for example usage.
 
-### Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Key | Command |
 |---|---|
@@ -55,7 +53,7 @@ See [Script Examples](https://github.com/sheehan/grails-console/wiki/Script-Exam
 | Ctrl-S / Cmd-S         | Save |
 | Esc                    | Clear output |
 
-### Configuration
+## Configuration
 
 The following configuration options are available:
 
