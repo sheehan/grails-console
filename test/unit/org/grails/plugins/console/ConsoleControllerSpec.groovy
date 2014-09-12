@@ -22,6 +22,21 @@ class ConsoleControllerSpec extends Specification {
         FileUtils.deleteDirectory tempDir
     }
 
+    void 'beforeInterceptor - console plugin disabled'() {
+        expect:
+        controller.beforeInterceptor() == false
+        response.status == 404
+    }
+
+    void 'beforeInterceptor - console plugin enabled'() {
+        given:
+        config.grails.plugin.console.enabled = true
+
+        expect:
+        controller.beforeInterceptor() != false
+        response.status != 404
+    }
+
     void 'index'() {
         when:
         controller.index()

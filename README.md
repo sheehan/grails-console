@@ -57,17 +57,17 @@ The following configuration options are available:
 
 | Property | Description |
 |---|---|
+| `grails.plugin.console.enabled`                  | Whether to enable the plugin. Default is true for the development environment, false otherwise. |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
-| `grails.plugin.console.layout` | Used to override the plugin's GSP layout. |
+| `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
 
-## Security Warning
-To disable the plugin in any environment, set the following property for the environment in `Config.groovy`:
+## Security
 
-    grails.plugin.excludes = ['console']
-    
-If the plugin is enabled in non-development environments, you're strongly encouraged to guard access to the '/console' path using a security plugin, for example Spring Security Core or Shiro.
+By default (as of v1.5.0) the console plugin is only enabled in the development environment. You can enable or disable it for any environment with 
+the `grails.plugin.console.enabled` config option in Config.groovy. If the plugin is enabled in non-development environments, be sure to guard 
+access to the '/console' path using a security plugin like Spring Security Core or Shiro.
 
-If you are using the Spring Security Core Plugin, you might find restricting console access to localhost IPs (possibly in addition to role-based authorization) very convenient , e.g. via Config.groovy.
+If you are using Spring Security Core, you can also restrict access to localhost IPs if desired, e.g. via Config.groovy.
 
     grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         "/console/**": ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]

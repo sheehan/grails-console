@@ -1,6 +1,7 @@
 package org.grails.plugins.console
 
 import grails.converters.JSON
+import grails.util.Environment
 import grails.util.GrailsUtil
 import org.apache.commons.io.FilenameUtils
 import org.codehaus.groovy.runtime.InvokerHelper
@@ -8,6 +9,13 @@ import org.codehaus.groovy.runtime.InvokerHelper
 class ConsoleController {
 
     def consoleService
+
+    def beforeInterceptor = {
+        if (!isConsolePluginEnabled()) {
+            response.sendError 404
+            return false
+        }
+    }
 
     def index() {
         Map model = [
@@ -155,6 +163,14 @@ class ConsoleController {
     private def renderError(String error, int status) {
         response.status = status
         render([error: error] as JSON)
+    }
+
+    private boolean isConsolePluginEnabled() {
+        def enabled = grailsApplication.config.grails.plugin.console.enabled
+        if (!(enabled instanceof Boolean)) {
+            enabled = Environment.current == Environment.DEVELOPMENT
+        }
+        enabled
     }
 
     private boolean isRemoteFileStoreEnabled() {
