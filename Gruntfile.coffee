@@ -32,14 +32,14 @@ module.exports = (grunt) ->
         'web-app/vendor/js/libs/handlebars.runtime.js'
         'web-app/vendor/jquery-layout/js/jquery.layout-latest.min.js'
         'web-app/vendor/js/plugins/jquery.hotkeys.js'
-        'web-app/vendor/codemirror-3.18/lib/codemirror.js'
-        'web-app/vendor/codemirror-3.18/mode/groovy/groovy.js'
+        'web-app/vendor/codemirror-4.5/lib/codemirror.js'
+        'web-app/vendor/codemirror-4.5/mode/groovy/groovy.js'
       ]
       css: [
         'web-app/vendor/bootstrap/css/bootstrap.min.css'
         'web-app/vendor/font-awesome-4.0.3/css/font-awesome.css'
-        'web-app/vendor/codemirror-3.18/lib/codemirror.css'
-        'web-app/vendor/codemirror-3.18/theme/lesser-dark.css'
+        'web-app/vendor/codemirror-4.5/lib/codemirror.css'
+        'web-app/vendor/codemirror-4.5/theme/lesser-dark.css'
         'web-app/vendor/jquery-layout/css/jquery.layout.css'
         'web-app/vendor/jquery-ui-1.10.3/jquery-ui.min.css'
       ]
