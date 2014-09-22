@@ -65,12 +65,13 @@ The following configuration options are available:
 
 By default (as of v1.5.0) the console plugin is only enabled in the development environment. You can enable or disable it for any environment with 
 the `grails.plugin.console.enabled` config option in Config.groovy. If the plugin is enabled in non-development environments, be sure to guard 
-access to the '/console' path using a security plugin like Spring Security Core or Shiro.
+access using a security plugin like Spring Security Core or Shiro. The paths `/console/**` and `/plugins/console*/**` should be secured.
 
-If you are using Spring Security Core, you can also restrict access to localhost IPs if desired, e.g. via Config.groovy.
+Spring Security Core example:
 
     grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-        "/console/**": ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]
+        "/console/**": ['ROLE_ADMIN'],
+        "/plugins/console*/**": ['ROLE_ADMIN']
     ]
 
 ## Authors
