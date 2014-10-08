@@ -21,6 +21,7 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
       @$('.orientation-horizontal').toggleClass 'selected', @model.get('orientation') is 'horizontal'
       @$('.orientation-vertical').toggleClass 'selected', @model.get('orientation') is 'vertical'
       @$('.results-wrap').toggleClass 'selected', @model.get('results.wrapText')
+      @$('.show-input').toggleClass 'selected', @model.get('results.showInput')
       @$('.auto-import-domains').toggleClass 'selected', @model.get('editor.autoImportDomains')
       @$('.warn-before-exit').toggleClass 'selected', @model.get('editor.warnBeforeExit')
       @$('.theme').each (index, el) =>
@@ -35,6 +36,7 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
         when $el.is '.orientation-horizontal' then @model.set 'orientation', 'horizontal'
         when $el.is '.orientation-vertical'   then @model.set 'orientation', 'vertical'
         when $el.is '.results-wrap'           then @model.toggle 'results.wrapText'
+        when $el.is '.show-input'             then @model.toggle 'results.showInput'
         when $el.is '.auto-import-domains'    then @model.toggle 'editor.autoImportDomains'
         when $el.is '.warn-before-exit'       then @model.toggle 'editor.warnBeforeExit'
         when $el.is '.theme'                  then @model.set 'theme', $el.data('theme')

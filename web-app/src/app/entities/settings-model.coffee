@@ -10,9 +10,7 @@ App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
       'layout.east.size': '50%'
       'layout.south.size': '50%'
       'results.wrapText': true
-      'results.showScript': true
-      'results.showStdout': true
-      'results.showResult': true
+      'results.showInput': true
       'editor.autoImportDomains': false
       'editor.warnBeforeExit': true
       'theme': 'default'
