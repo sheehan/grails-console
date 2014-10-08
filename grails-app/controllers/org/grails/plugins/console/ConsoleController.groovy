@@ -2,9 +2,7 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.util.Environment
-import grails.util.GrailsUtil
 import org.apache.commons.io.FilenameUtils
-import org.codehaus.groovy.runtime.InvokerHelper
 
 class ConsoleController {
 
@@ -27,7 +25,7 @@ class ConsoleController {
                     request: 'the HTTP request',
                     session: 'the HTTP session',
                 ],
-                baseUrl: resource(plugin: 'none'),
+                baseUrl: getBaseUrl(),
                 remoteFileStoreEnabled: isRemoteFileStoreEnabled()
             ]
         ]
@@ -35,20 +33,22 @@ class ConsoleController {
     }
 
     def execute(String code, boolean autoImportDomains) {
-        long startTime = System.currentTimeMillis()
+        Evaluation eval = consoleService.eval(code, autoImportDomains, request)
 
-        Map results = consoleService.eval(code, autoImportDomains, request)
-        if (results.exception) {
-            StringWriter sw = new StringWriter()
-            new PrintWriter(sw).withWriter { GrailsUtil.deepSanitize(results.exception).printStackTrace(it) }
-            results.exception = sw.toString()
+        Map result = [
+            totalTime: eval.totalTime,
+            output: eval.output
+        ]
+        if (eval.exception) {
+            result.exception = [
+                stackTrace: eval.stackTraceAsString,
+                lineNumber: eval.exceptionLineNumber
+            ]
         } else {
-            results.result = InvokerHelper.inspect(results.result)
+            result.result = eval.resultAsString
         }
 
-        results.totalTime = System.currentTimeMillis() - startTime
-
-        render results as JSON
+        render result as JSON
     }
 
     def listFiles(String path) {
@@ -175,6 +175,14 @@ class ConsoleController {
 
     private boolean isRemoteFileStoreEnabled() {
         grailsApplication.config.grails.plugin.console.fileStore.remote.enabled != false
+    }
+
+    private String getBaseUrl() {
+        def baseUrl = grailsApplication.config.grails.plugin.console.baseUrl
+        if (!(baseUrl instanceof String)) {
+            baseUrl = createLink(action: 'index', absolute: true) - '/index'
+        }
+        baseUrl
     }
 
     private static Map fileToJson(File file, boolean includeText = true) {

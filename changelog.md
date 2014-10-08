@@ -1,3 +1,7 @@
+### v1.5.1
+
+*   Fix #15. Smarter baseUrl logic. Add `grails.plugin.console.baseUrl` config option to override.
+
 ### v1.5.0
 
 *   Add `grails.plugin.console.enabled` config option and change the default behavior to be enabled in development only.

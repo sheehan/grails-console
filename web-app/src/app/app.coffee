@@ -130,7 +130,7 @@ Application = Backbone.Marionette.Application.extend
     $(document).bind 'keydown', 'esc', => @execute 'clear'
 
   createLink: (action, params) ->
-    link = "#{@data.baseUrl}/console/#{action}"
+    link = "#{@data.baseUrl}/#{action}"
     link += '?' + $.param(params, true) if params
     link
 

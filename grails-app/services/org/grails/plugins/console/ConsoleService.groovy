@@ -20,28 +20,30 @@ class ConsoleService {
 	 * @param autoImportDomains  if <code>true</code>, adds imports for each domain class
 	 * @return the output, result, and exception
 	 */
-	Map eval(String code, boolean autoImportDomains, request) {
+    Evaluation eval(String code, boolean autoImportDomains, request) {
 		log.trace "eval() code: $code"
-
-		Map map = [:]
 
         StringBuilder output = new StringBuilder()
         SystemOutputInterceptor systemOutInterceptor = createInterceptor(output)
         systemOutInterceptor.start()
 
+        Evaluation evaluation = new Evaluation()
+
+        long startTime = System.currentTimeMillis()
 		try {
             Binding binding = createBinding(request)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
             GroovyShell groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
-			map.result = groovyShell.evaluate code
+            evaluation.result = groovyShell.evaluate code
 		} catch (Throwable t) {
-			map.exception = t
+            evaluation.exception = t
 		}
 
+        evaluation.totalTime = System.currentTimeMillis() - startTime
         systemOutInterceptor.stop()
 
-		map.output = output.toString()
-		map
+        evaluation.output = output.toString()
+        evaluation
 	}
 
     private static SystemOutputInterceptor createInterceptor(StringBuilder output) {

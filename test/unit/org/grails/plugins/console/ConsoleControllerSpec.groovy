@@ -46,6 +46,23 @@ class ConsoleControllerSpec extends Specification {
         model.json.remoteFileStoreEnabled
     }
 
+    void 'index - baseUrl with no config'() {
+        when:
+        controller.index()
+
+        then:
+        model.json.baseUrl == 'http://localhost:8080/console'
+    }
+
+    void 'index - baseUrl with config'() {
+        when:
+        config.grails.plugin.console.baseUrl = 'http://localhost:5050/x/y/z/console'
+        controller.index()
+
+        then:
+        model.json.baseUrl == 'http://localhost:5050/x/y/z/console'
+    }
+
     void 'execute'() {
         given:
         String code = '"s"'
@@ -54,10 +71,10 @@ class ConsoleControllerSpec extends Specification {
         controller.execute code, false
 
         then:
-        1 * consoleService.eval(code, false, request) >> [
+        1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output'
-        ]
+        )
         with(response.json) {
             result == "'test-result'"
             output == 'test-output'
@@ -73,13 +90,13 @@ class ConsoleControllerSpec extends Specification {
         controller.execute code, false
 
         then:
-        1 * consoleService.eval(code, false, request) >> [
+        1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output',
             exception: new RuntimeException()
-        ]
+        )
         with(response.json) {
-            exception.contains 'RuntimeException'
+            exception.stackTrace.contains 'RuntimeException'
             output == 'test-output'
             totalTime != null
         }

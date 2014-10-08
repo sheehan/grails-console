@@ -20,7 +20,7 @@ App.module 'Result', (Editor, App, Backbone, Marionette, $, _) ->
       totalTime: @model.get('totalTime')
       input: @formattedInput()
       output: @formattedOutput()
-      result: @model.get('exception') or @model.get('error') or @model.get('result')
+      result: @model.get('exception')?.stackTrace or @model.get('error') or @model.get('result')
 
     formattedInput: ->
       @model.get('input').replace(/^/gm, '> ')

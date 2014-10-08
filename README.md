@@ -6,7 +6,7 @@ A web-based Groovy console for interactive runtime application management and de
 ## Installation
 Add a dependency in BuildConfig.groovy:
 
-    runtime ':console:1.5.0'
+    runtime ':console:1.5.1'
 
 ## Usage
 
@@ -58,6 +58,7 @@ The following configuration options are available:
 | Property | Description |
 |---|---|
 | `grails.plugin.console.enabled`                  | Whether to enable the plugin. Default is true for the development environment, false otherwise. |
+| `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Default uses createLink(). |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
 

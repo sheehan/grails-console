@@ -23,7 +23,7 @@ class ConsoleServiceSpec extends Specification{
         '''.trim()
 
         when:
-        Map result = service.eval(code, false, request)
+        Evaluation result = service.eval(code, false, request)
 
         then:
         result.output.trim() == 'cba'
@@ -37,7 +37,7 @@ class ConsoleServiceSpec extends Specification{
         '''.trim()
 
         when:
-        Map result = service.eval(code, false, request)
+        Evaluation result = service.eval(code, false, request)
 
         then:
         result.exception.message.contains 'Cannot invoke method reverse() on null object'
@@ -49,7 +49,7 @@ class ConsoleServiceSpec extends Specification{
         String code = 'println config.testing'
 
         when:
-        Map result = service.eval(code, false, request)
+        Evaluation result = service.eval(code, false, request)
 
         then:
         result.output.trim() == 'test-val'
