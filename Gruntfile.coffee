@@ -23,25 +23,24 @@ module.exports = (grunt) ->
 
     vendor:
       js: [
-        'web-app/vendor/js/libs/jquery-1.7.1.min.js'
-        'web-app/vendor/jquery-ui-1.10.3/jquery-ui.min.js'
-        'web-app/vendor/bootstrap/js/bootstrap.min.js'
-        'web-app/vendor/js/libs/underscore-min.js'
-        'web-app/vendor/js/libs/backbone-min.js'
-        'web-app/vendor/js/libs/backbone.marionette.min.js'
-        'web-app/vendor/js/libs/handlebars.runtime.js'
-        'web-app/vendor/jquery-layout/js/jquery.layout-latest.min.js'
-        'web-app/vendor/js/plugins/jquery.hotkeys.js'
-        'web-app/vendor/codemirror-4.6/lib/codemirror.js'
-        'web-app/vendor/codemirror-4.6/mode/groovy/groovy.js'
+        'web-app/js/console/jquery-1.11.1.min.js'
+        'web-app/js/console/jquery-ui-1.11.2.min.js'
+        'web-app/js/console/bootstrap-3.2.0.min.js'
+        'web-app/js/console/underscore-1.7.0.min.js'
+        'web-app/js/console/backbone-1.1.2.min.js'
+        'web-app/js/console/backbone.marionette-2.2.0.min.js'
+        'web-app/js/console/handlebars.runtime-2.0.0.js'
+        'web-app/js/console/jquery.layout-1.4.3.min.js'
+        'web-app/js/console/jquery.hotkeys-0.8.js'
+        'web-app/js/console/codemirror-4.7.min.js'
       ]
       css: [
-        'web-app/vendor/bootstrap/css/bootstrap.min.css'
-        'web-app/vendor/font-awesome-4.0.3/css/font-awesome.css'
-        'web-app/vendor/codemirror-4.6/lib/codemirror.css'
-        'web-app/vendor/codemirror-4.6/theme/lesser-dark.css'
-        'web-app/vendor/jquery-layout/css/jquery.layout.css'
-        'web-app/vendor/jquery-ui-1.10.3/jquery-ui.min.css'
+        'web-app/css/console/bootstrap-3.2.0/bootstrap.min.css'
+        'web-app/css/console/font-awesome-4.2.0/font-awesome.min.css'
+        'web-app/css/console/codemirror-4.7/codemirror.css'
+        'web-app/css/console/codemirror-4.7/theme/lesser-dark.css'
+        'web-app/css/console/jquery-layout-1.4.3/layout-default.css'
+        'web-app/css/console/jquery-ui-1.11.2/jquery-ui.min.css'
       ]
 
     concat:
