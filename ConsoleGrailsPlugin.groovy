@@ -34,7 +34,8 @@ class ConsoleGrailsPlugin {
             [name: 'Siegfried Puchbauer', email: 'siegfried.puchbauer@gmail.com'],
             [name: 'Mingfai Ma', email: 'mingfai.ma@gmail.com'],
             [name: 'Burt Beckwith', email: 'burt@burtbeckwith.com'],
-            [name: 'Matt Sheehan', email: 'mr.sheehan@gmail.com']
+            [name: 'Matt Sheehan', email: 'mr.sheehan@gmail.com'],
+            [name: 'Alexey Zhokhov', email: 'donbeave@gmail.com']
     ]
 
     def issueManagement = [system: 'GitHub',
