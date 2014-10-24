@@ -43,5 +43,14 @@ grails.project.dependency.resolution = {
         build ':release:3.0.1', ':rest-client-builder:2.0.3', {
             export = false
         }
+        compile ':asset-pipeline:1.9.9',
+                ':less-asset-pipeline:1.10.0',
+                ':coffee-asset-pipeline:1.9.0',
+                ':handlebars-asset-pipeline:1.3.0.3',
+                ':jquery:1.11.1',
+                ':twitter-bootstrap:3.2.0.2',
+                ':font-awesome-resources:4.2.0.0', {
+            export = false
+        }
     }
 }

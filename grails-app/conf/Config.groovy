@@ -25,3 +25,14 @@ log4j = {
 
     trace 'org.grails.plugins.console'
 }
+
+
+grails {
+    assets {
+        handlebars {
+            templateRoot = 'templates'
+            templatePathSeperator = "/"
+        }
+    }
+}
+
