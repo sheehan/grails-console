@@ -1,3 +1,18 @@
+/*
+ * Copyright 2014 the original author or authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package grails.plugin.console
 
 import grails.converters.JSON
@@ -6,6 +21,9 @@ import grails.util.BuildSettingsHolder
 import org.apache.commons.io.FileUtils
 import spock.lang.Specification
 
+/**
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ */
 @TestFor(ConsoleController)
 class ConsoleControllerSpec extends Specification {
 
@@ -72,8 +90,8 @@ class ConsoleControllerSpec extends Specification {
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
-            result: 'test-result',
-            output: 'test-output'
+                result: 'test-result',
+                output: 'test-output'
         )
         with(response.json) {
             result == "'test-result'"
@@ -91,9 +109,9 @@ class ConsoleControllerSpec extends Specification {
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
-            result: 'test-result',
-            output: 'test-output',
-            exception: new RuntimeException()
+                result: 'test-result',
+                output: 'test-output',
+                exception: new RuntimeException()
         )
         with(response.json) {
             exception.stackTrace.contains 'RuntimeException'
@@ -296,9 +314,9 @@ class ConsoleControllerSpec extends Specification {
         request.method = 'POST'
 
         request.json = [
-            path: tempDir.absolutePath,
-            name: 'test1',
-            text: 'testing'
+                path: tempDir.absolutePath,
+                name: 'test1',
+                text: 'testing'
         ] as JSON
 
         when:
@@ -316,9 +334,9 @@ class ConsoleControllerSpec extends Specification {
         request.method = 'POST'
 
         request.json = [
-            path: tempDir.absolutePath + /xxx/,
-            name: 'test1',
-            text: 'testing'
+                path: tempDir.absolutePath + /xxx/,
+                name: 'test1',
+                text: 'testing'
         ] as JSON
 
         when:
