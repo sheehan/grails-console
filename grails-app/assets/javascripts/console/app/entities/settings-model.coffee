@@ -1,5 +1,4 @@
 App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
-
   localStorageKey = 'gconsole.settings'
 
   Entities.Settings = Backbone.Model.extend

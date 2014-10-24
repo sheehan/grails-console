@@ -1,5 +1,4 @@
 App.module 'Util', (Util, App, Backbone, Marionette, $, _) ->
-
   Util.Path =
 
     getTokens: (path) ->

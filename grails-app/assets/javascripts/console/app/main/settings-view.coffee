@@ -1,5 +1,4 @@
 App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
-
   Main.SettingsView = Backbone.Marionette.ItemView.extend
 
     template: 'main/settings'

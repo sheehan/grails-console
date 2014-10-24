@@ -17,6 +17,7 @@
 /**
  * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
 grails.project.class.dir = 'target/classes'
 grails.project.test.class.dir = 'target/test-classes'

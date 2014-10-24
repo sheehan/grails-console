@@ -1,5 +1,4 @@
 App.module 'Util', (Util, App, Backbone, Marionette, $, _) ->
-
   Util.Modal =
 
     ###
@@ -35,7 +34,6 @@ App.module 'Util', (Util, App, Backbone, Marionette, $, _) ->
         view.close()
 
       view.on 'close', ->
-
         $el.modal 'hide'
 
       $el.on 'hidden.bs.modal', ->

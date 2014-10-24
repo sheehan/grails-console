@@ -1,5 +1,4 @@
 App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
-
   Main.ContentView = Backbone.Marionette.Layout.extend
 
     template: 'main/content'

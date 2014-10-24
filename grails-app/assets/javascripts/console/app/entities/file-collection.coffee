@@ -1,5 +1,4 @@
 App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
-
   Entities.FileCollection = Backbone.Collection.extend
 
     model: (attrs, options) ->

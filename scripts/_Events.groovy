@@ -19,6 +19,27 @@
  * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
 eventCreatePluginArchiveStart = { stagingDir ->
+    includeTargets << new File(assetPipelinePluginDir, "scripts/_AssetCompile.groovy")
+    assetCompile()
+
+    ant.mkdir(dir: "${stagingDir}/web-app/css/console")
+    ant.mkdir(dir: "${stagingDir}/web-app/js/console")
+
+    ant.copy(file: 'target/assets/console/console.css', tofile: "${stagingDir}/web-app/css/console/console.min.css")
+    ant.copy(file: 'target/assets/console/console.js', tofile: "${stagingDir}/web-app/js/console/console.min.js")
+
+    ant.replaceregexp(file: "${stagingDir}/web-app/css/console/console.min.css", match: 'grails\\.logo-(.+)\\.png',
+            replace: 'grails.logo.png')
+
+    ant.delete(dir: "${stagingDir}/grails-app/assets")
     ant.delete(dir: "${stagingDir}/web-app/spec")
-    ant.delete(dir: "${stagingDir}/web-app/src")
+    ant.delete(file: "${stagingDir}/scripts/_Events.groovy")
+}
+
+// TODO temporary (wait for issue: https://github.com/halfbaked/grails-font-awesome-resources/pull/34)
+eventAssetPrecompileStart = { assetConfig ->
+    if (!config.grails.assets.plugin.'font-awesome-resources'.excludes ||
+            config.grails.assets.plugin.'font-awesome-resources'.excludes.size() == 0) {
+        config.grails.assets.plugin.'font-awesome-resources'.excludes = ['font-awesome/*.less']
+    }
 }

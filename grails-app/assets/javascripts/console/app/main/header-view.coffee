@@ -1,5 +1,4 @@
 App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
-
   Main.HeaderView = Backbone.Marionette.ItemView.extend
 
     template: 'main/header'

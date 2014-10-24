@@ -1,5 +1,4 @@
 App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
-
   Files.Controller = Marionette.Controller.extend
 
     initialize: ->

@@ -17,6 +17,7 @@
 /**
  * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
 log4j = {
     error 'org.codehaus.groovy.grails',
@@ -26,9 +27,12 @@ log4j = {
     trace 'org.grails.plugins.console'
 }
 
-
 grails {
     assets {
+        excludes = ['console/codemirror*', 'console/jquery*', 'console/templates/**', 'console/app/**',
+                    'console/backbone*', 'console/codemirror*', 'console/jquery*', 'console/underscore*',
+                    'console/app*', 'spec/**', '**/grails.logo.png']
+
         handlebars {
             templateRoot = 'templates'
             templatePathSeperator = "/"

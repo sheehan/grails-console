@@ -1,5 +1,4 @@
 App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
-
   Files.FilesSectionView = Marionette.Layout.extend
 
     template: 'files/files-section'

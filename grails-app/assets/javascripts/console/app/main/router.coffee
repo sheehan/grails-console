@@ -1,5 +1,4 @@
 App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
-
   Main.Router = Backbone.Router.extend
 
     initialize: ->

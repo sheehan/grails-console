@@ -1,7 +1,6 @@
 App.module 'Result', (Editor, App, Backbone, Marionette, $, _) ->
-
   Editor.ResultView = Marionette.ItemView.extend
-  
+
     template: 'result/result'
 
     attributes:

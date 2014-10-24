@@ -1,5 +1,4 @@
 App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
-
   Files.ScriptsView = Marionette.ItemView.extend
 
     template: 'files/scripts'

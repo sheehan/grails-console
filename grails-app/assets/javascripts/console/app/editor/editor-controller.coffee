@@ -1,5 +1,4 @@
 App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
-
   Editor.Controller = Marionette.Controller.extend
 
     initialize: (options) ->

@@ -15,11 +15,6 @@
  */
 package grails.plugin.console
 
-import grails.converters.JSON
-import grails.util.Metadata
-import org.codehaus.groovy.grails.commons.GrailsApplication
-import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
-
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
  * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
@@ -28,52 +23,35 @@ class ConsoleTagLib {
 
     static namespace = 'con'
 
-    Map resourceMap
+    def pluginManager
 
-    GrailsApplication grailsApplication
-
+    def icon = { attrs ->
+        String path = pluginManager.hasGrailsPlugin('asset-pipeline') ? assetPath(src: 'console/grails.logo.png') :
+                resource(dir: 'images/console', file: 'grails.logo.png', plugin: 'console')
+        out << "<link rel='icon' type='image/png' href='${path}' />\n"
+    }
     def css = { attrs ->
-        config.css.each {
-            out << "<link rel='stylesheet' media='screen' href='${resource(file: it - 'web-app/', plugin: 'console')}' />\n"
+        if (pluginManager.hasGrailsPlugin('asset-pipeline')) {
+            out << asset.stylesheet(src: pluginManager.hasGrailsPlugin('twitter-bootstrap') ? 'bootstrap' : 'console/bootstrap.min.css')
+            out << asset.stylesheet(src: pluginManager.hasGrailsPlugin('font-awesome-resources') ? 'font-awesome' : 'console/font-awesome.min.css')
+            out << asset.stylesheet(src: 'console/console.min.css')
+        } else {
+            out << "<link rel='stylesheet' media='screen' href='${resource(dir: 'css/console', file: 'bootstrap.min.css', plugin: 'console')}' />\n"
+            out << "<link rel='stylesheet' media='screen' href='${resource(dir: 'css/console', file: 'font-awesome.min.css', plugin: 'console')}' />\n"
+            out << "<link rel='stylesheet' media='screen' href='${resource(dir: 'css/console', file: 'console.min.css', plugin: 'console')}' />\n"
         }
     }
 
     def js = { attrs ->
-        config.js.each {
-            out << "<script type='text/javascript' src='${resource(file: it - 'web-app/', plugin: 'console')}' ></script>\n"
+        if (pluginManager.hasGrailsPlugin('asset-pipeline')) {
+            out << asset.javascript(src: pluginManager.hasGrailsPlugin('jquery') ? 'jquery' : 'console/jquery.min.js')
+            out << asset.javascript(src: pluginManager.hasGrailsPlugin('twitter-bootstrap') ? 'bootstrap' : 'console/bootstrap.min.js')
+            out << asset.javascript(src: 'console/console.min.js')
+        } else {
+            out << "<script type='text/javascript' src='${resource(dir: 'js/console', file: 'jquery.min.js', plugin: 'console')}'></script>\n"
+            out << "<script type='text/javascript' src='${resource(dir: 'js/console', file: 'bootstrap.min.js', plugin: 'console')}'></script>\n"
+            out << "<script type='text/javascript' src='${resource(dir: 'js/console', file: 'console.min.js', plugin: 'console')}'></script>\n"
         }
-    }
-
-    /**
-     * Read from console.json.
-     * @return [js: [], css: []]
-     */
-    Map getConfig() {
-        if (reload && !Metadata.getCurrent().isWarDeployed()) {
-            resourceMap = getConfFromFile()
-        } else if (!resourceMap) {
-            resourceMap = getConfFromResource()
-        }
-        debug ? resourceMap.debug : resourceMap.release
-    }
-
-    boolean getReload() {
-        grailsApplication.config.grails.plugin.console.reload == true
-    }
-
-    boolean getDebug() {
-        grailsApplication.config.grails.plugin.console.debug == true
-    }
-
-    Map getConfFromFile() {
-        File consolePluginDir = GrailsPluginUtils.getPluginDirForName('console').file
-        String jsonText = new File(consolePluginDir, 'grails-app/conf/console.json').text
-        JSON.parse jsonText
-    }
-
-    Map getConfFromResource() { // Note: resources aren't reloadable.
-        String jsonText = grailsApplication.mainContext.parent.getResource('classpath:console.json').file.text
-        JSON.parse jsonText
     }
 
 }

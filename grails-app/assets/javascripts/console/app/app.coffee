@@ -1,5 +1,5 @@
 Marionette.Renderer.render = (template, data) ->
-  JST[template] data # use compiled templates
+  Handlebars.templates[template] data # use compiled templates
 
 Application = Backbone.Marionette.Application.extend
 
@@ -82,7 +82,7 @@ Application = Backbone.Marionette.Application.extend
 
   getActiveCollection: -> @filesController.collection
 
-  handleHelp:->
+  handleHelp: ->
     view = new App.Main.HelpView
     App.Util.Modal.showInModal view, draggable: true
 

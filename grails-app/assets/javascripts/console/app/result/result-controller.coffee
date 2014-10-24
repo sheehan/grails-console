@@ -1,5 +1,4 @@
 App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
-
   Result.Controller = Marionette.Controller.extend
 
     initialize: (options) ->

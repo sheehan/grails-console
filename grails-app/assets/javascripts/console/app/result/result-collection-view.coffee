@@ -1,5 +1,4 @@
 App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
-
   Result.ResultCollectionView = Marionette.CompositeView.extend
 
     template: 'result/results'
