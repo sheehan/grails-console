@@ -6,7 +6,9 @@ A web-based Groovy console for interactive runtime application management and de
 ## Installation
 Add a dependency in BuildConfig.groovy:
 
+```groovy
     runtime ':console:1.5.1'
+```
 
 ## Usage
 
@@ -70,10 +72,12 @@ access using a security plugin like Spring Security Core or Shiro. The paths `/c
 
 Spring Security Core example:
 
+```groovy
     grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         "/console/**": ['ROLE_ADMIN'],
         "/plugins/console*/**": ['ROLE_ADMIN']
     ]
+```
 
 ## Authors
 * [Siegfried Puchbauer](https://github.com/ziegfried)
