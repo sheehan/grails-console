@@ -16,7 +16,9 @@
 
 /**
  * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
-eventAssetPrecompileStart = { assetConfig ->
-    config.grails.assets.plugin.'console'.excludes = ['**/*']
+eventCreatePluginArchiveStart = { stagingDir ->
+    ant.delete(dir: "${stagingDir}/web-app/spec")
+    ant.delete(dir: "${stagingDir}/web-app/src")
 }
