@@ -29,7 +29,7 @@ module.exports = (grunt) ->
         'web-app/js/console/underscore-1.7.0.min.js'
         'web-app/js/console/backbone-1.1.2.min.js'
         'web-app/js/console/backbone.marionette-2.2.0.min.js'
-        'web-app/js/console/handlebars.runtime-2.0.0.js'
+        'web-app/js/console/handlebars.runtime-1.0.0.js'
         'web-app/js/console/jquery.layout-1.4.3.min.js'
         'web-app/js/console/jquery.hotkeys-0.8.js'
         'web-app/js/console/codemirror-4.7.min.js'
