@@ -1,4 +1,4 @@
-package org.grails.plugins.console
+package grails.plugin.console
 
 import grails.util.GrailsUtil
 import org.codehaus.groovy.runtime.InvokerHelper

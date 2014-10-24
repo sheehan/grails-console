@@ -1,4 +1,4 @@
-package org.grails.plugins.console
+package grails.plugin.console
 
 import grails.test.mixin.TestFor
 import org.springframework.mock.web.MockHttpServletRequest
