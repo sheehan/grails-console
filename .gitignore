@@ -10,6 +10,3 @@ web-app/WEB-INF/tld
 /node_modules/
 /.grunt/
 /web-app/dist
-/grails-app/conf/console.json
-/web-app/*/console/debug
-/web-app/*/console/release
