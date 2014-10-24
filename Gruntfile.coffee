@@ -7,19 +7,19 @@ module.exports = (grunt) ->
     app:
       js:
         debug: [
-          'web-app/dist/debug/jst.js'
-          'web-app/dist/debug/app/app.js'
-          'web-app/dist/debug/app/*/**/*.js'
+          'web-app/js/console/debug/jst.js'
+          'web-app/js/console/debug/app/app.js'
+          'web-app/js/console/debug/app/*/**/*.js'
         ]
 
-        release: 'web-app/dist/release/app.js'
+        release: 'web-app/js/console/release/app.js'
 
       css:
         debug:
-          'web-app/dist/debug/app.css'
+          'web-app/css/console/debug/app.css'
 
         release:
-          'web-app/dist/release/app.css'
+          'web-app/css/console/release/app.css'
 
     vendor:
       js: [
@@ -58,7 +58,7 @@ module.exports = (grunt) ->
             filePath.replace(/^.*\/templates\//, '').replace(/\.hbs$/, '')
 
         files:
-          'web-app/dist/debug/jst.js': 'web-app/src/templates/**/*.hbs'
+          'web-app/js/console/debug/jst.js': 'web-app/src/templates/**/*.hbs'
 
     jasmine:
       test:
@@ -75,7 +75,7 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'web-app/src/app'
         src: ['**/*.coffee']
-        dest: 'web-app/dist/debug/app'
+        dest: 'web-app/js/console/debug/app'
         ext: '.js'
       spec:
         expand: true
@@ -87,23 +87,27 @@ module.exports = (grunt) ->
     less:
       app:
         files:
-          'web-app/dist/debug/app.css': 'web-app/src/styles/app.less'
+          'web-app/css/console/debug/app.css': 'web-app/src/styles/app.less'
 
     copy:
       debug:
         expand: true,
         cwd: 'web-app/src/img'
         src: '**/*'
-        dest: 'web-app/dist/debug/img'
+        dest: 'web-app/images/console/debug'
       release:
         files: [
-          { expand: true, cwd: 'web-app/src/img', src: '**/*', dest: 'web-app/dist/release/img' }
-          { expand: true, cwd: 'web-app/vendor', src: '**/*', dest: 'web-app/dist/release/vendor' }
-          { src: 'web-app/dist/debug/app.css', dest: '<%= app.css.release %>' }
+          { expand: true, cwd: 'web-app/src/img', src: '**/*', dest: 'web-app/images/console/release' }
+          { src: 'web-app/css/console/debug/app.css', dest: '<%= app.css.release %>' }
         ]
 
     clean:
-      dist: ['web-app/dist']
+      dist: [
+        'web-app/js/console/release'
+        'web-app/js/console/debug'
+        'web-app/css/console/release'
+        'web-app/css/console/debug'
+      ]
       spec: 'web-app/target/spec/'
 
     watch:
