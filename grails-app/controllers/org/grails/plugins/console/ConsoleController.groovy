@@ -19,6 +19,10 @@ import grails.converters.JSON
 import grails.util.Environment
 import org.apache.commons.io.FilenameUtils
 
+/**
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ */
 class ConsoleController {
 
     def consoleService

@@ -20,6 +20,10 @@ import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 import org.codehaus.groovy.grails.commons.GrailsApplication
 
+/**
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ */
 class ConsoleService {
 
     static transactional = false

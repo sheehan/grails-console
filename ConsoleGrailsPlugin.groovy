@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ */
 class ConsoleGrailsPlugin {
 
     String version = '1.5.1'

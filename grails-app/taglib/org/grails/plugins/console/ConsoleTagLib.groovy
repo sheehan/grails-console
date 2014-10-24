@@ -22,6 +22,7 @@ import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
  */
 class ConsoleTagLib {
 

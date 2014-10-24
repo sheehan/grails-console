@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
+ */
 grails.project.class.dir = 'target/classes'
 grails.project.test.class.dir = 'target/test-classes'
 grails.project.test.reports.dir = 'target/test-reports'
