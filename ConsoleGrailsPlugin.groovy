@@ -20,7 +20,7 @@
  */
 class ConsoleGrailsPlugin {
 
-    String version = '1.5.1'
+    String version = '1.5.2-SNAPSHOT'
     String grailsVersion = '2.0 > *'
 
     String title = 'Console Plugin'
