@@ -59,4 +59,5 @@ class ConsoleTagLib {
         String jsonText = grailsApplication.mainContext.parent.getResource('classpath:console.json').file.text
         JSON.parse jsonText
     }
+
 }

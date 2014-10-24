@@ -7,21 +7,21 @@ import org.codehaus.groovy.grails.commons.GrailsApplication
 
 class ConsoleService {
 
-	static transactional = false
+    static transactional = false
 
-	GrailsApplication grailsApplication
+    GrailsApplication grailsApplication
 
-	/**
-	 * For use by the web-based console. The result is a Map, with output (including stdout if
-	 * specified under the 'output' key, the execution result under the 'result' key,
-	 * and any exception under the 'exception' key
-	 *
-	 * @param code  Groovy code to execute
-	 * @param autoImportDomains  if <code>true</code>, adds imports for each domain class
-	 * @return the output, result, and exception
-	 */
+    /**
+     * For use by the web-based console. The result is a Map, with output (including stdout if
+     * specified under the 'output' key, the execution result under the 'result' key,
+     * and any exception under the 'exception' key
+     *
+     * @param code Groovy code to execute
+     * @param autoImportDomains if <code>true</code>, adds imports for each domain class
+     * @return the output, result, and exception
+     */
     Evaluation eval(String code, boolean autoImportDomains, request) {
-		log.trace "eval() code: $code"
+        log.trace "eval() code: $code"
 
         StringBuilder output = new StringBuilder()
         SystemOutputInterceptor systemOutInterceptor = createInterceptor(output)
@@ -30,21 +30,21 @@ class ConsoleService {
         Evaluation evaluation = new Evaluation()
 
         long startTime = System.currentTimeMillis()
-		try {
+        try {
             Binding binding = createBinding(request)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
             GroovyShell groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
             evaluation.result = groovyShell.evaluate code
-		} catch (Throwable t) {
+        } catch (Throwable t) {
             evaluation.exception = t
-		}
+        }
 
         evaluation.totalTime = System.currentTimeMillis() - startTime
         systemOutInterceptor.stop()
 
         evaluation.output = output.toString()
         evaluation
-	}
+    }
 
     private static SystemOutputInterceptor createInterceptor(StringBuilder output) {
         new SystemOutputInterceptor({ String s ->
@@ -55,12 +55,12 @@ class ConsoleService {
 
     private Binding createBinding(request) {
         new Binding([
-            session: request.session,
-            request: request,
-            ctx: grailsApplication.mainContext,
-            grailsApplication: grailsApplication,
-            config: grailsApplication.config,
-            log: log
+                session          : request.session,
+                request          : request,
+                ctx              : grailsApplication.mainContext,
+                grailsApplication: grailsApplication,
+                config           : grailsApplication.config,
+                log              : log
         ])
     }
 
@@ -73,4 +73,5 @@ class ConsoleService {
         }
         configuration
     }
+
 }

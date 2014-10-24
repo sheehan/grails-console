@@ -17,17 +17,17 @@ class ConsoleController {
 
     def index() {
         Map model = [
-            json: [
-                implicitVars: [
-                    ctx: 'the Spring application context',
-                    grailsApplication: 'the Grails application',
-                    config: 'the Grails configuration',
-                    request: 'the HTTP request',
-                    session: 'the HTTP session',
-                ],
-                baseUrl: getBaseUrl(),
-                remoteFileStoreEnabled: isRemoteFileStoreEnabled()
-            ]
+                json: [
+                        implicitVars          : [
+                                ctx              : 'the Spring application context',
+                                grailsApplication: 'the Grails application',
+                                config           : 'the Grails configuration',
+                                request          : 'the HTTP request',
+                                session          : 'the HTTP session',
+                        ],
+                        baseUrl               : getBaseUrl(),
+                        remoteFileStoreEnabled: isRemoteFileStoreEnabled()
+                ]
         ]
         render view: 'index', model: model
     }
@@ -36,13 +36,13 @@ class ConsoleController {
         Evaluation eval = consoleService.eval(code, autoImportDomains, request)
 
         Map result = [
-            totalTime: eval.totalTime,
-            output: eval.output
+                totalTime: eval.totalTime,
+                output   : eval.output
         ]
         if (eval.exception) {
             result.exception = [
-                stackTrace: eval.stackTraceAsString,
-                lineNumber: eval.exceptionLineNumber
+                    stackTrace: eval.stackTraceAsString,
+                    lineNumber: eval.exceptionLineNumber
             ]
         } else {
             result.result = eval.resultAsString
@@ -62,8 +62,8 @@ class ConsoleController {
             return renderError("Directory not found or cannot be read: $path", 400)
         }
         Map result = [
-            path: FilenameUtils.normalize(baseDir.absolutePath, true),
-            files: baseDir.listFiles().sort { it.name }.collect { fileToJson it, false }
+                path : FilenameUtils.normalize(baseDir.absolutePath, true),
+                files: baseDir.listFiles().sort { it.name }.collect { fileToJson it, false }
         ]
         render result as JSON
     }
@@ -187,14 +187,15 @@ class ConsoleController {
 
     private static Map fileToJson(File file, boolean includeText = true) {
         Map json = [
-            id: FilenameUtils.normalize(file.absolutePath, true),
-            name: file.name,
-            type: file.isDirectory() ? 'dir' : 'file',
-            lastModified: file.lastModified()
+                id          : FilenameUtils.normalize(file.absolutePath, true),
+                name        : file.name,
+                type        : file.isDirectory() ? 'dir' : 'file',
+                lastModified: file.lastModified()
         ]
         if (includeText && file.isFile()) {
             json.text = file.text
         }
         json
     }
+
 }

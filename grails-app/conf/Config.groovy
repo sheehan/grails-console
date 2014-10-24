@@ -1,7 +1,7 @@
 log4j = {
-	error 'org.codehaus.groovy.grails',
-	      'org.springframework',
-	      'org.hibernate'
+    error 'org.codehaus.groovy.grails',
+            'org.springframework',
+            'org.hibernate'
 
-	trace 'org.grails.plugins.console'
+    trace 'org.grails.plugins.console'
 }
