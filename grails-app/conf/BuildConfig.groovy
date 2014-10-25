@@ -38,6 +38,9 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
+        test 'cglib:cglib-nodep:3.1', {
+            export = false
+        }
     }
 
     plugins {
