@@ -18,6 +18,7 @@ package grails.plugin.console
 /**
  * @author <a href='mailto:burt@burtbeckwith.com'>Burt Beckwith</a>
  * @author <a href='mailto:mr.sheehan@gmail.com'>Matt Sheehan</a>
+ * @author <a href='mailto:donbeave@gmail.com'>Alexey Zhokhov</a>
  */
 class ConsoleTagLib {
 
@@ -34,7 +35,7 @@ class ConsoleTagLib {
         if (pluginManager.hasGrailsPlugin('asset-pipeline')) {
             out << asset.stylesheet(src: pluginManager.hasGrailsPlugin('twitter-bootstrap') ? 'bootstrap' : 'console/bootstrap.min.css')
             out << asset.stylesheet(src: pluginManager.hasGrailsPlugin('font-awesome-resources') ? 'font-awesome' : 'console/font-awesome.min.css')
-            out << asset.stylesheet(src: 'console/console.min.css')
+            out << asset.stylesheet(src: asset.assetPathExists(src: 'console/console.min.css') ? 'console/console.min.css' : 'console/console.css')
         } else {
             out << "<link rel='stylesheet' media='screen' href='${resource(dir: 'css/console', file: 'bootstrap.min.css', plugin: 'console')}' />\n"
             out << "<link rel='stylesheet' media='screen' href='${resource(dir: 'css/console', file: 'font-awesome.min.css', plugin: 'console')}' />\n"
@@ -46,7 +47,7 @@ class ConsoleTagLib {
         if (pluginManager.hasGrailsPlugin('asset-pipeline')) {
             out << asset.javascript(src: pluginManager.hasGrailsPlugin('jquery') ? 'jquery' : 'console/jquery.min.js')
             out << asset.javascript(src: pluginManager.hasGrailsPlugin('twitter-bootstrap') ? 'bootstrap' : 'console/bootstrap.min.js')
-            out << asset.javascript(src: 'console/console.min.js')
+            out << asset.javascript(src: asset.assetPathExists(src: 'console/console.min.css') ? 'console/console.min.js' : 'console/console.js')
         } else {
             out << "<script type='text/javascript' src='${resource(dir: 'js/console', file: 'jquery.min.js', plugin: 'console')}'></script>\n"
             out << "<script type='text/javascript' src='${resource(dir: 'js/console', file: 'bootstrap.min.js', plugin: 'console')}'></script>\n"
