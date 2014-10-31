@@ -16,7 +16,6 @@
 package grails.plugin.console
 
 import grails.converters.JSON
-import grails.util.Environment
 import org.apache.commons.io.FilenameUtils
 
 /**
@@ -28,7 +27,7 @@ class ConsoleController {
     def consoleService
 
     def beforeInterceptor = {
-        if (!isConsolePluginEnabled()) {
+        if (!ConsoleUtils.pluginEnabled) {
             response.sendError 404
             return false
         }
@@ -45,7 +44,7 @@ class ConsoleController {
                                 session          : 'the HTTP session',
                         ],
                         baseUrl               : getBaseUrl(),
-                        remoteFileStoreEnabled: isRemoteFileStoreEnabled()
+                        remoteFileStoreEnabled: ConsoleUtils.remoteFileStoreEnabled
                 ]
         ]
         render view: 'index', model: model
@@ -71,7 +70,7 @@ class ConsoleController {
     }
 
     def listFiles(String path) {
-        if (!isRemoteFileStoreEnabled()) {
+        if (!ConsoleUtils.remoteFileStoreEnabled) {
             return renderError("Remote file store disabled", 403)
         }
 
@@ -88,7 +87,7 @@ class ConsoleController {
     }
 
     def file() {
-        if (!isRemoteFileStoreEnabled()) {
+        if (!ConsoleUtils.remoteFileStoreEnabled) {
             return renderError("Remote file store disabled", 403)
         }
         switch (request.method) {
@@ -182,18 +181,6 @@ class ConsoleController {
     private def renderError(String error, int status) {
         response.status = status
         render([error: error] as JSON)
-    }
-
-    private boolean isConsolePluginEnabled() {
-        def enabled = grailsApplication.config.grails.plugin.console.enabled
-        if (!(enabled instanceof Boolean)) {
-            enabled = Environment.current == Environment.DEVELOPMENT
-        }
-        enabled
-    }
-
-    private boolean isRemoteFileStoreEnabled() {
-        grailsApplication.config.grails.plugin.console.fileStore.remote.enabled != false
     }
 
     private String getBaseUrl() {
