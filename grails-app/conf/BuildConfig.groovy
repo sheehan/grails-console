@@ -44,7 +44,9 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ':release:3.0.1', ':rest-client-builder:2.0.3', {
+        build ':tomcat:8.0.14.1',
+                ':release:3.0.1',
+                ':rest-client-builder:2.0.3', {
             export = false
         }
         compile ':asset-pipeline:1.9.9',
