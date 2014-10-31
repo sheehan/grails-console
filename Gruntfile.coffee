@@ -7,41 +7,40 @@ module.exports = (grunt) ->
     app:
       js:
         debug: [
-          'web-app/dist/debug/jst.js'
-          'web-app/dist/debug/app/app.js'
-          'web-app/dist/debug/app/*/**/*.js'
+          'web-app/js/console/debug/jst.js'
+          'web-app/js/console/debug/app/app.js'
+          'web-app/js/console/debug/app/*/**/*.js'
         ]
 
-        release: 'web-app/dist/release/app.js'
+        release: 'web-app/js/console/release/app.js'
 
       css:
         debug:
-          'web-app/dist/debug/app.css'
+          'web-app/css/console/debug/app.css'
 
         release:
-          'web-app/dist/release/app.css'
+          'web-app/css/console/release/app.css'
 
     vendor:
       js: [
-        'web-app/vendor/js/libs/jquery-1.7.1.min.js'
-        'web-app/vendor/jquery-ui-1.10.3/jquery-ui.min.js'
-        'web-app/vendor/bootstrap/js/bootstrap.min.js'
-        'web-app/vendor/js/libs/underscore-min.js'
-        'web-app/vendor/js/libs/backbone-min.js'
-        'web-app/vendor/js/libs/backbone.marionette.min.js'
-        'web-app/vendor/js/libs/handlebars.runtime.js'
-        'web-app/vendor/jquery-layout/js/jquery.layout-latest.min.js'
-        'web-app/vendor/js/plugins/jquery.hotkeys.js'
-        'web-app/vendor/codemirror-4.6/lib/codemirror.js'
-        'web-app/vendor/codemirror-4.6/mode/groovy/groovy.js'
+        'web-app/js/console/jquery-1.11.1.min.js'
+        'web-app/js/console/jquery-ui-1.11.2.min.js'
+        'web-app/js/console/bootstrap-3.2.0.min.js'
+        'web-app/js/console/underscore-1.7.0.min.js'
+        'web-app/js/console/backbone-1.0.0.min.js'
+        'web-app/js/console/backbone.marionette-1.1.0.min.js'
+        'web-app/js/console/handlebars.runtime-1.0.0.js'
+        'web-app/js/console/jquery.layout-1.4.3.min.js'
+        'web-app/js/console/jquery.hotkeys-0.8.js'
+        'web-app/js/console/codemirror-4.7.min.js'
       ]
       css: [
-        'web-app/vendor/bootstrap/css/bootstrap.min.css'
-        'web-app/vendor/font-awesome-4.0.3/css/font-awesome.css'
-        'web-app/vendor/codemirror-4.6/lib/codemirror.css'
-        'web-app/vendor/codemirror-4.6/theme/lesser-dark.css'
-        'web-app/vendor/jquery-layout/css/jquery.layout.css'
-        'web-app/vendor/jquery-ui-1.10.3/jquery-ui.min.css'
+        'web-app/css/console/bootstrap-3.2.0/bootstrap.min.css'
+        'web-app/css/console/font-awesome-4.2.0/font-awesome.min.css'
+        'web-app/css/console/codemirror-4.7/codemirror.css'
+        'web-app/css/console/codemirror-4.7/theme/lesser-dark.css'
+        'web-app/css/console/jquery-layout-1.4.3/layout-default.css'
+        'web-app/css/console/jquery-ui-1.11.2/jquery-ui.min.css'
       ]
 
     concat:
@@ -59,7 +58,7 @@ module.exports = (grunt) ->
             filePath.replace(/^.*\/templates\//, '').replace(/\.hbs$/, '')
 
         files:
-          'web-app/dist/debug/jst.js': 'web-app/src/templates/**/*.hbs'
+          'web-app/js/console/debug/jst.js': 'web-app/src/templates/**/*.hbs'
 
     jasmine:
       test:
@@ -76,7 +75,7 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'web-app/src/app'
         src: ['**/*.coffee']
-        dest: 'web-app/dist/debug/app'
+        dest: 'web-app/js/console/debug/app'
         ext: '.js'
       spec:
         expand: true
@@ -88,23 +87,27 @@ module.exports = (grunt) ->
     less:
       app:
         files:
-          'web-app/dist/debug/app.css': 'web-app/src/styles/app.less'
+          'web-app/css/console/debug/app.css': 'web-app/src/styles/app.less'
 
     copy:
       debug:
         expand: true,
         cwd: 'web-app/src/img'
         src: '**/*'
-        dest: 'web-app/dist/debug/img'
+        dest: 'web-app/images/console/debug'
       release:
         files: [
-          { expand: true, cwd: 'web-app/src/img', src: '**/*', dest: 'web-app/dist/release/img' }
-          { expand: true, cwd: 'web-app/vendor', src: '**/*', dest: 'web-app/dist/release/vendor' }
-          { src: 'web-app/dist/debug/app.css', dest: '<%= app.css.release %>' }
+          { expand: true, cwd: 'web-app/src/img', src: '**/*', dest: 'web-app/images/console/release' }
+          { src: 'web-app/css/console/debug/app.css', dest: '<%= app.css.release %>' }
         ]
 
     clean:
-      dist: ['web-app/dist']
+      dist: [
+        'web-app/js/console/release'
+        'web-app/js/console/debug'
+        'web-app/css/console/release'
+        'web-app/css/console/debug'
+      ]
       spec: 'web-app/target/spec/'
 
     watch:
