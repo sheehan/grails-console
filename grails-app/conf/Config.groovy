@@ -24,7 +24,7 @@ log4j = {
             'org.springframework',
             'org.hibernate'
 
-    trace 'org.grails.plugins.console'
+    trace 'grails.plugin.console'
 }
 
 grails {
@@ -40,3 +40,4 @@ grails {
     }
 }
 
+grails.plugin.console.enabled = true
