@@ -2,10 +2,16 @@
     <div class="loading"><i class="fa fa-refresh fa-spin"></i></div>
 {{else}}
     {{#if input}}
-      <div class="input">{{input}}</div>
+      <div class="input">
+          {{#each inputLines}}
+              <div>
+                <div class="gutter">{{../inputGutter}}</div><div class="text">{{this}}</div>
+              </div>
+          {{/each}}
+      </div>
     {{/if}}
     {{#if output}}
-      <div class="output">{{output}}</div>
+      <div class="output"><div class="text">{{output}}</div></div>
     {{/if}}
-    <div class="result">≫ {{result}} <span class="pull-right">[{{totalTime}} ms]</span></div>
+    <div class="result"><div class="gutter">≫</div><div class="text">{{result}} <span class="pull-right">[{{totalTime}} ms]</span></div></div>
 {{/if}}

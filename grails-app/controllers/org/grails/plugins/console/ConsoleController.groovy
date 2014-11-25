@@ -2,6 +2,7 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.util.Environment
+import groovy.ui.GroovyMain
 import org.apache.commons.io.FilenameUtils
 
 class ConsoleController {
@@ -26,7 +27,9 @@ class ConsoleController {
                     session: 'the HTTP session',
                 ],
                 baseUrl: getBaseUrl(),
-                remoteFileStoreEnabled: isRemoteFileStoreEnabled()
+                remoteFileStoreEnabled: isRemoteFileStoreEnabled(),
+                groovyVersion: GroovySystem.version,
+                grailsVersion: grailsApplication.metadata['app.grails.version']
             ]
         ]
         render view: 'index', model: model

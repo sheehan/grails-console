@@ -16,14 +16,8 @@ App.module 'Result', (Editor, App, Backbone, Marionette, $, _) ->
         @trigger 'complete'
 
     serializeData: ->
-      loading: @model.get('loading')
-      totalTime: @model.get('totalTime')
-      input: @formattedInput()
-      output: @formattedOutput()
-      result: @model.get('exception')?.stackTrace or @model.get('error') or @model.get('result')
-
-    formattedInput: ->
-      @model.get('input').replace(/^/gm, '> ')
-
-    formattedOutput: ->
-      if @model.get('output') then @model.get('output').replace(/^/gm, '  ') else null
+      json = @model.toJSON()
+      json.result = @model.get('exception')?.stackTrace or @model.get('error') or @model.get('result')
+      json.inputGutter = '<'
+      json.inputLines = @model.get('input').match /[^\r\n]+/g
+      json

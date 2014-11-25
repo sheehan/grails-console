@@ -6,6 +6,7 @@ App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
 
     defaults:
       'orientation': 'vertical'
+      'layout.west.isClosed': true
       'layout.west.size': 250
       'layout.east.size': '50%'
       'layout.south.size': '50%'

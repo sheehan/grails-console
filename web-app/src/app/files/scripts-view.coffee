@@ -12,6 +12,7 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
       'click li a.delete': 'onDeleteClick'
       'click ul.store a': 'onStoreClick'
       'click .up': 'onUpClick'
+      'click .close-it': 'onCloseClick'
 
     initialize: (options) ->
       @lastPaths = {}
@@ -56,6 +57,10 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
       if confirm 'Are you sure you want to delete this file?'
         file.destroy().done =>
           App.trigger 'file:deleted', file
+
+    onCloseClick: (event) ->
+      event.preventDefault()
+      App.execute 'toggleScripts'
 
     serializeData: ->
       files: @collection.toJSON()

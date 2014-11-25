@@ -18,13 +18,13 @@ Application = Backbone.Marionette.Application.extend
     @resultController = new App.Result.Controller
     @router = new App.Main.Router()
 
-    contentView = new App.Main.ContentView
+    @contentView = new App.Main.ContentView
       editorView: @editorController.editorView
       resultsView: @resultController.resultsView
       scriptsView: @filesController.scriptsView
 
-    @mainRegion.show contentView
-    contentView.refresh()
+    @mainRegion.show @contentView
+    @contentView.refresh()
 
     @on 'file:deleted', @onFileDeleted
 
@@ -36,6 +36,7 @@ Application = Backbone.Marionette.Application.extend
     @commands.setHandler 'help', @handleHelp, @
     @commands.setHandler 'openFile', @handleOpenFile, @
     @commands.setHandler 'showFile', @handleShowFile, @
+    @commands.setHandler 'toggleScripts', @handleToggleScripts, @
 
   handleExecute: ->
     input = @editorController.getValue()
@@ -104,6 +105,10 @@ Application = Backbone.Marionette.Application.extend
       file.fetch().done =>
         @editorController.showFile file
         @router.showFile file
+
+  handleToggleScripts: ->
+    @contentView.toggleScripts()
+    @settings.set ''
 
   onFileDeleted: (file) ->
     if @getActiveFile().id is file.id

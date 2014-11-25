@@ -11,6 +11,7 @@ grunt release
 
 rm -rf web-app/dist/debug/
 rm -rf web-app/spec/
+rm -rf web-app/src/
 
 #grails publish-plugin --snapshot --stacktrace
 grails publish-plugin --stacktrace

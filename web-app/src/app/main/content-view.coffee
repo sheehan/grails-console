@@ -44,6 +44,10 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
         west__paneSelector: '.outer-west'
         west__contentSelector: '.files-wrapper'
         west__size: App.settings.get('layout.west.size')
+        west__initClosed: App.settings.get('layout.west.isClosed')
+        west__spacing_closed: 0
+        west__togglerLength_open: 0
+        west__togglerLength_closed: 0
         west__onresize_end: (name, $el, state, opts) ->
           App.settings.set 'layout.west.size', state.size
           App.settings.save()
@@ -76,11 +80,17 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
           App.settings.save()
         south__resizerCursor: 'ns-resize'
         resizable: true
+        closable: false
         findNestedContent: true
         fxName: ''
         spacing_open: 3
         spacing_closed: 3
         slidable: false
+
+    toggleScripts: ->
+      @layoutOuter.toggle 'west'
+      App.settings.set 'layout.west.isClosed', @layoutOuter.state['west'].isClosed
+      App.settings.save()
 
     showOrientation: ->
       orientation = App.settings.get('orientation')

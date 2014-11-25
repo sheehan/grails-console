@@ -28,33 +28,70 @@ body {
 }
 
 .script-result-section {
-  font-size: 15px;
+  font-size: 12px;
+  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
   overflow: auto;
+  .gutter {
+    width: 12px;
+    float: left;
+  }
+  .text {
+    margin-left: 14px;
+  }
+  .prompt-form {
+//    padding: 0 10px;
+    min-width: 100%;
+    clear: left;
+    border-bottom: 1px solid #aaa;
+    .prompt-inner {
+      padding: 5px 10px;
+    }
+    textarea {
+      padding: 0;
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      resize: none;
+      font-size: 12px;
+      line-height: 17px;
+      height: 17px;
+    }
+  }
+  .floatable {
+    float: left;
+    min-width: 100%;
+  }
   .inner {
     float: left;
     min-width: 100%;
     .script-result {
       margin: 0;
       border-bottom: 1px solid #aaa;
-      font-size: 12px;
-      font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Courier, monospace;
       padding: 10px;
       .loading {
         text-align: center;
       }
-      .input, .output, .result {
+      .input .text,
+      .output .text,
+      .result .text {
         white-space: pre;
         overflow: hidden;
       }
     }
   }
   &.wrap {
+    .floatable {
+      float: none;
+    }
     .inner {
       float: none;
       min-width: inherit;
     }
     .script-result {
-      .input, .output, .result {
+      .input .text,
+      .output .text,
+      .result .text {
         white-space: pre-wrap;
         word-wrap: break-word;
       }
@@ -268,9 +305,9 @@ body[data-theme="default"] {
 
   .script-result-section {
     background-color: #fff;
+    border-color: #ddd;
+    color: #000;
     .script-result {
-      border-color: #ddd;
-      color: #000;
       background-color: #fff;
       &.stacktrace .result {
         color: #ff0000;
@@ -347,9 +384,12 @@ body[data-theme="lesser-dark"] {
 
   .script-result-section {
     background-color: #262626;
-    .script-result {
+    color: #ccc;
+    border-color: #333;
+    textarea {
       color: #ccc;
-      border-color: #333;
+    }
+    .script-result {
       &.stacktrace .result {
         color: #ff5555;
       }
