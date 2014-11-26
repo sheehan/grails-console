@@ -1,3 +1,8 @@
+### v1.5.2
+
+*   Add inline execution prompt.
+*   Store visible state of files pane.
+
 ### v1.5.1
 
 *   Fix #15. Smarter baseUrl logic. Add `grails.plugin.console.baseUrl` config option to override.

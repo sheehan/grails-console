@@ -51,7 +51,7 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
     setPromptText: (text) ->
       @$('.prompt').val text
       prompt = @$('.prompt')[0]
-      prompt.setSelectionRange(text.length, text.length);
+      prompt.setSelectionRange(text.length, text.length) if text
 
     onExecute: (event) ->
       input = @$('.prompt').val()
