@@ -7,7 +7,7 @@ A web-based Groovy console for interactive runtime application management and de
 Add a dependency in BuildConfig.groovy:
 
 ```groovy
-runtime ':console:1.5.1'
+runtime ':console:1.5.2'
 ```
 
 ## Usage
@@ -74,7 +74,7 @@ Spring Security Core example:
 
 ```groovy
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    "/console/**": ['ROLE_ADMIN'],
+    "/console/**":          ['ROLE_ADMIN'],
     "/plugins/console*/**": ['ROLE_ADMIN']
 ]
 ```
