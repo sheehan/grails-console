@@ -27,7 +27,7 @@ class Evaluation {
     Integer getExceptionLineNumber() {
         Integer scriptLine = null
         if (exception) {
-            def m = stackTraceAsString =~ /at Script1.run\(Script1.groovy:(\d+)\)/
+            def m = stackTraceAsString =~ /at Script\d+\.run\(Script\d+\.groovy:(\d+)\)/
             if (m) {
                 scriptLine = m[0][1] as Integer
             }
