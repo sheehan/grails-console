@@ -2,7 +2,6 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.util.Environment
-import groovy.ui.GroovyMain
 import org.apache.commons.io.FilenameUtils
 
 class ConsoleController {
@@ -11,6 +10,12 @@ class ConsoleController {
 
     def beforeInterceptor = {
         if (!isConsolePluginEnabled()) {
+            response.sendError 404
+            return false
+        }
+
+        if (!isRemoteAccessEnabled() && !isLocalRequest()) {
+            log.info "Received remote request, but remote access is not enabled"
             response.sendError 404
             return false
         }
@@ -200,4 +205,23 @@ class ConsoleController {
         }
         json
     }
+
+    private boolean isRemoteAccessEnabled() {
+        return grailsApplication.config.grails.plugin.console.remoteAccess.enabled as Boolean
+    }
+
+    private boolean isLocalRequest() {
+        InetAddress requestAddress = InetAddress.getByName(request.getRemoteAddr())
+
+        if (requestAddress.isAnyLocalAddress() || requestAddress.isLoopbackAddress()) {
+            return true
+        }
+
+        try {
+            return NetworkInterface.getByInetAddress(requestAddress) != null
+        } catch (ignored) {
+            return false
+        }
+    }
+
 }

@@ -63,6 +63,7 @@ The following configuration options are available:
 | `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Default uses createLink(). |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
+| `grails.plugin.console.remoteAccess.enabled`     | Whether to enable remote access to the console.  Default is false. |
 
 ## Security
 
