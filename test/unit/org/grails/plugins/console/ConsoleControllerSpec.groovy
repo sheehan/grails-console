@@ -37,6 +37,38 @@ class ConsoleControllerSpec extends Specification {
         response.status != 404
     }
 
+    void 'beforeInterceptor - local request when remote access is disabled'() {
+        given:
+        config.grails.plugin.console.enabled = true
+        config.grails.plugin.console.remoteAccess.enabled = false
+
+        expect:
+        controller.beforeInterceptor() != false
+        response.status != 404
+    }
+
+    void 'beforeInterceptor - remote request when remote access is enabled'() {
+        given:
+        config.grails.plugin.console.enabled = true
+        config.grails.plugin.console.remoteAccess.enabled = true
+        controller.metaClass.isLocalRequest = { -> false }
+
+        expect:
+        controller.beforeInterceptor() != false
+        response.status != 404
+    }
+
+    void 'beforeInterceptor - remote request when remote access is disabled'() {
+        given:
+        config.grails.plugin.console.enabled = true
+        config.grails.plugin.console.remoteAccess.enabled = false
+        controller.metaClass.isLocalRequest = { -> false }
+
+        expect:
+        controller.beforeInterceptor() == false
+        response.status == 404
+    }
+
     void 'index'() {
         when:
         controller.index()

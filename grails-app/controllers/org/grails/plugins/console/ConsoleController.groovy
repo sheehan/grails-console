@@ -15,6 +15,12 @@ class ConsoleController {
             response.sendError 404
             return false
         }
+
+        if (!isRemoteAccessEnabled() && !isLocalRequest()) {
+            log.info "Received remote request, but remote access is not enabled"
+            response.sendError 404
+            return false
+        }
     }
 
     def index() {
@@ -208,4 +214,23 @@ class ConsoleController {
         }
         json
     }
+
+    private boolean isRemoteAccessEnabled() {
+        return grailsApplication.config.grails.plugin.console.remoteAccess.enabled as Boolean
+    }
+
+    private boolean isLocalRequest() {
+        InetAddress requestAddress = InetAddress.getByName(request.getRemoteAddr())
+
+        if (requestAddress.isAnyLocalAddress() || requestAddress.isLoopbackAddress()) {
+            return true
+        }
+
+        try {
+            return NetworkInterface.getByInetAddress(requestAddress) != null
+        } catch (ignored) {
+            return false
+        }
+    }
+
 }
