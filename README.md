@@ -79,6 +79,15 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 ```
 
+Another example restricting access to localhost IPs:
+
+```groovy
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+    "/console/**":          ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"],
+    "/plugins/console*/**": ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]
+]
+```
+
 ## Authors
 * [Siegfried Puchbauer](https://github.com/ziegfried)
 * [Mingfai Ma](https://github.com/mingfai)
