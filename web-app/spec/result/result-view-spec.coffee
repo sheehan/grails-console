@@ -9,6 +9,7 @@ describe 'App.Result.ResultView', ->
 
   it 'should convertTreeNode', ->
     @model.set
+      result: 'test-name'
       resultTree:
         a: 'a'
         b: 'b'
@@ -16,19 +17,24 @@ describe 'App.Result.ResultView', ->
 
     result = @view.serializeData()
 
-    expect(result.resultTree).toEqual [
-      {name: 'a', value: 'a'}
-      {name: 'b', value: 'b'}
-    ]
+    expect(result.resultTree).toEqual
+      name: 'test-name'
+      children: [
+        {name: 'a', value: 'a'}
+        {name: 'b', value: 'b'}
+      ]
 
     @model.set
+      result: 'test-name'
       resultTree: ['aaa', 'bbb', 'ccc']
       input: 'test'
 
     result = @view.serializeData()
 
-    expect(result.resultTree).toEqual [
-      {name: 'aaa'}
-      {name: 'bbb'}
-      {name: 'ccc'}
-    ]
+    expect(result.resultTree).toEqual
+      name: 'test-name'
+      children: [
+        {name: 'aaa'}
+        {name: 'bbb'}
+        {name: 'ccc'}
+      ]
