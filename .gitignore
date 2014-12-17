@@ -10,3 +10,4 @@ web-app/WEB-INF/tld
 /.grunt/
 /web-app/dist
 /grails-app/conf/console.json
+.DS_Store

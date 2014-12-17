@@ -1,0 +1,16 @@
+<div class="tree-item">
+    {{#if value}}
+        <div class="toggle"><div class="gutter"></div><span class="wrappable">{{name}}: {{value}}</span></div>
+    {{else}}
+        <div class="toggle"><div class="gutter">{{~#if children}}<span><i class="fa fa-caret-right"></i><i class="fa fa-caret-down"></i></span>{{~/if}}</div><span class="wrappable">{{name}}</span></div>
+    {{/if}}
+    {{#if children}}
+        <ul>
+            {{#each children}}
+                <li>
+                    {{> tree}}
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</div>

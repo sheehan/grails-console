@@ -17,6 +17,7 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
           totalTime: response.totalTime
           exception: response.exception
           result: response.result
+          resultTree: response.resultTree
           output: response.output
 
       jqxhr.fail =>

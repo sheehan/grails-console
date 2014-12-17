@@ -89,6 +89,7 @@ body {
       min-width: inherit;
     }
     .script-result {
+      .wrappable,
       .input .text,
       .output .text,
       .result .text {
@@ -100,6 +101,56 @@ body {
   &.hide-input {
     .script-result .input {
       display: none;
+    }
+  }
+
+
+  .result {
+    white-space: normal;
+    line-height: 16px;
+    overflow: hidden;
+    .single-line-result {
+      width: 100%;
+      float: left;
+    }
+    .tree-item {
+      .toggle {
+        cursor: pointer;
+      }
+      & > div {
+        .fa-caret-down {
+          display: none;
+        }
+      }
+      & > ul {
+        display: none;
+      }
+      &.open {
+        & > div {
+          .fa-caret-right {
+            display: none;
+          }
+          .fa-caret-down {
+            display: inline-block;
+          }
+        }
+        & > ul {
+          display: block;
+        }
+      }
+    }
+    .result-text {
+      margin-left: 16px;
+    }
+    .fa {
+      line-height: 16px;
+    }
+    ul {
+      margin: 0 0 0 12px;
+      padding: 0;
+      li {
+        list-style-type: none;
+      }
     }
   }
 }

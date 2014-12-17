@@ -13,5 +13,12 @@
     {{#if output}}
       <div class="output"><div class="text">{{output}}</div></div>
     {{/if}}
-    <div class="result"><div class="gutter">≫</div><div class="text">{{result}} <span class="pull-right">[{{totalTime}} ms]</span></div></div>
+    <div class="result">
+        {{#if resultTree}}
+            <div><div class="gutter">≫</div><div class="result-text">{{> tree resultTree}}</div></div>
+        {{else}}
+            <div class="single-line-result"><div class="gutter">≫</div><div class="result-text text">{{result}}</div></div>
+        {{/if}}
+        <span class="pull-right">[{{totalTime}} ms]</span>
+    </div>
 {{/if}}

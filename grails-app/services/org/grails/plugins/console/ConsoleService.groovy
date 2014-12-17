@@ -13,13 +13,9 @@ class ConsoleService {
     GroovyShell groovyShell
 
     /**
-     * For use by the web-based console. The result is a Map, with output (including stdout if
-     * specified under the 'output' key, the execution result under the 'result' key,
-     * and any exception under the 'exception' key
-     *
      * @param code Groovy code to execute
      * @param autoImportDomains if <code>true</code>, adds imports for each domain class
-     * @return the output, result, and exception
+     * @return an Evaluation
      */
     Evaluation eval(String code, boolean autoImportDomains, request) {
         log.trace "eval() code: $code"
@@ -35,9 +31,7 @@ class ConsoleService {
             Binding binding = createBinding(request)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
             if (!groovyShell) {
-
                 groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
-
             }
             evaluation.result = groovyShell.evaluate code
         } catch (Throwable t) {
