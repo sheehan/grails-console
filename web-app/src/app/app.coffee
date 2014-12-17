@@ -5,8 +5,9 @@ Application = Backbone.Marionette.Application.extend
 
   fileStores: {}
 
-  onInitializeBefore: (options) ->
+  onInitializeBefore: (options = {}) ->
     @data = options
+    @data[App.Util.snakeToCamel(k)] = v for k, v of @data
 
     @addRegions
       headerRegion: '#header'
