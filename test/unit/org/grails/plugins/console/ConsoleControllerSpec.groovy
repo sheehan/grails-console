@@ -13,6 +13,7 @@ class ConsoleControllerSpec extends Specification {
     File tempDir
 
     void setup() {
+        JSON.createNamedConfig 'console', {}
         controller.consoleService = consoleService
         tempDir = createTempDir()
         config.grails.plugin.console.fileStore.remote.enabled = true
