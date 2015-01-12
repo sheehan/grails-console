@@ -2,7 +2,7 @@ import grails.converters.JSON
 import java.lang.reflect.Method
 
 class ConsoleGrailsPlugin {
-	String version = '1.5.2'
+	String version = '1.5.3'
 	String grailsVersion = '2.0 > *'
 	String title = 'Console Plugin'
 	String description = 'A web-based Groovy console for interactive runtime application management and debugging'

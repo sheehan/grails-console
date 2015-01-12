@@ -1,3 +1,9 @@
+### v1.5.3
+
+*   Add welcome instructions.
+*   Fix #10.
+*   Collapse exceptions.
+
 ### v1.5.2
 
 *   Add inline execution prompt.
