@@ -29,13 +29,13 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
       json.inputGutter = '<'
       json.inputLines = @model.get('input').match /[^\r\n]+/g
 
-      if _.isObject(@model.get('resultTree'))
+      if @model.has('resultTree')
         json.resultTree = {name: json.result, children: @convertTreeNode(@model.get('resultTree'))}
 
       json
 
     convertTreeNode: (node) ->
-
+      # TODO fix for nested nodes
       if _.isArray node
         result = (@convertTreeNode it for it in node)
       else if _.isObject node

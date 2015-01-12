@@ -49,17 +49,14 @@ class ConsoleController {
                 lineNumber: eval.exceptionLineNumber
             ]
             result.result = eval.exception.toString()
-            result.resultTree = eval.exception.stackTrace.collect { "at $it" }
+            result.resultTree = eval.exception
         } else {
             result.result = eval.resultAsString
-            if (eval.result instanceof Class) {
-                result.resultTree = eval.result.methods.collect { Method method ->
-                    method.name + '(' + method.parameterTypes*.simpleName.join(', ') + '): ' + method.returnType.simpleName
-                }.sort()
-            }
         }
 
-        render result as JSON
+        JSON.use('console') {
+            render result as JSON
+        }
     }
 
     def listFiles(String path) {

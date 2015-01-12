@@ -9,6 +9,12 @@ Application = Backbone.Marionette.Application.extend
     @data = options
     @data[App.Util.snakeToCamel(k)] = v for k, v of @data
 
+    modifier = if navigator.userAgent.indexOf('Mac OS X') != -1 then 'Cmd' else 'Ctrl'
+    @data.shortcuts = {}
+    @data.shortcuts["#{modifier}-enter"] = 'Execute'
+    @data.shortcuts["#{modifier}-s"] =     'Save'
+    @data.shortcuts["Esc"] =               'Clear output'
+
     @addRegions
       headerRegion: '#header'
       mainRegion: '#main-content'

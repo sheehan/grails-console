@@ -13,9 +13,9 @@
         </table>
         <h4>Shortcuts</h4>
         <table class="table">
-            <tr><td><code>{{modifier}}-Enter</code></td><td>Execute</td></tr>
-            <tr><td><code>{{modifier}}-s</code></td><td>Save</td></tr>
-            <tr><td><code>Esc</code></td><td>Clear Output</td></tr>
+            {{#each shortcuts}}
+                <tr><td><code>{{@key}}</code></td><td>{{this}}</td></tr>
+            {{/each}}
         </table>
     </div>
 

@@ -63,3 +63,18 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
         @$('.prompt').css 'overflow', 'hidden'
         @$('.prompt').height 0
         @$('.prompt').height @$('.prompt')[0].scrollHeight
+
+    clear: ->
+      @$('.script-result.welcome').remove()
+
+    serializeData: ->
+      implicitVars = for k, v of App.data.implicitVars
+        App.Util.padRight("  #{k}", 20) + v
+
+      shortcuts = for k, v of App.data.shortcuts
+        App.Util.padRight("  #{k}", 20) + v
+
+      grailsVersion: App.data.grailsVersion
+      groovyVersion: App.data.groovyVersion
+      implicitVars: implicitVars
+      shortcuts: shortcuts

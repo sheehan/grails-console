@@ -1,3 +1,6 @@
+import grails.converters.JSON
+import java.lang.reflect.Method
+
 class ConsoleGrailsPlugin {
 	String version = '1.5.2'
 	String grailsVersion = '2.0 > *'
@@ -17,5 +20,16 @@ class ConsoleGrailsPlugin {
 
     def doWithApplicationContext = { appCtx ->
         application.config.grails.assets.plugin.'console'.excludes = ['**/*']
+
+		JSON.createNamedConfig('console') {
+			it.registerObjectMarshaller(Class) { Class clazz ->
+				clazz.methods.collect { Method method ->
+					method.name + '(' + method.parameterTypes*.simpleName.join(', ') + '): ' + method.returnType.simpleName
+				}.sort()
+			}
+			it.registerObjectMarshaller(Throwable) { Throwable throwable ->
+				throwable.stackTrace.collect { "at $it" }
+			}
+		}
     }
 }

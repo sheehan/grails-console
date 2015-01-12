@@ -10,7 +10,7 @@ describe 'App', ->
       base_url: 'xxx'
       somethingElse: 'yyy'
 
-    expect(App.data).toEqual
+    expect(App.data).toEqual jasmine.objectContaining
       base_url: 'xxx'
       baseUrl: 'xxx'
       somethingElse: 'yyy'

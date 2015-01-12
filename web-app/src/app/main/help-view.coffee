@@ -7,5 +7,5 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
     className: 'modal-dialog'
 
     serializeData: ->
-      modifier: if navigator.userAgent.indexOf('Mac OS X') != -1 then 'Cmd' else 'Ctrl'
       implicitVars: App.data.implicitVars
+      shortcuts: App.data.shortcuts

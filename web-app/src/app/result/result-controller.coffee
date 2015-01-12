@@ -31,6 +31,7 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
       @collection.add result
 
     clear: ->
+      @resultsView.clear()
       @collection.reset()
 
   Result.History = class

@@ -16,7 +16,26 @@
 
 <div class="script-result-section">
     <div class="floatable">
-        <div class="inner"></div>
+        <div class="inner">
+            <div class="script-result welcome">
+                <div class="result wrappable"><div>Welcome to the Grails Debug Console!
+
+- Execute Groovy code from the editor or inline below.
+- Save/load scripts via the editor toolbar and storage pane.
+- More options available in the settings dropdown.
+
+Implicit variables:
+{{#each implicitVars}}
+    {{~this}}
+{{/each}}
+
+Keyboard shortcuts:
+{{#each shortcuts}}
+    {{~this}}
+{{/each}}
+</div></div>
+            </div>
+        </div>
         <form class="prompt-form">
             <div class="prompt-inner">
                 <div class="gutter">&gt;</div>
