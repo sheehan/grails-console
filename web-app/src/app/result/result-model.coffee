@@ -23,4 +23,4 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
       jqxhr.fail =>
         @set
           loading: false
-          error: 'An error occurred.'
+          error: 'Server returned an error.'
