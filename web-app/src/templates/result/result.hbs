@@ -19,6 +19,8 @@
         {{else}}
             <div class="single-line-result"><div class="gutter">≫</div><div class="result-text text">{{result}}</div></div>
         {{/if}}
-        <span class="pull-right">[{{totalTime}} ms]</span>
+        {{#if totalTime}}
+            <span class="pull-right">[{{totalTime}} ms]</span>
+        {{/if}}
     </div>
 {{/if}}
