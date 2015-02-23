@@ -7,7 +7,7 @@ A web-based Groovy console for interactive runtime application management and de
 Add a dependency in BuildConfig.groovy:
 
 ```groovy
-runtime ':console:1.5.3'
+runtime ':console:1.5.4'
 ```
 
 ## Usage
