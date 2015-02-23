@@ -9,7 +9,8 @@ grails.project.dependency.resolution = {
 	repositories {
 		grailsCentral()
         mavenCentral()
-	}
+        mavenRepo "https://repo.grails.org/grails/plugins"
+    }
 
     dependencies {
         test('org.spockframework:spock-grails-support:0.7-groovy-2.0') {

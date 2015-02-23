@@ -1,3 +1,7 @@
+### v1.5.4
+
+*   Fix #25.
+
 ### v1.5.3
 
 *   Add welcome instructions.

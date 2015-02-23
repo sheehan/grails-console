@@ -10,7 +10,6 @@ class ConsoleService {
     static transactional = false
 
     GrailsApplication grailsApplication
-    GroovyShell groovyShell
 
     /**
      * @param code Groovy code to execute
@@ -30,9 +29,8 @@ class ConsoleService {
         try {
             Binding binding = createBinding(request)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
-            if (!groovyShell) {
-                groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
-            }
+
+            GroovyShell groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
             evaluation.result = groovyShell.evaluate code
         } catch (Throwable t) {
             evaluation.exception = t
