@@ -5,11 +5,11 @@ App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
     template: 'editor/editor'
 
     events:
-      'click button.open': 'onOpenClick'
+      'click button.open':    'onOpenClick'
       'click button.execute': 'onExecuteClick'
-      'click button.new': 'onNewClick'
-      'click button.save': 'onSaveClick'
-      'click a.save-as': 'onSaveAsClick'
+      'click button.new':     'onNewClick'
+      'click button.save':    'onSaveClick'
+      'click a.save-as':      'onSaveAsClick'
 
     initialize: ->
       @listenTo App.settings, 'change:theme', @setTheme
@@ -25,6 +25,9 @@ App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
         matchBrackets: true
         mode: 'groovy'
         lineNumbers: true
+        indentWithTabs: false
+        tabSize: 4,
+        indentUnit: 4
         extraKeys:
           'Ctrl-Enter': ->  App.execute 'execute'
           'Cmd-Enter': ->   App.execute 'execute'
