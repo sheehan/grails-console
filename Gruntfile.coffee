@@ -130,20 +130,27 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-contrib-less'
 
-  grunt.registerTask 'json', 'Write resource config to file', ->
+  grunt.registerTask 'resources', 'Write resources to gsp template', (env) ->
     app = grunt.config.get('app')
     vendor = grunt.config.get('vendor')
 
-    json =
-      debug:
-        js: grunt.file.expand(vendor.js).concat grunt.file.expand(app.js.debug)
-        css: grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.debug)
-      release:
-        js: grunt.file.expand(app.js.release)
-        css: grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.release)
-    grunt.file.write 'grails-app/conf/console.json', JSON.stringify(json, undefined, 2)
+    if env is 'debug'
+      js = grunt.file.expand(vendor.js).concat grunt.file.expand(app.js.debug)
+      css = grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.debug)
+    else
+      js = grunt.file.expand(app.js.release)
+      css = grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.release)
+
+    scriptTags = js.map (file) ->
+      """<script type="text/javascript" src="${resource(file: '#{file.replace 'web-app/', ''}', plugin: 'console')}" ></script>"""
+
+    linkTags = css.map (file) ->
+      """<link rel="stylesheet" media="screen" href="${resource(file: '#{file.replace 'web-app/', ''}', plugin: 'console')}" />"""
+
+    grunt.file.write 'grails-app/views/console/_js.gsp', scriptTags.join '\n'
+    grunt.file.write 'grails-app/views/console/_css.gsp', linkTags.join '\n'
 
   grunt.registerTask 'default', ['debug']
   grunt.registerTask 'test', ['debug', 'clean:spec', 'coffee:spec', 'jasmine']
-  grunt.registerTask 'debug', ['clean:dist', 'handlebars:compile', 'coffee:app', 'copy:debug', 'less:app', 'json']
-  grunt.registerTask 'release', ['debug', 'copy:release', 'concat:js', 'json']
+  grunt.registerTask 'debug', ['clean:dist', 'handlebars:compile', 'coffee:app', 'copy:debug', 'less:app', 'resources:debug']
+  grunt.registerTask 'release', ['debug', 'copy:release', 'concat:js', 'resources:release']

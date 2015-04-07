@@ -15,7 +15,6 @@ This plugin uses [Grunt](http://gruntjs.com/) to build its resources. To install
 | Task | Description |
 | --- | --- |
 | watch   | Watches for file changes and updates `web-app/dist/debug`.|
-| json    | Creates a manifest of project resources in `grails-app/conf/console.json` |
 | test    | Runs all jasmine tests. |
 | debug   | Builds all debug resources to `web-app/dist/debug`.|
 | release | Builds all release resources to `web-app/dist/release`.|
@@ -25,9 +24,6 @@ This plugin uses [Grunt](http://gruntjs.com/) to build its resources. To install
 Structure for front-end resources:
 
     .
-    ├── grails-app
-    │   └── conf
-    │       └── console.json   # resource manifest
     ├── web-app
     │   ├── dist
     │   │   ├── debug
@@ -47,10 +43,5 @@ Structure for front-end resources:
 When developing, include the plugin as an inline dependency in BuildConfig.groovy:
 
     grails.plugin.location.console = '../path/to/grails-console'
-
-Configuration:
-
-    grails.plugin.console.debug = true  // use the debug resources
-    grails.plugin.console.reload = true // always reload the console.json file
 
 
