@@ -1,3 +1,7 @@
+## Grails 3
+
+The [2.X version of the plugin](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole/view) is compatible only with Grails 3.
+
 ## Summary
 A web-based Groovy console for interactive runtime application management and debugging
 
