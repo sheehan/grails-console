@@ -1,17 +1,26 @@
-## Grails 3
-
-The [2.X version of the plugin](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole/view) is compatible only with Grails 3.
-
 ## Summary
 A web-based Groovy console for interactive runtime application management and debugging
 
 ![Screenshot](https://raw.github.com/sheehan/grails-console/images/screenshot.png)
 
 ## Installation
+
+The [1.X](https://grails.org/plugin/console) version is for Grails 2, while the [2.X](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole) version is for Grails 3.
+
+### Grails 2
+
 Add a dependency in BuildConfig.groovy:
 
 ```groovy
 runtime ':console:1.5.4'
+```
+
+### Grails 3
+
+Add a dependency in build.gradle
+
+```groovy
+runtime 'org.grails.plugins:grails-console:2.0.1'
 ```
 
 ## Usage
