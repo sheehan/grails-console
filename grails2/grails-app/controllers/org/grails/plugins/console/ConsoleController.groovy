@@ -30,7 +30,8 @@ class ConsoleController {
                 baseUrl: getBaseUrl(),
                 remoteFileStoreEnabled: isRemoteFileStoreEnabled(),
                 groovyVersion: GroovySystem.version,
-                grailsVersion: grailsApplication.metadata['app.grails.version']
+                grailsVersion: grailsApplication.metadata['app.grails.version'],
+                newFileText: grailsApplication.config.grails.plugin.console.newFileText ?: ''
             ]
         ]
         render view: 'index', model: model

@@ -76,11 +76,13 @@ The following configuration options are available:
 | `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Default uses createLink(). |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
+| `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment
+specific warnings, etc... Defaults to empty. |
 
 ## Security
 
-By default (as of v1.5.0) the console plugin is only enabled in the development environment. You can enable or disable it for any environment with 
-the `grails.plugin.console.enabled` config option in Config.groovy. If the plugin is enabled in non-development environments, be sure to guard 
+By default (as of v1.5.0) the console plugin is only enabled in the development environment. You can enable or disable it for any environment with
+the `grails.plugin.console.enabled` config option in Config.groovy. If the plugin is enabled in non-development environments, be sure to guard
 access using a security plugin like Spring Security Core or Shiro. The paths `/console/**` and `/plugins/console*/**` should be secured.
 
 Spring Security Core example:

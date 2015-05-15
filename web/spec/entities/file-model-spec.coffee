@@ -1,6 +1,7 @@
 describe 'App.Entities.File', ->
 
   beforeEach ->
+    App.data = {}
     @model = new App.Entities.File()
 
   it 'should return isDirectory', ->
@@ -16,3 +17,10 @@ describe 'App.Entities.File', ->
 
     @model.set type: 'dir'
     expect(@model.isFile()).toBe false
+
+  it 'checks newFileText', ->
+    expect(@model.get 'text').toBe ''
+
+    App.data = { newFileText: 'abc' }
+    @model = new App.Entities.File()
+    expect(@model.get 'text').toBe 'abc'

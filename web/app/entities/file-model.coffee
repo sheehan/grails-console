@@ -2,8 +2,8 @@ App.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
 
   Entities.File = Backbone.Model.extend
 
-    defaults:
-      text: ''
+    defaults: ->
+      text: App.data.newFileText ? ''
 
     getAbsolutePath: -> @id
 
