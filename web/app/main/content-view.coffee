@@ -58,6 +58,7 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
         spacing_open: 3
         spacing_closed: 3
         slidable: false
+        enableCursorHotkey: false
 
       @layout = @$('.outer-center').layout
         center__paneSelector: '.center'
@@ -86,6 +87,7 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
         spacing_open: 3
         spacing_closed: 3
         slidable: false
+        enableCursorHotkey: false
 
     toggleScripts: ->
       @layoutOuter.toggle 'west'
