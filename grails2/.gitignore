@@ -1,0 +1,13 @@
+target
+*.log
+*.zip
+plugin.xml
+.settings/
+web-app/WEB-INF/tld
+.idea
+/node_modules/
+/.grunt/
+/grails-app/views/console/_*
+.DS_Store
+.classpath
+.project
