@@ -111,7 +111,7 @@ module.exports = (grunt) ->
         dest: "#{debugDir}/img"
       release:
         files: [
-          { expand: true, cwd: 'web-app/src/img', src: '**/*', dest: "#{releaseDir}/img" }
+          { expand: true, cwd: "#{webSrcDir}/img", src: '**/*', dest: "#{releaseDir}/img" }
           { expand: true, cwd: "#{vendorDir}", src: '**/*', dest: "#{releaseDir}/vendor" }
           { src: "#{debugDir}/app.css", dest: '<%= app.css.release %>' }
         ]
