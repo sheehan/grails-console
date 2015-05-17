@@ -1,15 +1,37 @@
 module.exports = (grunt) ->
 
-  staticDir = 'src/main/resources/static'
-  debugDir = "#{staticDir}/dist/debug"
-  releaseDir = "#{staticDir}/dist/release"
-  vendorDir = "#{staticDir}/vendor"
-  webSrcDir = '../web'
-  targetDir = 'target/web'
+  pkg = grunt.file.readJSON 'package.json'
+
+  staticDir  = 'src/main/resources/static'
+  debugDir   = "#{staticDir}/console-#{pkg.version}/debug"
+  releaseDir = "#{staticDir}/console-#{pkg.version}/release"
+  webSrcDir  = '../web'
+  targetDir  = 'target/web'
+
+  vendorJs = [
+    '/js/libs/jquery-1.7.1.min.js'
+    '/jquery-ui-1.10.3/jquery-ui.min.js'
+    '/bootstrap/js/bootstrap.min.js'
+    '/js/libs/underscore-min.js'
+    '/js/libs/backbone-min.js'
+    '/js/libs/backbone.marionette.min.js'
+    '/js/libs/handlebars.runtime-v3.0.1.js'
+    '/jquery-layout/js/jquery.layout-latest.min.js'
+    '/js/plugins/jquery.hotkeys.js'
+    '/codemirror-5.2/lib/codemirror.js'
+    '/codemirror-5.2/mode/groovy/groovy.js'
+  ]
+
+  vendorCss = [
+    '/bootstrap/css/bootstrap.min.css'
+    '/font-awesome-4.0.3/css/font-awesome.css'
+    '/codemirror-5.2/lib/codemirror.css'
+    '/codemirror-5.2/theme/lesser-dark.css'
+    '/jquery-layout/css/jquery.layout.css'
+    '/jquery-ui-1.10.3/jquery-ui.min.css'
+  ]
   
   grunt.initConfig
-
-    pkg: grunt.file.readJSON 'package.json'
 
     app:
       js:
@@ -29,27 +51,10 @@ module.exports = (grunt) ->
           "#{releaseDir}/app.css"
 
     vendor:
-      js: [
-        "#{vendorDir}/js/libs/jquery-1.7.1.min.js"
-        "#{vendorDir}/jquery-ui-1.10.3/jquery-ui.min.js"
-        "#{vendorDir}/bootstrap/js/bootstrap.min.js"
-        "#{vendorDir}/js/libs/underscore-min.js"
-        "#{vendorDir}/js/libs/backbone-min.js"
-        "#{vendorDir}/js/libs/backbone.marionette.min.js"
-        "#{vendorDir}/js/libs/handlebars.runtime-v3.0.1.js"
-        "#{vendorDir}/jquery-layout/js/jquery.layout-latest.min.js"
-        "#{vendorDir}/js/plugins/jquery.hotkeys.js"
-        "#{vendorDir}/codemirror-5.2/lib/codemirror.js"
-        "#{vendorDir}/codemirror-5.2/mode/groovy/groovy.js"
-      ]
-      css: [
-        "#{vendorDir}/bootstrap/css/bootstrap.min.css"
-        "#{vendorDir}/font-awesome-4.0.3/css/font-awesome.css"
-        "#{vendorDir}/codemirror-5.2/lib/codemirror.css"
-        "#{vendorDir}/codemirror-5.2/theme/lesser-dark.css"
-        "#{vendorDir}/jquery-layout/css/jquery.layout.css"
-        "#{vendorDir}/jquery-ui-1.10.3/jquery-ui.min.css"
-      ]
+      js: vendorJs.map (it) -> "#{debugDir}/vendor#{it}"
+      css:
+        debug: vendorCss.map (it) -> "#{debugDir}/vendor#{it}"
+        release: vendorCss.map (it) -> "#{releaseDir}/vendor#{it}"
 
     concat:
       js:
@@ -77,7 +82,7 @@ module.exports = (grunt) ->
           helpers: "#{webSrcDir}/spec/*helper.js"
           keepRunner: true
           outfile: "#{targetDir}/spec/SpecRunner.html"
-          vendor: ['<%= vendor.js %>', "#{vendorDir}/js/plugins/jasmine-jquery.js"]
+          vendor: ['<%= vendor.js %>', "#{debugDir}/vendor/js/plugins/jasmine-jquery.js"]
 
     coffee:
       app:
@@ -100,25 +105,21 @@ module.exports = (grunt) ->
         ]
 
     copy:
-      vendor:
-        expand: true,
-        cwd: "#{webSrcDir}/vendor"
-        src: '**/*'
-        dest: vendorDir
       debug:
-        expand: true,
-        cwd: "#{webSrcDir}/img"
-        src: '**/*'
-        dest: "#{debugDir}/img"
+        files: [
+          {expand: true, cwd: "#{webSrcDir}/img", src: '**/*', dest: "#{debugDir}/img"}
+          {expand: true, cwd: "#{webSrcDir}/vendor", src: '**/*', dest: "#{debugDir}/vendor"}
+        ]
       release:
         files: [
           { expand: true, cwd: "#{webSrcDir}/img", src: '**/*', dest: "#{releaseDir}/img" }
-          { expand: true, cwd: "#{vendorDir}", src: '**/*', dest: "#{releaseDir}/vendor" }
+          { expand: true, cwd: "#{webSrcDir}/vendor", src: '**/*', dest: "#{releaseDir}/vendor" }
           { src: "#{debugDir}/app.css", dest: '<%= app.css.release %>' }
         ]
 
     clean:
-      dist: ["#{staticDir}/dist"]
+      dist: ["#{staticDir}/console*"]
+      debug: [debugDir]
       spec: "#{targetDir}/spec/"
 
     watch:
@@ -150,10 +151,12 @@ module.exports = (grunt) ->
 
     if env is 'debug'
       js = grunt.file.expand(vendor.js).concat grunt.file.expand(app.js.debug)
-      css = grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.debug)
+      css = grunt.file.expand(vendor.css.debug).concat grunt.file.expand(app.css.debug)
+      dir = debugDir
     else
       js = grunt.file.expand(app.js.release)
-      css = grunt.file.expand(vendor.css).concat grunt.file.expand(app.css.release)
+      css = grunt.file.expand(vendor.css.release).concat grunt.file.expand(app.css.release)
+      dir = releaseDir
 
     scriptTags = js.map (file) ->
       """<script type="text/javascript" src="${resource(file: '#{file.replace staticDir, ''}')}" ></script>"""
@@ -161,10 +164,13 @@ module.exports = (grunt) ->
     linkTags = css.map (file) ->
       """<link rel="stylesheet" media="screen" href="${resource(file: '#{file.replace staticDir, ''}')}" />"""
 
+    favicon = """<link rel="icon" type="image/png" href="${resource(file: '#{dir.replace staticDir, ''}/img/grails.logo.png')}" />"""
+
     grunt.file.write 'grails-app/views/console/_js.gsp', scriptTags.join '\n'
     grunt.file.write 'grails-app/views/console/_css.gsp', linkTags.join '\n'
+    grunt.file.write 'grails-app/views/console/_favicon.gsp', favicon
 
   grunt.registerTask 'default', ['debug']
   grunt.registerTask 'test', ['debug', 'clean:spec', 'coffee:spec', 'jasmine']
-  grunt.registerTask 'debug', ['clean:dist', 'handlebars:compile', 'coffee:app', 'copy:debug', 'copy:vendor', 'less:app', 'resources:debug']
-  grunt.registerTask 'release', ['debug', 'copy:release', 'concat:js', 'resources:release']
+  grunt.registerTask 'debug', ['clean:dist', 'handlebars:compile', 'coffee:app', 'copy:debug', 'less:app', 'resources:debug']
+  grunt.registerTask 'release', ['debug', 'copy:release', 'concat:js', 'resources:release', 'clean:debug']

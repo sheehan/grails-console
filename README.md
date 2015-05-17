@@ -12,7 +12,7 @@ The [1.X](https://grails.org/plugin/console) version is for Grails 2, while the 
 Add a dependency in BuildConfig.groovy:
 
 ```groovy
-runtime ':console:1.5.4'
+runtime ':console:1.5.5'
 ```
 
 ### Grails 3
@@ -20,7 +20,7 @@ runtime ':console:1.5.4'
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.0.1'
+runtime 'org.grails.plugins:grails-console:2.0.2'
 ```
 
 ## Usage
@@ -76,8 +76,7 @@ The following configuration options are available:
 | `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Default uses createLink(). |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
-| `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment
-specific warnings, etc... Defaults to empty. |
+| `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment specific warnings, etc... Defaults to empty. |
 
 ## Security
 

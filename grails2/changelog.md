@@ -1,3 +1,8 @@
+### v1.5.5
+
+*   Fix #32 add newFileText config param.
+*   Fix #31 disable hotkeys for layout.
+
 ### v1.5.4
 
 *   Fix #25.

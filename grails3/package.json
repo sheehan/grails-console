@@ -1,6 +1,6 @@
 {
   "name": "grails-console",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "~0.3.0",

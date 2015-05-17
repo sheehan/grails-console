@@ -1,3 +1,12 @@
+### v2.0.2
+
+*   Fix #32 add newFileText config param.
+*   Fix #31 disable hotkeys for layout.
+
+### v2.0.1
+
+*   Fix font-awesome resources.
+
 ### v2.0.0
 
 *   Update for Grails 3.
