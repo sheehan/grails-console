@@ -12,7 +12,13 @@ The [1.X](https://grails.org/plugin/console) version is for Grails 2, while the 
 Add a dependency in BuildConfig.groovy:
 
 ```groovy
-runtime ':console:1.5.5'
+grails.project.dependency.resolution = {
+  // ...
+  plugins {
+    runtime ':console:1.5.5'
+    // ...
+  }
+}
 ```
 
 ### Grails 3
