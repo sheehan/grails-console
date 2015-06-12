@@ -134,7 +134,7 @@ Application = Backbone.Marionette.Application.extend
     $('body').css 'visibility', 'visible'
 
   _initKeybindings: ->
-    $(document).bind 'keydown', 'Ctrl+return Meta+return', => @execute 'execute'
+    $(document).bind 'keyup', 'Ctrl+return Meta+return', => @execute 'execute'
     $(document).bind 'keydown', 'Ctrl+s Meta+s', (event) =>
       event.preventDefault()
       event.stopPropagation()
