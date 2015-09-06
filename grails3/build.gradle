@@ -25,7 +25,7 @@ apply plugin: 'idea'
 apply plugin: "spring-boot"
 apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-gsp"
-// Used for publishing to central repository, remove if not needed
+
 apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
 apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
 
@@ -78,17 +78,3 @@ task repairPublicFiles(type: Copy) { // https://github.com/grails/grails-core/is
     into 'build/resources/main/static'
 }
 processResources.finalizedBy repairPublicFiles
-
-bintray {
-    pkg {
-        repo = 'grails-plugins'
-        userOrg = 'sheehan'
-        name = 'org.grails.plugins:console'
-        desc = 'Grails Console Plugin'
-        websiteUrl = 'https://grails.org/plugin/console'
-        issueTrackerUrl = 'https://github.com/sheehan/grails-console/issues'
-        vcsUrl = 'https://github.com/sheehan/grails-console'
-        licenses = ['Apache-2.0']
-        publicDownloadNumbers = true
-    }
-}
