@@ -15,7 +15,7 @@ Add a dependency in BuildConfig.groovy:
 grails.project.dependency.resolution = {
   // ...
   plugins {
-    runtime ':console:1.5.5'
+    runtime ':console:1.5.6'
     // ...
   }
 }
@@ -28,7 +28,7 @@ grails.project.dependency.resolution = {
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.0.2'
+runtime 'org.grails.plugins:grails-console:2.0.3'
 ```
 
 ## Usage
