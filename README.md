@@ -77,6 +77,9 @@ The following configuration options are available:
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
 | `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment specific warnings, etc... Defaults to empty. |
+| `grails.plugin.console.tabSize`                  | The width of a tab character. Defaults to 4. |
+| `grails.plugin.console.indentWithTabs`           | Whether indents should use tabs rather than spaces. Default is false. |
+| `grails.plugin.console.indentUnit`               | How many spaces a block should be indented. The default is 4. |
 
 ## Security
 

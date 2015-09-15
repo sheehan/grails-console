@@ -16,9 +16,15 @@ describe 'App.Editor.EditorView', ->
     @view.setValue 'test value'
     expect(@view.getValue()).toBe 'test value'
 
-  it 'should setTheme', ->
+  it 'should syncEditorSettings', ->
     App.settings.set 'theme', 'test-theme'
     expect(@view.editor.getOption 'theme').toBe 'test-theme'
+
+    App.settings.set 'editor.codeMirror.indentUnit', 8
+    expect(@view.editor.getOption 'indentUnit').toBe 8
+
+    App.settings.set 'editor.codeMirror.indentWithTabs', false
+    expect(@view.editor.getOption 'indentWithTabs').toBe false
 
   it 'should execute new on click', ->
     spyOn App, 'execute'

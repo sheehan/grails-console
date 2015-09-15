@@ -25,9 +25,9 @@ App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
         matchBrackets: true
         mode: 'groovy'
         lineNumbers: true
-        indentWithTabs: false
-        tabSize: 4,
-        indentUnit: 4
+        tabSize:        App.data.tabSize        ? 4,
+        indentUnit:     App.data.indentUnit     ? 4
+        indentWithTabs: App.data.indentWithTabs ? false
         extraKeys:
           'Ctrl-Enter': ->  App.execute 'execute'
           'Cmd-Enter': ->   App.execute 'execute'
