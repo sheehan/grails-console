@@ -26,6 +26,7 @@ class ConsoleController {
                     config:             'the Grails configuration',
                     request:            'the HTTP request',
                     session:            'the HTTP session',
+                    out:                'the output PrintStream'
                 ],
                 baseUrl: getBaseUrl(),
                 remoteFileStoreEnabled: isRemoteFileStoreEnabled(),

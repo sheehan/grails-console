@@ -1,3 +1,9 @@
+### v2.0.3
+
+*   Add `out` binding.
+*   Fix #36 mixed content check.
+*   Fix #29 configuration of editor tabs and indentation.
+
 ### v2.0.2
 
 *   Fix #32 add newFileText config param.

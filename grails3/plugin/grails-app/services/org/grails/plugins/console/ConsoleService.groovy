@@ -19,15 +19,17 @@ class ConsoleService {
     Evaluation eval(String code, boolean autoImportDomains, request) {
         log.trace "eval() code: $code"
 
-        StringBuilder output = new StringBuilder()
-        SystemOutputInterceptor systemOutInterceptor = createInterceptor(output)
+        ByteArrayOutputStream baos = new ByteArrayOutputStream()
+        PrintStream out = new PrintStream(baos)
+
+        SystemOutputInterceptor systemOutInterceptor = createInterceptor(out)
         systemOutInterceptor.start()
 
         Evaluation evaluation = new Evaluation()
 
         long startTime = System.currentTimeMillis()
         try {
-            Binding binding = createBinding(request)
+            Binding binding = createBinding(request, out)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
 
             GroovyShell groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
@@ -39,25 +41,26 @@ class ConsoleService {
         evaluation.totalTime = System.currentTimeMillis() - startTime
         systemOutInterceptor.stop()
 
-        evaluation.output = output.toString()
+        evaluation.output = baos.toString('UTF8')
         evaluation
     }
 
-    private static SystemOutputInterceptor createInterceptor(StringBuilder output) {
+    private static SystemOutputInterceptor createInterceptor(PrintStream out) {
         new SystemOutputInterceptor({ String s ->
-            output.append s
+            out.println s
             return false
         })
     }
 
-    private Binding createBinding(request) {
+    private Binding createBinding(request, PrintStream out) {
         new Binding([
             session          : request.session,
             request          : request,
             ctx              : grailsApplication.mainContext,
             grailsApplication: grailsApplication,
             config           : grailsApplication.config,
-            log              : log
+            log              : log,
+            out              : out
         ])
     }
 

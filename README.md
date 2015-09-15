@@ -55,6 +55,7 @@ The following implicit variables are available:
 * `config` - the Grails configuration
 * `request` - the current [HTTP request](http://java.sun.com/products/servlet/2.3/javadoc/javax/servlet/http/HttpServletRequest.html)
 * `session` - the current [HTTP session](http://java.sun.com/products/servlet/2.3/javadoc/javax/servlet/http/HttpSession.html)
+* `out` - the output [PrintStream](http://docs.oracle.com/javase/7/docs/api/java/io/PrintStream.html)
 
 See [Script Examples](https://github.com/sheehan/grails-console/wiki/Script-Examples) for example usage.
 

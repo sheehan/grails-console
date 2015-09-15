@@ -21,11 +21,12 @@ class ConsoleController {
         Map model = [
             json: [
                 implicitVars: [
-                    ctx: 'the Spring application context',
-                    grailsApplication: 'the Grails application',
-                    config: 'the Grails configuration',
-                    request: 'the HTTP request',
-                    session: 'the HTTP session',
+                    ctx:                'the Spring application context',
+                    grailsApplication:  'the Grails application',
+                    config:             'the Grails configuration',
+                    request:            'the HTTP request',
+                    session:            'the HTTP session',
+                    out:                'the output PrintStream'
                 ],
                 baseUrl: getBaseUrl(),
                 remoteFileStoreEnabled: isRemoteFileStoreEnabled(),
