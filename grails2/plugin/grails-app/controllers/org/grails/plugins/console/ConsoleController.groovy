@@ -18,6 +18,7 @@ class ConsoleController {
     }
 
     def index() {
+        String serverName = request.serverName
         Map model = [
             json: [
                 implicitVars: [
@@ -28,7 +29,7 @@ class ConsoleController {
                     session:            'the HTTP session',
                     out:                'the output PrintStream'
                 ],
-                baseUrl: getBaseUrl(),
+                baseUrl: getBaseUrl(serverName),
                 remoteFileStoreEnabled: isRemoteFileStoreEnabled(),
                 groovyVersion: GroovySystem.version,
                 grailsVersion: grailsApplication.metadata['app.grails.version']
@@ -204,8 +205,13 @@ class ConsoleController {
         grailsApplication.config.grails.plugin.console.fileStore.remote.enabled != false
     }
 
-    private String getBaseUrl() {
+    private String getBaseUrl(String serverName) {
         def baseUrl = grailsApplication.config.grails.plugin.console.baseUrl
+        if (baseUrl instanceof List) {
+            baseUrl = baseUrl.find { String baseUrlFromConfig ->
+                baseUrlFromConfig.contains(serverName)
+            }
+        }
         if (!(baseUrl instanceof String)) {
             baseUrl = createLink(action: 'index', absolute: true) - '/index'
         }
