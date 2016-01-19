@@ -2,9 +2,9 @@ package org.grails.plugins.console
 
 import grails.converters.JSON
 import grails.test.mixin.TestFor
-import grails.util.BuildSettingsHolder
 import org.apache.commons.io.FileUtils
 import spock.lang.Specification
+import java.nio.file.Files
 
 @TestFor(ConsoleController)
 class ConsoleControllerSpec extends Specification {
@@ -15,7 +15,7 @@ class ConsoleControllerSpec extends Specification {
     void setup() {
         JSON.createNamedConfig 'console', {}
         controller.consoleService = consoleService
-        tempDir = createTempDir()
+        tempDir = Files.createTempDirectory('console').toFile()
         config.grails.plugin.console.fileStore.remote.enabled = true
     }
 
@@ -329,12 +329,4 @@ class ConsoleControllerSpec extends Specification {
         response.status == 500
         response.json.error.contains 'could not be created'
     }
-
-    private File createTempDir() {
-        File projectWorkDir = BuildSettingsHolder.settings.projectWorkDir
-        File tempDir = new File(projectWorkDir, 'tmp')
-        tempDir.mkdir()
-        tempDir
-    }
-
 }
