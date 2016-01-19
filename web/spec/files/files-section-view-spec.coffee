@@ -18,7 +18,7 @@ describe 'App.Files.FilesSectionView', ->
 
   it 'should render', ->
     @$el.append @view.render().$el
-    expect(@view.$el).toBe 'div.modal-dialog.files-section-view'
+    expect(@view.$el).toHaveClass 'files-section-view'
 
   it 'should update name', ->
     @$el.append @view.render().$el

@@ -1,3 +1,8 @@
+### v1.5.7
+
+*   New build script
+*   Add support for multiple base URLs (#44)
+
 ### v1.5.6
 
 *   Add `out` binding.

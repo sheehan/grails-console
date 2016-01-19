@@ -1,3 +1,9 @@
+### v2.0.4
+
+*   Fix #45 update resource URL
+*   New build script
+*   Add support for multiple base URLs (#44)
+
 ### v2.0.3
 
 *   Add `out` binding.

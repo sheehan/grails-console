@@ -7,6 +7,6 @@ grails clean
 grails compile
 
 npm install
-grunt release
+gulp release-all
 
 ./gradlew bintrayUpload

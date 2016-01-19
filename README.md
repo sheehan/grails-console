@@ -15,7 +15,7 @@ Add a dependency in BuildConfig.groovy:
 grails.project.dependency.resolution = {
   // ...
   plugins {
-    runtime ':console:1.5.6'
+    runtime ':console:1.5.7'
     // ...
   }
 }
@@ -28,7 +28,7 @@ grails.project.dependency.resolution = {
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.0.3'
+runtime 'org.grails.plugins:grails-console:2.0.4'
 ```
 
 ## Usage
@@ -82,7 +82,7 @@ The following configuration options are available:
 | Property | Description |
 |---|---|
 | `grails.plugin.console.enabled`                  | Whether to enable the plugin. Default is true for the development environment, false otherwise. |
-| `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Default uses createLink(). |
+| `grails.plugin.console.baseUrl`                  | Base URL for the console controller. Can be a String or a List of Strings if having multiple URLs is desired. Default uses createLink(). |
 | `grails.plugin.console.fileStore.remote.enabled` | Whether to include the remote file store functionality. Default is true. |
 | `grails.plugin.console.layout`                   | Used to override the plugin's GSP layout. |
 | `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment specific warnings, etc... Defaults to empty. |

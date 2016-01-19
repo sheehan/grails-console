@@ -3,7 +3,7 @@ target
 *.zip
 plugin.xml
 .settings/
-web-app/WEB-INF/tld
+/web-app/
 .idea
 /node_modules/
 /.grunt/

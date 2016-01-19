@@ -16,7 +16,7 @@ plugins {
     id "com.jfrog.bintray" version "1.1"
 }
 
-version "2.0.3"
+version "2.0.4"
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -25,7 +25,6 @@ apply plugin: 'idea'
 apply plugin: "spring-boot"
 apply plugin: "org.grails.grails-plugin"
 apply plugin: "org.grails.grails-gsp"
-// Used for publishing to central repository, remove if not needed
 apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
 apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
 
@@ -83,7 +82,7 @@ bintray {
     pkg {
         repo = 'grails-plugins'
         userOrg = 'sheehan'
-        name = 'org.grails.plugins:console'
+        name = 'console'
         desc = 'Grails Console Plugin'
         websiteUrl = 'https://grails.org/plugin/console'
         issueTrackerUrl = 'https://github.com/sheehan/grails-console/issues'

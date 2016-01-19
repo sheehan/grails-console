@@ -27,7 +27,7 @@ describe 'App.Entities.LocalFileStore', ->
     file.store = 'local'
 
     expect(file.id).not.toBeDefined()
-    spyOn(@store, 'create').andCallThrough()
+    spyOn(@store, 'create').and.callThrough()
     file.save()
 
     expect(@store.list().length).toBe 1
@@ -37,19 +37,19 @@ describe 'App.Entities.LocalFileStore', ->
     file.set 'name', 'different'
     expect(file.get('name')).toBe('different')
 
-    spyOn(@store, 'find').andCallThrough()
+    spyOn(@store, 'find').and.callThrough()
     file.fetch()
 
     expect(@store.find).toHaveBeenCalled()
     expect(file.get('name')).toBe('test-name')
 
-    spyOn(@store, 'update').andCallThrough()
+    spyOn(@store, 'update').and.callThrough()
     file.save()
 
     expect(@store.list().length).toBe 1
     expect(@store.update).toHaveBeenCalled()
 
-    spyOn(@store, 'destroy').andCallThrough()
+    spyOn(@store, 'destroy').and.callThrough()
     file.destroy()
 
     expect(@store.list().length).toBe 0

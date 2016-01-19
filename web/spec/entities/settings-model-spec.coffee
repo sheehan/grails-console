@@ -15,7 +15,7 @@ describe 'App.Entities.Settings', ->
   it 'should load from localStorage', ->
     expect(@settings.get('orientation')).toBe('vertical')
 
-    spyOn(localStorage, 'getItem').andCallFake ->
+    spyOn(localStorage, 'getItem').and.callFake ->
       JSON.stringify
         orientation:'horizontal'
 
@@ -27,7 +27,7 @@ describe 'App.Entities.Settings', ->
     @settings.set
       orientation: 'horizontal'
 
-    spyOn(localStorage, 'setItem').andCallFake ->
+    spyOn(localStorage, 'setItem').and.callFake ->
 
     @settings.save()
     expect(localStorage.setItem).toHaveBeenCalled()
