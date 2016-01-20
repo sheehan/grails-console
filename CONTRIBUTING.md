@@ -1,23 +1,25 @@
 # Contributing
 
-This plugin uses [Grunt](http://gruntjs.com/) to build its resources. To install the Grunt CLI run:
-
-    npm install -g grunt-cli
+This plugin uses [Gulp](http://gulpjs.com/) to build its resources.
 
 ## Building
 
 1. Change to the project's root directory.
 1. Install project dependencies with `npm install`.
-1. Build the resources with `grunt release`.
+1. Build the resources with `gulp release-all`.
 
-## Grunt tasks
+## Gulp tasks
 
 | Task | Description |
 | --- | --- |
-| watch   | Watches for file changes and updates `web-app/dist/debug`.|
+| watch   | Watches for file changes and update.|
 | test    | Runs all jasmine tests. |
-| debug   | Builds all debug resources to `web-app/dist/debug`.|
-| release | Builds all release resources to `web-app/dist/release`.|
+| grails2:debug   | Builds all debug resources and copy to grails2.|
+| grails3:debug   | Builds all debug resources and copy to grails3.|
+| debug-all       | Builds all debug resources and copy to grails2 and grails3.|
+| grails2:release | Builds all release resources and copy to grails2.|
+| grails3:release | Builds all release resources and copy to grails3.|
+| release-all     | Builds all release resources and copy to graisl2 and grails3.|
 
 ## File structure
 
