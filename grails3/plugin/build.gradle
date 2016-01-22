@@ -89,6 +89,6 @@ bintray {
         vcsUrl = 'https://github.com/sheehan/grails-console'
         licenses = ['Apache-2.0']
         publicDownloadNumbers = true
-        attributes = [pluginScope: 'compile']
+        attributes = [pluginScope: 'runtime']
     }
 }
