@@ -25,6 +25,8 @@ grails.project.dependency.resolution = {
 
 **Note:** If using Grails 3.0.4, you need to update the asset-pipeline dependency in build.gradle to 3.0.6 or greater. 3.0.5 is used by default and has a bug that prevents the console page from rendering.
 
+**Note:** If using Grails 3.0.12, you will need to add this to your configuration:  `grails.resources.pattern = '/**'`. There is a [bug](https://github.com/grails/grails-core/issues/9584) related to resource paths.
+
 Add a dependency in build.gradle
 
 ```groovy
