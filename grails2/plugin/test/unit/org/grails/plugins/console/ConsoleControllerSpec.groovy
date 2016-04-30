@@ -74,7 +74,8 @@ class ConsoleControllerSpec extends Specification {
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
-            output: 'test-output'
+            output: 'test-output',
+            totalTime: 10
         )
         with(response.json) {
             result == "'test-result'"
@@ -94,6 +95,7 @@ class ConsoleControllerSpec extends Specification {
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output',
+            totalTime: 10,
             exception: new RuntimeException()
         )
         with(response.json) {

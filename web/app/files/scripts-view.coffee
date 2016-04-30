@@ -22,10 +22,16 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
 
       @listenTo @collection, 'fetching', =>
         @loading = true
+        @error = false
         @render()
 
       @listenTo @collection, 'add remove reset', =>
         @loading = false
+        @render()
+
+      @listenTo @collection, 'error', =>
+        @loading = false
+        @error = true
         @render()
 
     onNameClick: (event) ->
@@ -43,7 +49,8 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
       @lastPaths[@collection.store] = @collection.path
 
       store = $(event.currentTarget).data('store')
-      path = @lastPaths[store] ? '/'
+      path = @lastPaths[store]
+      path = App.data.remoteFileStoreDefaultPath ? '/' unless path
 
       @collection.fetchByStoreAndPath store, path
 
@@ -73,6 +80,7 @@ App.module 'Files', (Files, App, Backbone, Marionette, $, _) ->
       showDelete: @showDelete
       showCollapse: @showCollapse
       loading: @loading
+      error: @error
 
   Handlebars.registerHelper 'scriptsFileItem', (file, options) ->
     showDelete = options.hash.showDelete

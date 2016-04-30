@@ -13,7 +13,7 @@ Application = Backbone.Marionette.Application.extend
     if window.location.protocol is 'https:' and @data.baseUrl.indexOf('http:') is 0
       @data.baseUrl = @data.baseUrl.replace 'http:', 'https:'
 
-    modifier = if navigator.userAgent.indexOf('Mac OS X') != -1 then 'Cmd' else 'Ctrl'
+    modifier = if navigator.userAgent.indexOf('Mac OS X') != -1 then '⌘' else 'Ctrl'
     @data.shortcuts = {}
     @data.shortcuts["#{modifier}-enter"] = 'Execute'
     @data.shortcuts["#{modifier}-s"] =     'Save'

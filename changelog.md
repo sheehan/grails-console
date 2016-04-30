@@ -1,3 +1,9 @@
+### v2.0.5 / v1.5.8
+
+*   Fix #50 move enabled check to interceptor
+*   Fix #49 add fileStore.remote.defaultPath config option
+*   Fix #48 handle remote file list failure
+
 ### v2.0.4 / v1.5.7
 
 *   Fix #45 update resource URL (grails3)

@@ -16,7 +16,7 @@ plugins {
     id "com.jfrog.bintray" version "1.1"
 }
 
-version "2.0.4"
+version "2.0.5"
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -83,8 +83,8 @@ bintray {
         repo = 'grails-plugins'
         userOrg = 'sheehan'
         name = 'console'
-        desc = 'Grails Console Plugin'
-        websiteUrl = 'https://grails.org/plugin/console'
+        desc = 'A web-based Groovy console for interactive runtime application management and debugging.'
+        websiteUrl = 'https://grails.org/plugins.html#plugin/console'
         issueTrackerUrl = 'https://github.com/sheehan/grails-console/issues'
         vcsUrl = 'https://github.com/sheehan/grails-console'
         licenses = ['Apache-2.0']

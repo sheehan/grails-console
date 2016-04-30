@@ -20,6 +20,8 @@
 <div class="files-wrapper">
   {{#if loading}}
       <div class="loading"><i class="fa fa-refresh fa-spin"></i></div>
+  {{else if error}}
+      <div class="loading"><i class="fa fa-exclamation-triangle" title="Load failed."></i></div>
   {{else}}
     {{#if files}}
         <ul class="files">

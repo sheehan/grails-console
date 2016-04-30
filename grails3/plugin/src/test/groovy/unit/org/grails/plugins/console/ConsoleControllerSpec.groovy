@@ -23,21 +23,6 @@ class ConsoleControllerSpec extends Specification {
         FileUtils.deleteDirectory tempDir
     }
 
-    void 'beforeInterceptor - console plugin disabled'() {
-        expect:
-        controller.beforeInterceptor() == false
-        response.status == 404
-    }
-
-    void 'beforeInterceptor - console plugin enabled'() {
-        given:
-        config.grails.plugin.console.enabled = true
-
-        expect:
-        controller.beforeInterceptor() != false
-        response.status != 404
-    }
-
     void 'index'() {
         when:
         controller.index()
@@ -74,7 +59,8 @@ class ConsoleControllerSpec extends Specification {
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
-            output: 'test-output'
+            output: 'test-output',
+            totalTime: 10
         )
         with(response.json) {
             result == "'test-result'"
@@ -94,6 +80,7 @@ class ConsoleControllerSpec extends Specification {
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output',
+            totalTime: 10,
             exception: new RuntimeException()
         )
         with(response.json) {

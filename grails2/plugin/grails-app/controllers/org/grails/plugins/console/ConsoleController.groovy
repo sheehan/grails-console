@@ -52,6 +52,10 @@ class ConsoleController {
             model.json.indentUnit = consoleConfig.indentUnit as int
         }
 
+        if (consoleConfig.fileStore.remote.defaultPath) {
+            model.json.remoteFileStoreDefaultPath = consoleConfig.fileStore.remote.defaultPath.toString()
+        }
+
         render view: 'index', model: model
     }
 
