@@ -8,7 +8,6 @@ npm install
 gulp grails3:release
 
 cd grails3/plugin
-grails clean
-grails compile
-
+./gradlew clean
+./gradlew compileGroovy
 ./gradlew bintrayUpload
