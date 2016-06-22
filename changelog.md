@@ -1,3 +1,7 @@
+### v2.0.6 / v1.5.9
+*   Fix #52 bad dependency graph
+*   Fix #51 database commands fail if dataSource is defined with logSql=true
+
 ### v2.0.5 / v1.5.8
 
 *   Fix #50 move enabled check to interceptor

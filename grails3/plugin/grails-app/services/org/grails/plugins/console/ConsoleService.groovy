@@ -1,6 +1,5 @@
 package org.grails.plugins.console
 
-import groovy.ui.SystemOutputInterceptor
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 import grails.core.GrailsApplication
@@ -22,8 +21,8 @@ class ConsoleService {
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         PrintStream out = new PrintStream(baos)
 
-        SystemOutputInterceptor systemOutInterceptor = createInterceptor(out)
-        systemOutInterceptor.start()
+        PrintStream systemOut = System.out
+        System.out = out
 
         Evaluation evaluation = new Evaluation()
 
@@ -39,17 +38,10 @@ class ConsoleService {
         }
 
         evaluation.totalTime = System.currentTimeMillis() - startTime
-        systemOutInterceptor.stop()
+        System.out = systemOut
 
         evaluation.output = baos.toString('UTF8')
         evaluation
-    }
-
-    private static SystemOutputInterceptor createInterceptor(PrintStream out) {
-        new SystemOutputInterceptor({ String s ->
-            out.println s
-            return false
-        })
     }
 
     private Binding createBinding(request, PrintStream out) {
@@ -59,7 +51,6 @@ class ConsoleService {
             ctx              : grailsApplication.mainContext,
             grailsApplication: grailsApplication,
             config           : grailsApplication.config,
-            log              : log,
             out              : out
         ])
     }
