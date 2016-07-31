@@ -9,7 +9,9 @@ class TokenInterceptor {
     }
 
     boolean before() {
-        if (consoleConfig.csrfProtectionEnabled && request.getHeader('X-CSRFToken') != session['CONSOLE_CSRF_TOKEN']) {
+        if (actionName
+            && consoleConfig.csrfProtectionEnabled
+            && request.getHeader('X-CSRFToken') != session['CONSOLE_CSRF_TOKEN']) {
             response.status = 403
             response.writer.println "CSRF token doesn't match. Please refresh the page."
             return false
