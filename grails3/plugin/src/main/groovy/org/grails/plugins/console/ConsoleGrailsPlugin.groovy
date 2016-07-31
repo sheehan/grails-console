@@ -37,4 +37,8 @@ class ConsoleGrailsPlugin extends Plugin {
             }
         }
     }
+
+    Closure doWithSpring() {{->
+        consoleConfig(ConsoleConfig, config.grails.plugin.console)
+    }}
 }

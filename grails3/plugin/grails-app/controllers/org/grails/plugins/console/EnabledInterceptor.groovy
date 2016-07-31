@@ -5,12 +5,14 @@ import grails.util.Environment
 
 class EnabledInterceptor {
 
+    def consoleConfig
+
     EnabledInterceptor() {
         match(controller: 'console')
     }
 
     boolean before() {
-        def enabled = grailsApplication.config.grails.plugin.console.enabled
+        def enabled = consoleConfig.enabled
         if (!(enabled instanceof Boolean)) {
             enabled = Environment.current == Environment.DEVELOPMENT
         }

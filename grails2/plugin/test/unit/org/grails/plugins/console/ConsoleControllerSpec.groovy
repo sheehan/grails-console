@@ -17,6 +17,8 @@ class ConsoleControllerSpec extends Specification {
         controller.consoleService = consoleService
         tempDir = Files.createTempDirectory('console').toFile()
         config.grails.plugin.console.fileStore.remote.enabled = true
+        config.grails.plugin.console.csrfProtection.enabled = true
+        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
     }
 
     void cleanup() {
@@ -32,6 +34,7 @@ class ConsoleControllerSpec extends Specification {
     void 'beforeInterceptor - console plugin enabled'() {
         given:
         config.grails.plugin.console.enabled = true
+        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
 
         expect:
         controller.beforeInterceptor() != false
@@ -58,6 +61,7 @@ class ConsoleControllerSpec extends Specification {
     void 'index - baseUrl with config'() {
         when:
         config.grails.plugin.console.baseUrl = 'http://localhost:5050/x/y/z/console'
+        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
         controller.index()
 
         then:
@@ -153,6 +157,7 @@ class ConsoleControllerSpec extends Specification {
         given:
         String path = tempDir.absolutePath
         config.grails.plugin.console.fileStore.remote.enabled = false
+        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
 
         when:
         controller.listFiles(path)
@@ -190,6 +195,7 @@ class ConsoleControllerSpec extends Specification {
 
         params.path = testFile1.absolutePath
         config.grails.plugin.console.fileStore.remote.enabled = false
+        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
 
         when:
         controller.file()

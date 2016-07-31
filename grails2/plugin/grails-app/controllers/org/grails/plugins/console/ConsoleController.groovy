@@ -9,10 +9,18 @@ import java.lang.reflect.Method
 class ConsoleController {
 
     def consoleService
+    def consoleConfig
 
     def beforeInterceptor = {
-        if (!isConsolePluginEnabled()) {
+        if (!consoleConfig.enabled) {
             response.sendError 404
+            return false
+        }
+        if (actionName != 'index'
+            && consoleConfig.csrfProtectionEnabled
+            && request.getHeader('X-CSRFToken') != session['CONSOLE_CSRF_TOKEN']) {
+            response.status = 403
+            response.writer.println "CSRF token doesn't match. Please refresh the page."
             return false
         }
     }
@@ -29,31 +37,29 @@ class ConsoleController {
                     out:                'the output PrintStream'
                 ],
                 baseUrl: getBaseUrl(),
-                remoteFileStoreEnabled: isRemoteFileStoreEnabled(),
+                remoteFileStoreEnabled: consoleConfig.remoteFileStoreEnabled,
                 groovyVersion: GroovySystem.version,
                 grailsVersion: grailsApplication.metadata['app.grails.version']
             ]
         ]
 
-        def consoleConfig = grailsApplication.config.grails.plugin.console
-        if (consoleConfig.newFileText) {
-            model.json.newFileText = consoleConfig.newFileText.toString()
+        if (consoleConfig.newFileText != null) {
+            model.json.newFileText = consoleConfig.newFileText
         }
 
-        if (consoleConfig.indentWithTabs) {
-            model.json.indentWithTabs = consoleConfig.indentWithTabs as boolean
+        model.json.indentWithTabs = consoleConfig.indentWithTabs
+        model.json.tabSize = consoleConfig.tabSize
+        model.json.indentUnit = consoleConfig.indentUnit
+
+        if (consoleConfig.remoteFileStoreDefaultPath != null) {
+            model.json.remoteFileStoreDefaultPath = consoleConfig.remoteFileStoreDefaultPath
         }
 
-        if (consoleConfig.tabSize) {
-            model.json.tabSize = consoleConfig.tabSize as int
-        }
-
-        if (consoleConfig.indentUnit) {
-            model.json.indentUnit = consoleConfig.indentUnit as int
-        }
-
-        if (consoleConfig.fileStore.remote.defaultPath) {
-            model.json.remoteFileStoreDefaultPath = consoleConfig.fileStore.remote.defaultPath.toString()
+        if (consoleConfig.csrfProtectionEnabled) {
+            if (!session['CONSOLE_CSRF_TOKEN']) {
+                session['CONSOLE_CSRF_TOKEN'] = UUID.randomUUID().toString()
+            }
+            model.json.csrfToken = session['CONSOLE_CSRF_TOKEN']
         }
 
         render view: 'index', model: model
@@ -83,7 +89,7 @@ class ConsoleController {
     }
 
     def listFiles(String path) {
-        if (!isRemoteFileStoreEnabled()) {
+        if (!consoleConfig.remoteFileStoreEnabled) {
             return renderError("Remote file store disabled", 403)
         }
 
@@ -100,7 +106,7 @@ class ConsoleController {
     }
 
     def file() {
-        if (!isRemoteFileStoreEnabled()) {
+        if (!consoleConfig.remoteFileStoreEnabled) {
             return renderError("Remote file store disabled", 403)
         }
         switch (request.method) {
@@ -196,27 +202,15 @@ class ConsoleController {
         render([error: error] as JSON)
     }
 
-    private boolean isConsolePluginEnabled() {
-        def enabled = grailsApplication.config.grails.plugin.console.enabled
-        if (!(enabled instanceof Boolean)) {
-            enabled = Environment.current == Environment.DEVELOPMENT
-        }
-        enabled
-    }
-
-    private boolean isRemoteFileStoreEnabled() {
-        grailsApplication.config.grails.plugin.console.fileStore.remote.enabled != false
-    }
-
     private String getBaseUrl() {
-        def baseUrl = grailsApplication.config.grails.plugin.console.baseUrl
+        def baseUrl = consoleConfig.baseUrl
         if (baseUrl instanceof List) {
             String serverName = request.serverName
             baseUrl = baseUrl.find { String baseUrlFromConfig ->
                 baseUrlFromConfig.contains(serverName)
             }
         }
-        if (!(baseUrl instanceof String)) {
+        if (baseUrl == null) {
             baseUrl = createLink(action: 'index', absolute: true) - '/index'
         }
         baseUrl

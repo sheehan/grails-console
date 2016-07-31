@@ -15,7 +15,7 @@ Add a dependency in BuildConfig.groovy:
 grails.project.dependency.resolution = {
   // ...
   plugins {
-    runtime ':console:1.5.9'
+    runtime ':console:1.5.10'
     // ...
   }
 }
@@ -30,7 +30,7 @@ grails.project.dependency.resolution = {
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.0.6'
+runtime 'org.grails.plugins:grails-console:2.0.7'
 ```
 
 ## Usage
@@ -73,9 +73,9 @@ See [Script Examples](https://github.com/sheehan/grails-console/wiki/Script-Exam
 
 | Key | Command |
 |---|---|
-| Ctrl-Enter / Cmd-Enter | Execute |
-| Ctrl-S / Cmd-S         | Save |
-| Esc                    | Clear output |
+| Ctrl-Enter / ⌘-Enter | Execute |
+| Ctrl-S / ⌘-S         | Save |
+| Esc                  | Clear output |
 
 ## Configuration
 
@@ -91,7 +91,8 @@ The following configuration options are available:
 | `grails.plugin.console.newFileText`              | Text to display as a template for new files. Can be used to add frequently used imports, environment specific warnings, etc... Defaults to empty. |
 | `grails.plugin.console.tabSize`                  | The width of a tab character. Defaults to 4. |
 | `grails.plugin.console.indentWithTabs`           | Whether indents should use tabs rather than spaces. Default is false. |
-| `grails.plugin.console.indentUnit`               | How many spaces a block should be indented. The default is 4. |
+| `grails.plugin.console.indentUnit`               | How many spaces a block should be indented. Default is 4. |
+| `grails.plugin.console.csrfProtection.enabled`   | Whether to enable CSRF protection. Default is true. |
 
 ## Security
 

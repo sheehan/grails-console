@@ -21,6 +21,10 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
           output: response.output
 
       jqxhr.fail =>
+        if jqxhr.status
+          message = "Server returned #{jqxhr.status}: #{jqxhr.responseText}"
+        else
+          message = "Server not found."
         @set
           loading: false
-          error: 'Server returned an error.'
+          error: message

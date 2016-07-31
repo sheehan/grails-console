@@ -1,6 +1,12 @@
 Marionette.Renderer.render = (template, data) ->
   JST[template] data # use compiled templates
 
+$.ajaxSetup(
+  beforeSend: (xhr, settings) ->
+    if not this.crossDomain and App.data.csrfToken
+      xhr.setRequestHeader 'X-CSRFToken', App.data.csrfToken
+)
+
 Application = Backbone.Marionette.Application.extend
 
   fileStores: {}
