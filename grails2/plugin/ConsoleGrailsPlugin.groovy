@@ -4,7 +4,7 @@ import org.grails.plugins.console.ConsoleConfig
 import java.lang.reflect.Method
 
 class ConsoleGrailsPlugin {
-	String version = '1.5.10'
+	String version = '1.5.11'
 	String grailsVersion = '2.0 > *'
 	String title = 'Console Plugin'
 	String description = 'A web-based Groovy console for interactive runtime application management and debugging'

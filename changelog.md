@@ -1,3 +1,6 @@
+### v2.0.8 / v1.5.11
+*   Fix #55 more CSRF protection
+
 ### v2.0.7 / v1.5.10
 *   Fix #54 add CSRF protection
 
