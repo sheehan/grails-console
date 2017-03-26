@@ -1,3 +1,5 @@
+package org.grails.plugins.console
+
 class ConsoleUrlMappings {
 
     static mappings = {
