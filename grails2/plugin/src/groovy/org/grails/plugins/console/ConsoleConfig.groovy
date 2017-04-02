@@ -7,8 +7,8 @@ class ConsoleConfig {
     boolean enabled
     String newFileText = null
     boolean indentWithTabs = false
-    boolean tabSize = 4
-    boolean indentUnit = 4
+    int tabSize = 4
+    int indentUnit = 4
     String remoteFileStoreDefaultPath = null
     boolean remoteFileStoreEnabled = true
     boolean csrfProtectionEnabled = true
