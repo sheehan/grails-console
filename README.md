@@ -35,7 +35,7 @@ runtime 'org.grails.plugins:grails-console:2.0.8'
 
 ## Usage
 
-Use a browser to navigate to the /console page of your running app, e.g. http://localhost:8080/\<app-name>/console
+Use a browser to navigate to the /console page of your running app, e.g. http://localhost:8080/{app-name}/console
 
 Type any Groovy commands in the console text area, then click on the execute button. The console plugin relies on Groovy Shell. Lookup Groovy Shell documentation for more information.
 The Groovy Shell uses the Grails classloader, so you can access any class or artifact (e.g. domain classes, services, etc.) just like in your application code.
