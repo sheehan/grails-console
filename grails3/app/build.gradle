@@ -73,7 +73,7 @@ dependencies {
 
     console "org.grails:grails-console"
 
-    runtime project(':plugin')
+    compile project(':plugin')
 }
 
 task wrapper(type: Wrapper) {

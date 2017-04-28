@@ -15,7 +15,10 @@
 <body style="visibility: hidden">
 
 <div id="header"></div>
-<div class="full-height"><div id="main-content"></div></div>
+<div id="main-content-wrapper" class="full-height">
+  <div id="main-content"></div>
+  <div id="health-region" class="full-height hide"></div>
+</div>
 <g:render template="js" />
 
 <script type="text/javascript" charset="utf-8">

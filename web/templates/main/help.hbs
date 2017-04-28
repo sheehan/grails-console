@@ -1,0 +1,51 @@
+<h2>Help <a class="close-it pull-right" title="Close" href="#"><i class="fa fa-times"></i></a></h2>
+
+<h3>Executing code</h3>
+<p>
+    Type any Groovy commands in the console text area, then click on the execute button.
+    The console plugin relies on Groovy Shell. Lookup Groovy Shell documentation for more information.
+    The Groovy Shell uses the Grails classloader, so you can access any class or artifact
+    (e.g. domain classes, services, etc.) just like in your application code.
+</p>
+
+<h3>Saving/loading scripts</h3>
+<p>
+    Save/load scripts via the editor toolbar and storage pane. There are two storage options available:
+    <ul>
+        <li>Local Storage uses HTML5 Web Storage. The files are serialized and stored in the browser as a map under the key gconsole.files.</li>
+        <li>Remote Storage uses the filesystem of the server on which the application is running.</li>
+    </ul>
+</p>
+
+<h3>Writing to the browser console</h3>
+<p>
+    Calls made to the implicit `console` variable will be executed on the browser's console.
+    The arguments are serialized as JSON and the calls are queued to run after the script completes.
+</p>
+<h4>Example:</h4>
+<pre>
+console.debug 'display a table of users'
+console.table User.list()
+</pre>
+<p>See <a href="https://developer.mozilla.org/en-US/docs/Web/API/console">here</a> for a list of available browser console commands.</p>
+
+<h3>Implicit variables</h3>
+<table class="table">
+    {{#each implicitVars}}
+        <tr>
+            <td><code>{{@key}}</code></td>
+            <td>{{this}}</td>
+        </tr>
+    {{/each}}
+</table>
+<h3>Shortcuts</h3>
+<table class="table">
+    {{#each shortcuts}}
+        <tr>
+            <td><code>{{@key}}</code></td>
+            <td>{{this}}</td>
+        </tr>
+    {{/each}}
+</table>
+
+

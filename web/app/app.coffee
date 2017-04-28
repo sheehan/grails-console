@@ -28,6 +28,7 @@ Application = Backbone.Marionette.Application.extend
     @addRegions
       headerRegion: '#header'
       mainRegion: '#main-content'
+      healthRegion: '#health-region'
 
     @settings = @request 'settings:entity'
     @editorController = new App.Editor.Controller
@@ -43,6 +44,10 @@ Application = Backbone.Marionette.Application.extend
     @mainRegion.show @contentView
     @contentView.refresh()
 
+    @helpView = new App.Main.HelpView
+    @helpView.on 'close', => @handleHelp()
+    @healthRegion.show @helpView
+
     @on 'file:deleted', @onFileDeleted
 
     @commands.setHandler 'save', @handleSave, @
@@ -54,6 +59,7 @@ Application = Backbone.Marionette.Application.extend
     @commands.setHandler 'openFile', @handleOpenFile, @
     @commands.setHandler 'showFile', @handleShowFile, @
     @commands.setHandler 'toggleScripts', @handleToggleScripts, @
+    @commands.setHandler 'toggleResults', @handleToggleResults, @
 
   handleExecute: ->
     input = @editorController.getValue()
@@ -101,8 +107,7 @@ Application = Backbone.Marionette.Application.extend
   getActiveCollection: -> @filesController.collection
 
   handleHelp:->
-    view = new App.Main.HelpView
-    App.Util.Modal.showInModal view, draggable: true
+    @healthRegion.$el.toggleClass 'hide'
 
   handleOpenFile: (store, name) ->
     dfd = App.request 'file:entity', store, name
@@ -124,8 +129,11 @@ Application = Backbone.Marionette.Application.extend
         @router.showFile file
 
   handleToggleScripts: ->
-    @contentView.toggleScripts()
-    @settings.set ''
+    @settings.toggle 'layout.west.isClosed'
+    @settings.save()
+
+  handleToggleResults: ->
+    @contentView.toggleResults()
 
   onFileDeleted: (file) ->
     if @getActiveFile().id is file.id

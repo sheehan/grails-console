@@ -1,8 +1,6 @@
 package org.grails.plugins.console
 
-import grails.converters.JSON
 import grails.plugins.*
-import java.lang.reflect.Method
 
 class ConsoleGrailsPlugin extends Plugin {
 
@@ -26,16 +24,7 @@ class ConsoleGrailsPlugin extends Plugin {
     void doWithApplicationContext() {
         config.grails.assets.plugin.'console'.excludes = ['**/*']
 
-        JSON.createNamedConfig('console') {
-            it.registerObjectMarshaller(Class) { Class clazz ->
-                clazz.methods.collect { Method method ->
-                    method.name + '(' + method.parameterTypes*.simpleName.join(', ') + '): ' + method.returnType.simpleName
-                }.sort()
-            }
-            it.registerObjectMarshaller(Throwable) { Throwable throwable ->
-                throwable.stackTrace.collect { "at $it" }
-            }
-        }
+        ConsoleUtil.initJsonConfig()
     }
 
     Closure doWithSpring() {{->

@@ -12,6 +12,10 @@ body {
   padding-top: 51px;
 }
 
+#main-content-wrapper {
+  position: relative;
+}
+
 #main-content {
   height: 100%;
   & > div {
@@ -19,8 +23,26 @@ body {
   }
 }
 
-.help-section {
+.help-view {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  z-index: 10;
+  overflow: auto;
+  h2 {
+    margin-top: 0;
+  }
+  .close-it {
+    color: #000;
+    font-size: 115%;
+  }
   table {
+    &>tbody>tr>td {
+      border-top: none;
+    }
     td:first-child {
       width: 220px;
     }
@@ -167,6 +189,13 @@ body {
     background-position: 5px center;
     padding-left: 48px;
     font-size: 18px;
+  }
+  .navbar-form {
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: none  ;
   }
   .title {
     border-left: 1px dotted;
@@ -434,6 +463,23 @@ body[data-theme="lesser-dark"] {
 
   #main-content > div {
     border-color: #444;
+  }
+
+  .help-view {
+    background-color: #222;
+    color: #ccc;
+    .close-it {
+      color: #ccc;
+    }
+    pre {
+      color: #ccc;
+      background: transparent;
+      border: none;
+    }
+    code {
+      background: #333;
+      color: #ddd;
+    }
   }
 
   .script-result-section {
