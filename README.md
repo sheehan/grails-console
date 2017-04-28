@@ -62,10 +62,7 @@ Calls made to the implicit `console` variable will be executed on the browser's 
 The arguments are serialized as JSON and the calls are queued to run after the script completes.
 
 Example:
-```groovy
-console.debug 'display a table of users'
-console.table User.list()
-```
+![Screenshot](https://raw.github.com/sheehan/grails-console/images/screenshot2.png)
 
 ## Implicit variables
 
