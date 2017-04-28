@@ -1,3 +1,8 @@
+### v2.0.9 / v1.5.12
+*   Add support for writing to browser console
+*   Fix #60 indent size is forced to 1
+*   Fix #59 add package name to UrlMappings
+
 ### v2.0.8 / v1.5.11
 *   Fix #55 more CSRF protection
 
