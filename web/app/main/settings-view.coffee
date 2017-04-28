@@ -21,6 +21,8 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
       @$('.orientation-horizontal').toggleClass 'selected', @model.get('orientation') is 'horizontal'
       @$('.orientation-vertical').toggleClass 'selected', @model.get('orientation') is 'vertical'
       @$('.results-wrap').toggleClass 'selected', @model.get('results.wrapText')
+      @$('.show-files').toggleClass 'selected', not @model.get('layout.west.isClosed')
+      @$('.show-results').toggleClass 'selected', @model.get('results.showPane')
       @$('.show-input').toggleClass 'selected', @model.get('results.showInput')
       @$('.auto-import-domains').toggleClass 'selected', @model.get('editor.autoImportDomains')
       @$('.warn-before-exit').toggleClass 'selected', @model.get('editor.warnBeforeExit')
@@ -36,6 +38,8 @@ App.module 'Main', (Main, App, Backbone, Marionette, $, _) ->
         when $el.is '.orientation-horizontal' then @model.set 'orientation', 'horizontal'
         when $el.is '.orientation-vertical'   then @model.set 'orientation', 'vertical'
         when $el.is '.results-wrap'           then @model.toggle 'results.wrapText'
+        when $el.is '.show-results'           then @model.toggle 'results.showPane'
+        when $el.is '.show-files'             then @model.toggle 'layout.west.isClosed'
         when $el.is '.show-input'             then @model.toggle 'results.showInput'
         when $el.is '.auto-import-domains'    then @model.toggle 'editor.autoImportDomains'
         when $el.is '.warn-before-exit'       then @model.toggle 'editor.warnBeforeExit'

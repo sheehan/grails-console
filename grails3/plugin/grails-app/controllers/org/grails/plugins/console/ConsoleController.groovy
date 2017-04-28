@@ -12,12 +12,13 @@ class ConsoleController {
         Map model = [
             json: [
                 implicitVars: [
+                    config:             'the Grails configuration',
+                    console:            'the browser console',
                     ctx:                'the Spring application context',
                     grailsApplication:  'the Grails application',
-                    config:             'the Grails configuration',
+                    out:                'the output PrintStream',
                     request:            'the HTTP request',
                     session:            'the HTTP session',
-                    out:                'the output PrintStream'
                 ],
                 baseUrl: getBaseUrl(),
                 remoteFileStoreEnabled: consoleConfig.remoteFileStoreEnabled,
@@ -51,23 +52,8 @@ class ConsoleController {
     def execute(String code, boolean autoImportDomains) {
         Evaluation eval = consoleService.eval(code, autoImportDomains, request)
 
-        Map result = [
-            totalTime: eval.totalTime,
-            output: eval.output
-        ]
-        if (eval.exception) {
-            result.exception = [
-                stackTrace: eval.stackTraceAsString,
-                lineNumber: eval.exceptionLineNumber
-            ]
-            result.result = eval.exception.toString()
-            result.resultTree = eval.exception
-        } else {
-            result.result = eval.resultAsString
-        }
-
         JSON.use('console') {
-            render result as JSON
+            render eval as JSON
         }
     }
 

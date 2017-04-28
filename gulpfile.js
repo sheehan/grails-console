@@ -44,8 +44,8 @@ const paths = {
         css: [
             '/vendor/bootstrap/css/bootstrap.min.css',
             '/vendor/font-awesome-4.0.3/css/font-awesome.css',
-            '/vendor/codemirror-5.2/lib/codemirror.css',
-            '/vendor/codemirror-5.2/theme/lesser-dark.css',
+            '/vendor/codemirror-5.25.2/lib/codemirror.css',
+            '/vendor/codemirror-5.25.2/theme/lesser-dark.css',
             '/vendor/jquery-layout/css/jquery.layout.css',
             '/vendor/jquery-ui-1.10.3/jquery-ui.min.css'
         ],
@@ -59,8 +59,8 @@ const paths = {
             '/vendor/js/libs/handlebars.runtime-v4.0.5.js',
             '/vendor/jquery-layout/js/jquery.layout-latest.min.js',
             '/vendor/js/plugins/jquery.hotkeys.js',
-            '/vendor/codemirror-5.2/lib/codemirror.js',
-            '/vendor/codemirror-5.2/mode/groovy/groovy.js'
+            '/vendor/codemirror-5.25.2/lib/codemirror.js',
+            '/vendor/codemirror-5.25.2/mode/groovy/groovy.js'
         ]
     },
     test: ['./js/tests/**.js']

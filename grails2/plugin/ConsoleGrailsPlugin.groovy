@@ -1,10 +1,8 @@
-import grails.converters.JSON
 import org.grails.plugins.console.ConsoleConfig
-
-import java.lang.reflect.Method
+import org.grails.plugins.console.ConsoleUtil
 
 class ConsoleGrailsPlugin {
-	String version = '1.5.11'
+	String version = '1.5.12'
 	String grailsVersion = '2.0 > *'
 	String title = 'Console Plugin'
 	String description = 'A web-based Groovy console for interactive runtime application management and debugging'
@@ -23,16 +21,7 @@ class ConsoleGrailsPlugin {
     def doWithApplicationContext = { appCtx ->
         application.config.grails.assets.plugin.'console'.excludes = ['**/*']
 
-		JSON.createNamedConfig('console') {
-			it.registerObjectMarshaller(Class) { Class clazz ->
-				clazz.methods.collect { Method method ->
-					method.name + '(' + method.parameterTypes*.simpleName.join(', ') + '): ' + method.returnType.simpleName
-				}.sort()
-			}
-			it.registerObjectMarshaller(Throwable) { Throwable throwable ->
-				throwable.stackTrace.collect { "at $it" }
-			}
-		}
+		ConsoleUtil.initJsonConfig()
     }
 
 	def doWithSpring = {

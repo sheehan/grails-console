@@ -15,7 +15,7 @@ Add a dependency in BuildConfig.groovy:
 grails.project.dependency.resolution = {
   // ...
   plugins {
-    runtime ':console:1.5.11'
+    runtime ':console:1.5.12'
     // ...
   }
 }
@@ -30,7 +30,7 @@ grails.project.dependency.resolution = {
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.0.8'
+runtime 'org.grails.plugins:grails-console:2.0.9'
 ```
 
 ## Usage
@@ -55,6 +55,17 @@ Local Storage uses HTML5 [Web Storage](http://dev.w3.org/html5/webstorage/). The
 ### Remote Storage
 
 Remote Storage uses the filesystem of the server on which the application is running.
+
+## Writing to the browser console
+
+Calls made to the implicit `console` variable will be executed on the browser's console.
+The arguments are serialized as JSON and the calls are queued to run after the script completes.
+
+Example:
+```groovy
+console.debug 'display a table of users'
+console.table User.list()
+```
 
 ## Implicit variables
 

@@ -9,6 +9,7 @@ class Evaluation {
     Throwable exception
     Long totalTime
     String output
+    Console console
 
     void setException(Throwable exception) {
         this.exception = GrailsUtil.deepSanitize(exception)

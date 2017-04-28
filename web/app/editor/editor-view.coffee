@@ -5,11 +5,11 @@ App.module 'Editor', (Editor, App, Backbone, Marionette, $, _) ->
     template: 'editor/editor'
 
     events:
-      'click button.open':    'onOpenClick'
-      'click button.execute': 'onExecuteClick'
-      'click button.new':     'onNewClick'
-      'click button.save':    'onSaveClick'
-      'click a.save-as':      'onSaveAsClick'
+      'click button.open':          'onOpenClick'
+      'click button.execute':       'onExecuteClick'
+      'click button.new':           'onNewClick'
+      'click button.save':          'onSaveClick'
+      'click a.save-as':            'onSaveAsClick'
 
     initialize: ->
       @listenTo App.settings, 'change:theme', @setTheme

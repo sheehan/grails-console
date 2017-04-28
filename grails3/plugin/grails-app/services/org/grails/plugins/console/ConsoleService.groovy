@@ -26,9 +26,11 @@ class ConsoleService {
 
         Evaluation evaluation = new Evaluation()
 
+        Console console = new Console()
+
         long startTime = System.currentTimeMillis()
         try {
-            Binding binding = createBinding(request, out)
+            Binding binding = createBinding(request, out, console)
             CompilerConfiguration configuration = createConfiguration(autoImportDomains)
 
             GroovyShell groovyShell = new GroovyShell(grailsApplication.classLoader, binding, configuration)
@@ -40,18 +42,20 @@ class ConsoleService {
         evaluation.totalTime = System.currentTimeMillis() - startTime
         System.out = systemOut
 
+        evaluation.console = console
         evaluation.output = baos.toString('UTF8')
         evaluation
     }
 
-    private Binding createBinding(request, PrintStream out) {
+    private Binding createBinding(request, PrintStream out, Console console) {
         new Binding([
             session          : request.session,
             request          : request,
             ctx              : grailsApplication.mainContext,
             grailsApplication: grailsApplication,
             config           : grailsApplication.config,
-            out              : out
+            out              : out,
+            console          : console
         ])
     }
 

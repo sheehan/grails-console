@@ -29,8 +29,9 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
       json.inputGutter = '<'
       json.inputLines = @model.get('input').match /[^\r\n]+/g
 
-      if @model.has('resultTree')
-        json.resultTree = {name: json.result, children: @convertTreeNode(@model.get('resultTree'))}
+      exception = @model.get('exception')
+      if exception
+        json.resultTree = {name: exception.message, children: @convertTreeNode(exception.stackTrace)}
 
       json
 

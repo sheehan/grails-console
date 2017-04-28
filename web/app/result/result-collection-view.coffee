@@ -8,6 +8,7 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
 
     events:
       'click .clear': 'onClearClick'
+      'click .close-it': 'onCloseClick'
       'submit .prompt-form': 'onPromptSubmit'
 
     getItemView: (item) -> Result.ResultView
@@ -41,6 +42,10 @@ App.module 'Result', (Result, App, Backbone, Marionette, $, _) ->
     onClearClick: (event) ->
       event.preventDefault()
       App.execute 'clear'
+
+    onCloseClick: (event) ->
+      event.preventDefault()
+      App.execute 'toggleResults'
 
     onUpKeyPress: (event) ->
       @trigger 'upKeyPress'
