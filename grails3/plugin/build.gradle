@@ -12,7 +12,6 @@ plugins {
     id "com.jfrog.bintray" version "1.1"
 }
 
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
 apply plugin:"eclipse"
 apply plugin:"idea"
 apply plugin:"org.grails.grails-plugin"
@@ -80,4 +79,17 @@ bintray {
         publicDownloadNumbers = true
         attributes = [pluginScope: 'runtime']
     }
+}
+
+grailsPublish {
+    userOrg = 'sheehan'
+    repo = 'grails-plugins'
+    githubSlug = 'sheehan/grails-console'
+    websiteUrl = 'https://grails.org/plugins.html#plugin/console'
+    license {
+        name = 'Apache-2.0'
+    }
+    title = "console"
+    desc = "A web-based Groovy console for interactive runtime application management and debugging."
+    developers = [mattsheehan:"Matt Sheehan"]
 }
