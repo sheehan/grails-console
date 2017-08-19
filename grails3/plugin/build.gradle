@@ -1,7 +1,4 @@
 buildscript {
-    ext {
-        grailsVersion = project.grailsVersion
-    }
     repositories {
         mavenLocal()
         maven { url "https://repo.grails.org/grails/core" }
@@ -12,30 +9,18 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "0.5.2.RELEASE"
     id "com.jfrog.bintray" version "1.1"
 }
 
-version "2.0.9"
-group "org.grails.plugins"
-
-apply plugin: 'maven-publish'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: "spring-boot"
-apply plugin: "org.grails.grails-plugin"
-apply plugin: "org.grails.grails-gsp"
-apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/grailsCentralPublishing.gradle'
 apply from:'https://raw.githubusercontent.com/grails/grails-profile-repository/master/profiles/plugin/templates/bintrayPublishing.gradle'
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"org.grails.grails-plugin"
+apply plugin:"org.grails.grails-plugin-publish"
+apply plugin:"org.grails.grails-gsp"
 
-ext {
-    grailsVersion = project.grailsVersion
-    gradleWrapperVersion = project.gradleWrapperVersion
-}
-
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-
+version "2.1.0"
+group "org.grails.plugins"
 
 repositories {
     mavenLocal()
@@ -57,18 +42,22 @@ dependencies {
     provided "org.springframework.boot:spring-boot-starter-tomcat"
 
     provided "org.grails:grails-web-boot"
-    provided "org.grails:grails-dependencies"
-    provided 'javax.servlet:javax.servlet-api:3.1.0'
-
-    testCompile "org.grails:grails-plugin-testing"
-
     compile 'commons-io:commons-io:2.4'
 
-    console "org.grails:grails-console"
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = gradleWrapperVersion
+    provided "org.grails:grails-core"
+    provided "org.grails:grails-logging"
+    provided "org.grails:grails-plugin-rest"
+    provided "org.grails:grails-plugin-i18n"
+    provided "org.grails:grails-plugin-services"
+    provided "org.grails:grails-plugin-url-mappings"
+    provided "org.grails:grails-plugin-interceptors"
+    provided "org.grails.plugins:gsp"
+    provided "org.grails:grails-console"
+    profile "org.grails.profiles:web-plugin"
+    provided "org.grails:grails-plugin-services"
+    provided "org.grails:grails-plugin-domain-class"
+    testCompile "org.grails:grails-plugin-testing"
+    testCompile "org.grails:grails-web-testing-support"
 }
 
 task repairPublicFiles(type: Copy) { // https://github.com/grails/grails-core/issues/629
@@ -77,6 +66,7 @@ task repairPublicFiles(type: Copy) { // https://github.com/grails/grails-core/is
 }
 processResources.finalizedBy repairPublicFiles
 
+bootRepackage.enabled = false
 bintray {
     pkg {
         repo = 'grails-plugins'

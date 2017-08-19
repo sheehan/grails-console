@@ -1,3 +1,6 @@
+### v2.1.0
+*   Fix #62 update plugin to 3.3.0
+
 ### v2.0.9 / v1.5.12
 *   Add support for writing to browser console
 *   Fix #60 indent size is forced to 1
