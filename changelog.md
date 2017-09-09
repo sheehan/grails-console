@@ -1,3 +1,6 @@
+### v2.1.1
+*   Fix #65 build with Java 7
+
 ### v2.1.0
 *   Fix #62 update plugin to 3.3.0
 
