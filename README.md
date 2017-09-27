@@ -5,7 +5,11 @@ A web-based Groovy console for interactive runtime application management and de
 
 ## Installation
 
-The [1.X](https://grails.org/plugin/console) version is for Grails 2, while the [2.X](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole) version is for Grails 3.
+The [1.X](https://grails.org/plugin/console) version is for Grails 2.
+
+The [2.0.X](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole) version is for Grails 3.0 - 3.2
+
+The [2.1.X](https://bintray.com/sheehan/grails-plugins/org.grails.plugins%3Aconsole) version is for Grails 3.3+.
 
 ### Grails 2
 
