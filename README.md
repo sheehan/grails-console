@@ -109,16 +109,15 @@ The following configuration options are available:
 ## Security
 
 By default (as of v1.5.0) the console plugin is only enabled in the development environment. You can enable or disable it for any environment with
-the `grails.plugin.console.enabled` config option in Config.groovy. If the plugin is enabled in non-development environments, be sure to guard
-access using a security plugin like Spring Security Core or Shiro. For Grails 2.x, the paths `/console/**` and `/plugins/console*/**` should be secured. For Grails 3.x, the paths `/console/**` and `/static/console/**` should be secured.
+the `grails.plugin.console.enabled` config option in Config.groovy / application.groovy (Grails 3). If the plugin is enabled in non-development environments, be sure to guard access using a security plugin like Spring Security Core or Shiro. For Grails 2.x, the paths `/console/**` and `/plugins/console*/**` should be secured. For Grails 3.x, the paths `/console/**` and `/static/console/**` should be secured.
 
 Spring Security Core example:
 
 ```groovy
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    "/console/**":          ['ROLE_ADMIN'],
-    "/plugins/console*/**": ['ROLE_ADMIN'], // Grails 2.x
-    "/static/console/**":   ['ROLE_ADMIN'], // Grails 3.x
+    [pattern:"/console/**",          access:['ROLE_ADMIN']],
+    [pattern:"/plugins/console*/**", access:['ROLE_ADMIN'],  // Grails 2.x
+    [pattern:"/static/console/**",   access:['ROLE_ADMIN']], // Grails 3.x
 ]
 ```
 
@@ -126,9 +125,9 @@ Another example restricting access to localhost IPs:
 
 ```groovy
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    "/console/**":          ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"],
-    "/plugins/console*/**": ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"], // Grails 2.x
-    "/static/console/**":   ["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"], // Grails 3.x
+    [pattern:"/console/**",          access:["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]],
+    [pattern:"/plugins/console*/**", access:["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]], // Grails 2.x
+    [pattern:"/static/console/**",   access:["hasRole('ROLE_ADMIN') && (hasIpAddress('127.0.0.1') || hasIpAddress('::1'))"]], // Grails 3.x
 ]
 ```
 
