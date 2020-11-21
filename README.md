@@ -116,7 +116,7 @@ Spring Security Core example:
 ```groovy
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     [pattern:"/console/**",          access:['ROLE_ADMIN']],
-    [pattern:"/plugins/console*/**", access:['ROLE_ADMIN'],  // Grails 2.x
+    [pattern:"/plugins/console*/**", access:['ROLE_ADMIN']],  // Grails 2.x
     [pattern:"/static/console/**",   access:['ROLE_ADMIN']], // Grails 3.x
 ]
 ```
