@@ -57,7 +57,7 @@ class ConsoleControllerSpec extends Specification {
         String code = '"s"'
 
         when:
-        controller.execute code, false
+        controller.execute(new ExecuteCommand(code, false))
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
@@ -77,7 +77,7 @@ class ConsoleControllerSpec extends Specification {
         String code = ''
 
         when:
-        controller.execute code, false
+        controller.execute(new ExecuteCommand(code, false))
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
