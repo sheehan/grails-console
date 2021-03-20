@@ -49,8 +49,8 @@ class ConsoleController {
         render view: 'index', model: model
     }
 
-    def execute(String code, boolean autoImportDomains) {
-        Evaluation eval = consoleService.eval(code, autoImportDomains, request)
+    def execute(ExecuteCommand command) {
+        Evaluation eval = consoleService.eval(command.code, command.autoImportDomains, request)
 
         JSON.use('console') {
             render eval as JSON
