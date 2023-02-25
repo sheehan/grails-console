@@ -1,82 +1,31 @@
 'use strict';
 
-const del         = require('del');
-const gulp        = require('gulp');
-const coffee      = require('gulp-coffee');
-const concat      = require('gulp-concat');
-const declare     = require('gulp-declare');
-const handlebars  = require('gulp-handlebars');
-const jasmine     = require('gulp-jasmine-phantom');
-const less        = require('gulp-less');
-const minifyCss   = require('gulp-minify-css');
-const gutil       = require('gulp-util');
-const watch       = require('gulp-watch');
-const wrap        = require('gulp-wrap');
+import { deleteSync } from 'del';
+import gulp from 'gulp';
+import coffee from 'gulp-coffee';
+import concat from 'gulp-concat';
+import declare from 'gulp-declare';
+import gulpHandlebars from 'gulp-handlebars';
+import jasmine from 'gulp-jasmine-phantom';
+import gulpLess from 'gulp-less';
+import Handlebars from 'handlebars';
+import cleanCss from 'gulp-clean-css';
+import gutil from 'gulp-util';
+import wrap from 'gulp-wrap';
 
-const timestamp = new Date().getTime();
+import { grails3CleanTask, grails3DebugTask, grails3ReleaseTask } from './gulp-tasks/grails3.js';
+import { grails2CleanTask, grails2DebugTask, grails2ReleaseTask } from './gulp-tasks/grails2.js';
+import { paths, timestamp } from './gulp-tasks/paths.js';
 
-const paths = {
-
-    favicon: 'img/grails.logo.png',
-
-    app: {
-        css: {
-            debug: [
-                '/css/**/*.css'
-            ],
-            release: [
-                `/css/app.${timestamp}.css`
-            ]
-        },
-        js: {
-            debug: [
-                '/js/templates.js',
-                '/js/app/app.js',
-                '/js/app/*/**/*.js'
-            ],
-            release: [
-                `/js/app.${timestamp}.js`
-            ]
-        }
-    },
-    vendor: {
-        base: './web',
-        css: [
-            '/vendor/bootstrap/css/bootstrap.min.css',
-            '/vendor/font-awesome-4.0.3/css/font-awesome.css',
-            '/vendor/codemirror-5.25.2/lib/codemirror.css',
-            '/vendor/codemirror-5.25.2/theme/lesser-dark.css',
-            '/vendor/jquery-layout/css/jquery.layout.css',
-            '/vendor/jquery-ui-1.10.3/jquery-ui.min.css'
-        ],
-        js: [
-            '/vendor/js/libs/jquery-1.7.1.min.js',
-            '/vendor/jquery-ui-1.10.3/jquery-ui.min.js',
-            '/vendor/bootstrap/js/bootstrap.min.js',
-            '/vendor/js/libs/underscore-min.js',
-            '/vendor/js/libs/backbone-min.js',
-            '/vendor/js/libs/backbone.marionette.min.js',
-            '/vendor/js/libs/handlebars.runtime-v4.0.5.js',
-            '/vendor/jquery-layout/js/jquery.layout-latest.min.js',
-            '/vendor/js/plugins/jquery.hotkeys.js',
-            '/vendor/codemirror-5.25.2/lib/codemirror.js',
-            '/vendor/codemirror-5.25.2/mode/groovy/groovy.js'
-        ]
-    },
-    test: ['./js/tests/**.js']
+export const clean = (cb) => {
+    deleteSync('./build');
+    cb();
 };
 
-require('./gulp-tasks/grails2')(gulp, paths);
-require('./gulp-tasks/grails3')(gulp, paths);
-
-gulp.task('clean', () => {
-    del.sync('./build');
-});
-
-gulp.task('templates', () => {
+export const templates = () => {
     return gulp.src('./web/templates/**/*.hbs')
-        .pipe(handlebars({
-            handlebars: require('handlebars')
+        .pipe(gulpHandlebars({
+            handlebars: Handlebars
         }))
         .pipe(wrap('Handlebars.template(<%= contents %>)'))
         .pipe(declare({
@@ -85,63 +34,79 @@ gulp.task('templates', () => {
         }))
         .pipe(concat('templates.js'))
         .pipe(gulp.dest('./build/debug/js/'));
-});
+};
 
-gulp.task('coffee:app', () => {
+const coffeeApp = () => {
     return gulp.src('./web/app/**/*.coffee')
         .pipe(coffee({bare: false, join: false}).on('error', gutil.log))
         .pipe(gulp.dest('./build/debug/js/app/'));
-});
+};
 
-gulp.task('coffee:spec', () => {
+const coffeeSpec = () => {
     return gulp.src('./web/spec/**/*.coffee')
         .pipe(coffee({bare: false, join: false}).on('error', gutil.log))
         .pipe(gulp.dest('./build/spec/'));
-});
+};
 
-gulp.task('less', () => {
+export const less = () => {
     return gulp.src('./web/styles/**/*.less')
-        .pipe(less())
+        .pipe(gulpLess())
         .pipe(gulp.dest('./build/debug/css/'));
-});
+};
 
-gulp.task('concat:js', ['debug'], () => {
+export const concatJsTask = () => {
     return gulp.src(paths.vendor.js.map(path => paths.vendor.base + path)
         .concat(paths.app.js.debug.map(path => './build/debug' + path))
     )
         .pipe(concat(`app.${timestamp}.js`))
         .pipe(gulp.dest('./build/release/js/'));
-});
+};
 
-gulp.task('concat:css', ['debug'], () => {
+const concatCssTask = () => {
     return gulp.src(paths.app.css.debug.map(path => './build/debug' + path))
-        .pipe(minifyCss({keepBreaks: true}))
+        .pipe(cleanCss({ keepBreaks: true }))
         .pipe(concat(`app.${timestamp}.css`))
         .pipe(gulp.dest('./build/release/css/'));
-});
+};
 
-gulp.task('test', ['clean', 'templates', 'coffee:app', 'coffee:spec'], () => {
+const testTask = () => {
     var vendorPaths = paths.vendor.js
         .concat(['/vendor/js/plugins/jasmine-jquery.js'])
         .map(path => paths.vendor.base + path)
         .concat(paths.app.js.debug.map(path => './build/debug' + path));
 
+    // doesn't work due to a bug related to 'fs' module in 'gulp-jasmine-phantom'
     return gulp.src('./build/spec/**/*spec.*')
         .pipe(jasmine({
             helpers: './build/spec/**/*helper.*',
             integration: true,
             vendor: vendorPaths
         }));
-});
+};
 
-gulp.task('watch', function () {
-    gulp.watch(['./web/**/*', 'gulpfile.js'], ['debug-all']);
-});
+export const test = gulp.series(clean, templates, coffeeApp, coffeeSpec, testTask);
 
-gulp.task('debug', ['clean', 'templates', 'coffee:app', 'less']);
-gulp.task('release', ['debug', 'concat:js', 'concat:css']);
+export const watch = (cb) => {
+    gulp.watch(['./web/**/*', 'gulpfile.js'], gulp.series(debugAll));
+    cb();
+};
 
-gulp.task('debug-all', ['grails2:debug', 'grails3:debug']);
-gulp.task('release-all', ['grails2:release', 'grails3:release']);
+export const debug = gulp.series(clean, templates, coffeeApp, less);
+export const release = gulp.series(debug, concatJsTask, concatCssTask);
+
+export const concatJs = gulp.series(debug, concatJsTask);
+export const concatCss = gulp.series(debug, concatCssTask);
+
+export const grails2Clean = gulp.series(grails2CleanTask);
+export const grails2Debug = gulp.series(debug, grails2CleanTask, grails2DebugTask);
+export const grails2Release = gulp.series(release, grails2CleanTask, grails2ReleaseTask);
+
+export const grails3Clean = gulp.series(grails3CleanTask);
+export const grails3Debug = gulp.series(debug, grails3CleanTask, grails3DebugTask);
+export const grails3Release = gulp.series(release, grails3CleanTask, grails3ReleaseTask);
+
+export const debugAll = gulp.series(grails2Debug, grails3Debug);
+export const releaseAll = gulp.series(grails2Release, grails3Release);
+export const cleanAll = gulp.series(clean, grails2Clean, grails3Clean);
 
 //gulp.task('default', ['build']);

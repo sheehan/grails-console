@@ -1,11 +1,11 @@
-const through   = require('through2');
-const path      = require('path');
+import through from 'through2';
+import path from 'path';
 
-module.exports = (relativeDir, fcn) => {
-    return through.obj(function(file, encoding, callback) {
-        var requirePath = path.relative(relativeDir, path.resolve(file.path));
-        var tag = fcn(requirePath);
+export default function wrapPath(relativeDir, fcn) {
+    return through.obj(function (file, encoding, callback) {
+        const requirePath = path.relative(relativeDir, path.resolve(file.path));
+        const tag = fcn(requirePath);
         file.contents = new Buffer(tag);
         return callback(null, file);
-    })
+    });
 };
