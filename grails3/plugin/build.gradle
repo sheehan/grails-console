@@ -57,6 +57,7 @@ dependencies {
     provided "org.grails:grails-plugin-domain-class"
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails:grails-web-testing-support"
+    testCompile 'net.bytebuddy:byte-buddy:1.14.0'
 }
 
 task repairPublicFiles(type: Copy) { // https://github.com/grails/grails-core/issues/629

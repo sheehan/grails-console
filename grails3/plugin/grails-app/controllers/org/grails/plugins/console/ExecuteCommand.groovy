@@ -1,4 +1,8 @@
-class ExecuteCommand {
-    String code
-    boolean autoImportDomains
+package org.grails.plugins.console
+
+import grails.validation.Validateable
+
+class ExecuteCommand implements Validateable {
+	String code
+	boolean autoImportDomains
 }
