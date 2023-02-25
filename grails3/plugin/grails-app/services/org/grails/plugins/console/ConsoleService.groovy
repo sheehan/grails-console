@@ -6,8 +6,6 @@ import grails.core.GrailsApplication
 
 class ConsoleService {
 
-    static transactional = false
-
     GrailsApplication grailsApplication
 
     /**
@@ -20,9 +18,6 @@ class ConsoleService {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream()
         PrintStream out = new PrintStream(baos)
-
-        PrintStream systemOut = System.out
-        System.out = out
 
         Evaluation evaluation = new Evaluation()
 
@@ -40,7 +35,6 @@ class ConsoleService {
         }
 
         evaluation.totalTime = System.currentTimeMillis() - startTime
-        System.out = systemOut
 
         evaluation.console = console
         evaluation.output = baos.toString('UTF8')
