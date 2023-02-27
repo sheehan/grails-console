@@ -23,5 +23,11 @@
     "mkdirp": "^2.1.3",
     "phantomjs": "^2.1.7",
     "through2": "^4.0.2"
+  },
+  "scripts": {
+    "build": "gulp releaseAll",
+    "build:debug": "gulp debugAll",
+    "test": "gulp test",
+    "watch": "gulp watch"
   }
 }

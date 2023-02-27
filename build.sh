@@ -1,5 +1,6 @@
 npm install
-npx gulp grails3Release
+# npm test    # uncomment when test fixed
+npm run build
 
 cd grails3/plugin
 ./gradlew clean
