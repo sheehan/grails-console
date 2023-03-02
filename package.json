@@ -1,6 +1,6 @@
 {
   "name": "grails-console",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "type": "module",
   "devDependencies": {
     "del": "^7.0.0",
@@ -25,8 +25,12 @@
     "through2": "^4.0.2"
   },
   "scripts": {
-    "build": "gulp releaseAll",
-    "build:debug": "gulp debugAll",
+    "debug-all": "gulp debugAll",
+    "grails2:debug": "gulp grails2Debug",
+    "grails2:release": "gulp grails2Release",
+    "grails3:debug": "gulp grails3Debug",
+    "grails3:release": "gulp grails3Release",
+    "release-all": "gulp releaseAll",
     "test": "gulp test",
     "watch": "gulp watch"
   }

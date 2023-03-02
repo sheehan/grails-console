@@ -1,3 +1,12 @@
+### v2.2.0
+*   Fix for Console hijacking `System.out` and breaking system logs
+*   Fix for `NullPointerException` when running empty script on server with `grails.databinding.convertEmptyStringsToNull` set to default value `true`
+*   Fix for `grails3/plugin` structure and code refactoring to match Grails v3.3+ recommendations
+*   Updated Handlebar Runtime to 4.7.6
+*   Updating most of Node project dev-dependencies
+*   Updating structure and format of `gulpfile.js` to match Gulp v4 recommendations
+*   Build with Java 8
+
 ### v2.1.1
 *   Fix #65 build with Java 7
 
