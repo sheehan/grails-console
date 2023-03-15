@@ -1,24 +1,32 @@
 package org.grails.plugins.console
 
 import grails.converters.JSON
-import grails.test.mixin.TestFor
+import grails.testing.web.controllers.ControllerUnitTest
 import org.apache.commons.io.FileUtils
 import spock.lang.Specification
+
 import java.nio.file.Files
 
-@TestFor(ConsoleController)
-class ConsoleControllerSpec extends Specification {
+class ConsoleControllerSpec extends Specification implements ControllerUnitTest<ConsoleController> {
 
-    ConsoleService consoleService = Mock(ConsoleService)
+    ConsoleService consoleService
     File tempDir
 
-    void setup() {
-        JSON.createNamedConfig 'console', {}
-        controller.consoleService = consoleService
-        tempDir = Files.createTempDirectory('console').toFile()
+    @Override
+    Closure doWithConfig() {{ config ->
         config.grails.plugin.console.fileStore.remote.enabled = true
         config.grails.plugin.console.csrfProtection.enabled = true
-        controller.consoleConfig = new ConsoleConfig(config.grails.plugin.console)
+    }}
+
+    void setup() {
+        ConsoleUtil.initJsonConfig()
+
+        consoleService = Mock(ConsoleService)
+        controller.consoleService = consoleService
+
+        tempDir = Files.createTempDirectory('console').toFile()
+
+        controller.consoleConfig = new ConsoleConfig(config)
     }
 
     void cleanup() {
@@ -57,13 +65,14 @@ class ConsoleControllerSpec extends Specification {
         String code = '"s"'
 
         when:
-        controller.execute(new ExecuteCommand(code, false))
+        controller.execute(new ExecuteCommand(code: code, autoImportDomains: false))
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output',
-            totalTime: 10
+            totalTime: 10,
+            console: new Console()
         )
         with(response.json) {
             result == "'test-result'"
@@ -77,17 +86,18 @@ class ConsoleControllerSpec extends Specification {
         String code = ''
 
         when:
-        controller.execute(new ExecuteCommand(code, false))
+        controller.execute(new ExecuteCommand(code: code, autoImportDomains: false))
 
         then:
         1 * consoleService.eval(code, false, request) >> new Evaluation(
             result: 'test-result',
             output: 'test-output',
             totalTime: 10,
+            console: new Console(),
             exception: new RuntimeException()
         )
         with(response.json) {
-            exception.stackTrace.contains 'RuntimeException'
+            exception.message.contains 'RuntimeException'
             output == 'test-output'
             totalTime != null
         }

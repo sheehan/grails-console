@@ -34,7 +34,7 @@ grails.project.dependency.resolution = {
 Add a dependency in build.gradle
 
 ```groovy
-runtime 'org.grails.plugins:grails-console:2.1.1'
+runtime 'org.grails.plugins:grails-console:2.2.0'
 ```
 
 ## Usage
@@ -137,7 +137,12 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 * [Burt Beckwith](https://github.com/burtbeckwith)
 * [Matt Sheehan](https://github.com/sheehan)
 * [Mike Hugo](https://github.com/mjhugo)
+* [Kamil Dybicz](https://github.com/kdybicz)
 
 ## Development
 
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## Local deployment
+
+Please see [LOCALDEPLOYMENT.md](LOCALDEPLOYMENT.md)

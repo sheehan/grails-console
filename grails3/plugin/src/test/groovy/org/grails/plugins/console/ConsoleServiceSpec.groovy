@@ -1,19 +1,12 @@
 package org.grails.plugins.console
 
-import grails.test.mixin.TestFor
+import grails.testing.services.ServiceUnitTest
 import org.springframework.mock.web.MockHttpServletRequest
 import spock.lang.Specification
 
-@TestFor(ConsoleService)
-class ConsoleServiceSpec extends Specification{
-
+class ConsoleServiceSpec extends Specification implements ServiceUnitTest<ConsoleService> {
 
     def request = new MockHttpServletRequest()
-
-    void 'service is not transactional'() {
-        expect:
-        !ConsoleService.transactional
-    }
 
     void 'eval'() {
         given:

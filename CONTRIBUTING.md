@@ -6,9 +6,9 @@ This plugin uses [Gulp](http://gulpjs.com/) to build its resources.
 
 1. Change to the project's root directory.
 1. Install project dependencies with `npm install`.
-1. Build the resources with `gulp release-all`.
+1. Build the resources with `npm run release-all`.
 
-## Gulp tasks
+## NPM tasks
 
 | Task | Description |
 | --- | --- |

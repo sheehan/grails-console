@@ -2,7 +2,6 @@ package org.grails.plugins.console
 
 import grails.util.Environment
 
-
 class EnabledInterceptor {
 
     def consoleConfig

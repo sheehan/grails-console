@@ -1,67 +1,46 @@
 'use strict';
 
-const gulp        = require('gulp');
-const concat      = require('gulp-concat');
-const merge       = require('merge-stream');
-const mkdirp      = require('mkdirp');
-const through     = require('through2');
-const path        = require('path');
+import gulp from 'gulp';
+import concat from 'gulp-concat';
+import merge from 'merge-stream';
+import mkdirp from 'mkdirp';
 
-const wrapPath = (relativeDir, fcn) => {
-    return through.obj(function(file, encoding, callback) {
-        let requirePath = path.relative(relativeDir, path.resolve(file.path));
-        let tag = fcn(requirePath);
-        file.contents = new Buffer(tag);
-        return callback(null, file);
-    })
-};
+import wrapPath from './wrap-path.js'
 
-class GrailsBuilder {
-    constructor(options) {
-        this.outputDir = options.outputDir;
-        this.relativeDir = options.relativeDir;
-        this.webDir = options.webDir;
-        this.faviconWrap = options.faviconWrap;
-        this.jsWrap = options.jsWrap;
-        this.cssWrap = options.cssWrap;
-        this.paths = options.paths;
+export const build = (isDebug, options) => {
+    let appSrc, jsSrc, cssSrc;
+    if (isDebug) {
+        appSrc = './build/debug/**/*';
+        jsSrc = options.paths.vendor.js.concat(options.paths.app.js.debug).map(path => options.webDir + path);
+        cssSrc = options.paths.vendor.css.concat(options.paths.app.css.debug).map(path => options.webDir + path);
+    } else {
+        appSrc = './build/release/**/*';
+        jsSrc = options.paths.app.js.release.map(path => options.webDir + path);
+        cssSrc = options.paths.vendor.css.concat(options.paths.app.css.release).map(path => options.webDir + path);
     }
 
-    build(isDebug) {
-        let appSrc, jsSrc, cssSrc;
-        if (isDebug) {
-            appSrc = './build/debug/**/*';
-            jsSrc = this.paths.vendor.js.concat(this.paths.app.js.debug).map(path => this.webDir + path);
-            cssSrc = this.paths.vendor.css.concat(this.paths.app.css.debug).map(path => this.webDir + path);
-        } else {
-            appSrc = './build/release/**/*';
-            jsSrc = this.paths.app.js.release.map(path => this.webDir + path);
-            cssSrc = this.paths.vendor.css.concat(this.paths.app.css.release).map(path => this.webDir + path);
-        }
+    return merge([
+        gulp.src(appSrc),
+        gulp.src('./web/img/**/*', { base: './web/' }),
+        gulp.src('./web/vendor/**/*', { base: './web/' }),
+    ])
+        .pipe(gulp.dest(options.webDir))
+        .on('end', async () => {
+            await mkdirp(options.outputDir);
 
-        merge([
-            gulp.src(appSrc),
-            gulp.src('./web/img/**/*', {base: './web/'}),
-            gulp.src('./web/vendor/**/*', {base: './web/'})
-        ]).pipe(gulp.dest(this.webDir)).on('end', () => {
-            mkdirp(this.outputDir);
-
-            gulp.src([this.paths.favicon].map(path => this.webDir + path))
-                .pipe(wrapPath(this.relativeDir, this.faviconWrap))
+            gulp.src([options.paths.favicon].map(path => options.webDir + path))
+                .pipe(wrapPath(options.relativeDir, options.faviconWrap))
                 .pipe(concat('_favicon.gsp'))
-                .pipe(gulp.dest(this.outputDir));
+                .pipe(gulp.dest(options.outputDir));
 
             gulp.src(jsSrc)
-                .pipe(wrapPath(this.relativeDir, this.jsWrap))
+                .pipe(wrapPath(options.relativeDir, options.jsWrap))
                 .pipe(concat('_js.gsp'))
-                .pipe(gulp.dest(this.outputDir));
+                .pipe(gulp.dest(options.outputDir));
 
             gulp.src(cssSrc)
-                .pipe(wrapPath(this.relativeDir, this.cssWrap))
+                .pipe(wrapPath(options.relativeDir, options.cssWrap))
                 .pipe(concat('_css.gsp'))
-                .pipe(gulp.dest(this.outputDir));
+                .pipe(gulp.dest(options.outputDir));
         });
-    }
-}
-
-module.exports = GrailsBuilder;
+};

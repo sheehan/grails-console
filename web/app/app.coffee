@@ -1,5 +1,5 @@
 Marionette.Renderer.render = (template, data) ->
-  JST[template] data # use compiled templates
+  JST[template] data, { allowProtoPropertiesByDefault: true } # use compiled templates
 
 $.ajaxSetup(
   beforeSend: (xhr, settings) ->
